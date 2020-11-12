@@ -1,0 +1,161 @@
+# create-ledger <name> description <description> seed <seed>
+create-ledger test description "test ledger 2020" seed "harvard"
+
+
+# create-account <account-id>
+create-account resident1
+create-account resident2
+create-account robot1
+create-account robot2
+create-account robot3
+create-account robot4
+create-account car1
+create-account car2
+create-account bus1
+create-account bus2
+create-account parking1
+create-account kiosk1
+create-account sign1
+
+#process-transaction <transaction-id> amount <amount> fee <fee> note <note> payer <account-address> receiver <account-address>
+process-transaction 1 amount 1000 fee 10 note "fund account" payer master receiver resident1
+process-transaction 2 amount 1000 fee 10 note "fund account" payer master receiver resident2
+process-transaction 3 amount 1000 fee 10 note "fund account" payer master receiver robot1
+process-transaction 4 amount 1000 fee 10 note "fund account" payer master receiver robot2
+process-transaction 5 amount 1000 fee 10 note "fund account" payer master receiver robot3
+process-transaction 6 amount 1000 fee 10 note "fund account" payer master receiver robot4
+process-transaction 7 amount 1000 fee 10 note "fund account" payer master receiver car1
+process-transaction 8 amount 1000 fee 10 note "fund account" payer master receiver car2
+process-transaction 9 amount 1000 fee 10 note "fund account" payer master receiver bus1
+process-transaction 10 amount 1000 fee 10 note "fund account" payer master receiver bus2
+process-transaction 11 amount 1000 fee 10 note "fund account" payer master receiver parking1
+process-transaction 12 amount 1000 fee 10 note "fund account" payer master receiver kiosk1
+process-transaction 12 amount 1000 fee 10 note "fund account" payer master receiver sign1
+
+# validate the state of the blockchain
+validate
+
+# Define a city
+#define city <city_id> name <name> account <address> lat <float> long <float> radius <float>
+define city city1 name newyork account city1 lat 40.7129 long 74.0060 radius 20
+
+
+# Define a new visitor in the city
+# define visitor city <city_id> id <person_id> bio-metric <string> lat <lat> long <long>
+define visitor city city1 id visitor1 bio-metric fingerprint lat 40.7130 long 74.0061
+
+
+# Define some residents and give them blockchain address already created in the ledger
+# define resident city <city_id> id <person_id> name <name> bio-metric <string> phone <phone_number> role (adult|child|administrator) lat <lat> long <long> account <account_address>
+define resident city city1 id resident1 name "michael jordan" bio-metric fingerprint phone 708-555-7777 role adult lat 40.7131 long 74.0062 account resident1
+define resident city city1 id resident2 name "john adam" bio-metric fingerprint phone 708-555-1121 role adult lat 40.7132 long 74.0063 account resident2
+
+
+# Define some robots in the city
+# define robot  city <city_id> id <device_id> account <address> lat <float> long <float> enabled (true|false) activity <string>
+define robot city city1 id robot1 account robot1 lat 40.7132 long 74.0064 enabled true activity "hello im a new robot1"
+define robot city city1 id robot2 account robot2 lat 40.7133 long 74.0065 enabled true activity "hello im a new robot2"
+define robot city city1 id robot3 account robot3 lat 40.7134 long 74.0066 enabled true activity "hello im a new robot3"
+define robot city city1 id robot4 account robot4 lat 40.7135 long 74.0067 enabled true activity "hello im a new robot4"
+
+
+# Define some vehicles in the city. We will create 2 cars and 2 buses
+# define vehicle city <city_id> id <device_id> account <address> lat <float> long <float> enabled (true|false) type (bus|car) activity <string> capacity <int> fee <double>
+define vehicle city city1 id car1 account car1 lat 40.7136 long 74.0067 enabled true type car activity "new car" capacity 4 fee 5.00
+define vehicle city city1 id car2 account car2 lat 40.7137 long 74.0067 enabled true type car activity "new car" capacity 4 fee 5.00
+define vehicle city city1 id bus1 account bus1 lat 40.7138 long 74.0068 enabled true type bus activity "new bus" capacity 4 fee 2.00
+define vehicle city city1 id bus2 account bus2 lat 40.7139 long 74.0068 enabled true type bus activity "new bus" capacity 4 fee 2.00
+
+
+# Define a parking space
+#define parking-space city <city_id> id <device_id> account <address> lat <float> long <float> enabled (true|false) rate <double>
+define parking-space city city1 id parking1 account parking1 lat 40.7139 long 74.0065 enabled true rate 2.50
+
+
+# Define an information kiosk
+#define info-kiosk city <city_id> id <device_id> account <address> lat <float> long <float> enabled (true|false) image <uri> redirectingURL <url>
+define info-kiosk city city1 id kiosk1 account kiosk1 lat 40.7139 long 74.0065 enabled true image http://www.something.com/img1.jpg redirectingURL www.tickets.com
+
+
+# Define a street sign
+#define street-sign city <city_id> id <device_id> account <address> lat <float> long <float> enabled (true|false) text <text>
+define street-sign city city1 id sign1 account sign1 lat 40.7140 long 74.0066 enabled true text "hello I'm a text on street sign"
+
+
+
+##Demo the commands
+
+# Simulate event for emergency fire
+#create sensor-event city <city_id> id <device_id> type (microphone|camera|thermometer|co2meter) value <string>
+create sensor-event city city1 id sign1 type camera value "emergency fire at lat 40.7140 long 74.0066"
+
+# Simulate event for emergency flood
+#create sensor-event city <city_id> id <device_id> type (microphone|camera|thermometer|co2meter) value <string>
+create sensor-event city city1 id kiosk1 type camera value "emergency flood at lat 40.7140 long 74.0066"
+
+# Simulate event for emergency earthquake
+#create sensor-event city <city_id> id <device_id> type (microphone|camera|thermometer|co2meter) value <string>
+create sensor-event city city1 id sign1 type camera value "emergency earthquake at lat 40.7140 long 74.0066"
+
+# Simulate event for emergency severe_weather
+#create sensor-event city <city_id> id <device_id> type (microphone|camera|thermometer|co2meter) value <string>
+create sensor-event city city1 id kiosk1 type camera value "emergency severe_weather at lat 40.7140 long 74.0066"
+
+# Simulate event for emergency traffic_accident
+#create sensor-event city <city_id> id <device_id> type (microphone|camera|thermometer|co2meter) value <string>
+create sensor-event city city1 id sign1 type camera value "emergency traffic_accident at lat 40.7140 long 74.0066"
+
+# Simulate 4 events for CO2 level over 1000 from different devices
+#create sensor-event city <city_id> id <device_id> type (microphone|camera|thermometer|co2meter) value <string>
+create sensor-event city city1 id sign1 type CO2Meter value "CO2 level over 1000"
+create sensor-event city city1 id kiosk1 type CO2Meter value "CO2 level over 1000"
+create sensor-event city city1 id car1 type CO2Meter value "CO2 level over 1000"
+create sensor-event city city1 id bus1 type CO2Meter value "CO2 level over 1000"
+
+
+# Simulate 4 events for CO2 level under 1000 from different devices
+#create sensor-event city <city_id> id <device_id> type (microphone|camera|thermometer|co2meter) value <string>
+create sensor-event city city1 id sign1 type CO2Meter value "CO2 level under 1000"
+create sensor-event city city1 id kiosk1 type CO2Meter value "CO2 level under 1000"
+create sensor-event city city1 id car1 type CO2Meter value "CO2 level under 1000"
+create sensor-event city city1 id bus1 type CO2Meter value "CO2 level under 1000"
+
+# Simulate litter event
+#create sensor-event city <city_id> id <device_id> type (microphone|camera|thermometer|co2meter) value <string> subject <person_id>
+create sensor-event city city1 id sign1 type camera value "Person resident1 throws garbage on ground at lat 40.7140 long 74.0066" subject resident1
+
+# Simulate broken glass event
+#create sensor-event city <city_id> id <device_id> type (microphone|camera|thermometer|co2meter) value <string>
+create sensor-event city city1 id kiosk1 type microphone value "sound of breaking glass at lat 40.7128 long 74.0066"
+
+
+# Simulate Person Seen event
+#create sensor-event city <city_id> id <device_id> type (microphone|camera|thermometer|co2meter) value <string> subject <person_id>
+create sensor-event city city1 id car1 type camera value "person visitor1 seen at lat 40.7130 long 74.0070" subject visitor1
+
+# Simulate Missing Child event
+#create sensor-event city <city_id> id <device_id> type (microphone|camera|thermometer|co2meter) value <string> subject <person_id>
+create sensor-event city city1 id kiosk1 type microphone value "can you help me find my child resident2" subject resident2
+
+# Simulate Parking Space event
+#create sensor-event city <city_id> id <device_id> type (microphone|camera|thermometer|co2meter) value <string>
+create sensor-event city city1 id parking1 type camera value "vehicle car1 parked for 5 hour"
+
+#Simulate Bus Route event
+#create sensor-event city <city_id> id <device_id> type (microphone|camera|thermometer|co2meter) value <string> subject <person_id>
+create sensor-event city city1 id bus1 type microphone value "Person resident1 says, does this bus go to central square?" subject resident1
+
+#Simulate Bus Board event
+#create sensor-event city <city_id> id <device_id> type (microphone|camera|thermometer|co2meter) value <string> subject <person_id>
+create sensor-event city city1 id bus1 type camera value "Person resident1 boards bus" subject resident1
+
+# Simulate Movie Info event
+#create sensor-event city <city_id> id <device_id> type (microphone|camera|thermometer|co2meter) value <string>
+create sensor-event city city1 id kiosk1 type microphone value "what movies are showing tonight"
+
+# Simulate Movie Reservation event
+#create sensor-event city <city_id> id <device_id> type (microphone|camera|thermometer|co2meter) value <string>
+create sensor-event city city1 id kiosk1 type microphone value "Person resident1 says, reserve 2 seats for the 9 pm showing of Casablanca" subject resident1
+
+#Simulate Controller exception for emergency type not supported
+create sensor-event city city1 id sign1 type camera value "emergency tsunami at lat 40.7140 long 74.0066"
