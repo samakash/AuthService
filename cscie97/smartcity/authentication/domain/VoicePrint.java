@@ -1,4 +1,4 @@
-package cscie97.smartcity.authentication;
+package cscie97.smartcity.authentication.domain;
 
 public class VoicePrint extends Credential {
 

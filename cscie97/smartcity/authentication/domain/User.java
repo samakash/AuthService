@@ -1,4 +1,6 @@
-package cscie97.smartcity.authentication;
+package cscie97.smartcity.authentication.domain;
+
+import cscie97.smartcity.authentication.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +11,14 @@ public class User {
     private String name;
     private AuthToken authToken;
     private List<Credential> credentials;
+    private List<Entitlement> entitlements;
 
     public User(String id, String name) {
         this.id = id;
         this.name = name;
         this.authToken = null;
         this.credentials = new ArrayList<>();
+        this.entitlements = new ArrayList<>();
 
     }
 
@@ -50,6 +54,14 @@ public class User {
         this.credentials = credentials;
     }
 
+    public List<Entitlement> getEntitlements() {
+        return entitlements;
+    }
+
+    public void setEntitlements(List<Entitlement> entitlements) {
+        this.entitlements = entitlements;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -57,6 +69,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", authToken=" + authToken +
                 ", credentials=" + credentials +
+                ", entitlements=" + entitlements +
                 '}';
     }
 

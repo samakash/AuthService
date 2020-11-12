@@ -1,4 +1,4 @@
-package cscie97.smartcity.authentication;
+package cscie97.smartcity.authentication.domain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +7,13 @@ public class Role extends Entitlement {
 
     private List<Entitlement> entitlementsList;
 
+    public Role(){}
+
     public Role(String id, String name, String description) {
         super(id, name, description);
         this.entitlementsList = new ArrayList<>();
     }
+
 
     public List<Entitlement> getEntitlementsList() {
         return entitlementsList;
@@ -21,10 +24,16 @@ public class Role extends Entitlement {
     }
 
     @Override
+    public List<Resource> getResources() {
+        return null;
+    }
+
+    @Override
     public String toString() {
-        return "Role{" +
-                "entitlementsList=" + entitlementsList +
-                "} " + super.toString();
+        return "Role{" + super.toString()+
+                " LinkEntitlementsList=" + entitlementsList +
+                "} "
+                ;
     }
 
 }

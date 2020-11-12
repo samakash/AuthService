@@ -1,16 +1,12 @@
-package cscie97.smartcity.authentication;
+package cscie97.smartcity.authentication.domain;
 
-public abstract class Entitlement {
+public class Resource {
 
     private String id;
-    private String name;
     private String description;
 
-    public Entitlement(){}
-
-    public Entitlement(String id, String name, String description) {
+    public Resource(String id, String description) {
         this.id = id;
-        this.name = name;
         this.description = description;
     }
 
@@ -20,14 +16,6 @@ public abstract class Entitlement {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getDescription() {
@@ -40,16 +28,9 @@ public abstract class Entitlement {
 
     @Override
     public String toString() {
-        return "Entitlement{" +
+        return "Resource{" +
                 "id='" + id + '\'' +
-                ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 '}';
     }
-
-    public void accept(Visitor visitor){
-        visitor.visit(this);
-    }
-
-
 }
