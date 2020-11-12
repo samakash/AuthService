@@ -1,8 +1,6 @@
 package cscie97.smartcity.authentication;
 
-import cscie97.smartcity.authentication.domain.AuthToken;
-import cscie97.smartcity.authentication.domain.Entitlement;
-import cscie97.smartcity.authentication.domain.User;
+import cscie97.smartcity.authentication.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,15 +23,35 @@ public class AuthenticationServiceImpl implements AuthenticationService{
         return instance;
     }
 
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
+
+    public List<Entitlement> getEntitlementList() {
+        return entitlementList;
+    }
+
+    public void setEntitlementList(List<Entitlement> entitlementList) {
+        this.entitlementList = entitlementList;
+    }
+
     @Override
     public void createPermission(String id, String name, String description) {
-        System.out.println("Hi im create permission");
+        Entitlement permission = new Permission(id,name,description);
+        Visitor visitor = new InventoryAdd();
+        visitor.visit(permission);
 
     }
 
     @Override
     public void createRole(String id, String name, String description) {
-
+        Entitlement role = new Role(id,name,description);
+        Visitor visitor = new InventoryAdd();
+        visitor.visit(role);
     }
 
     @Override
@@ -43,7 +61,9 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
     @Override
     public void createUser(String id, String name) {
-
+        User user = new User(id,name);
+        Visitor visitor = new InventoryAdd();
+        visitor.visit(user);
     }
 
     @Override
@@ -58,7 +78,9 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
     @Override
     public void createResourceRole(String id, String name, String description) {
-
+        Entitlement resourceRole = new ResourceRole(id,name,description);
+        Visitor visitor = new InventoryAdd();
+        visitor.visit(resourceRole);
     }
 
     @Override

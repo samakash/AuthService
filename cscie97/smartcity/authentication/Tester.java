@@ -35,12 +35,21 @@ public class Tester {
         Visitor v2 = new InventoryUpdate();
         Visitor v3 = new CheckAccess();
 
-        user.accept(v1);
-        user.accept(v2);
-        user.accept(v3);
+//        user.accept(v1);
+//        user.accept(v2);
+//        user.accept(v3);
 //
-//        AuthenticationService authenticationService = AuthenticationService.getInstance();
-//        authenticationService.createPermission("per1","","");
+        AuthenticationService authenticationService = AuthenticationService.getInstance();
+        authenticationService.createUser("user1","user1");
+        authenticationService.createUser("user2","user2");
+
+        authenticationService.createPermission("per1","per1","per1");
+        authenticationService.createRole("role1","role1","role1");
+        authenticationService.createResourceRole("rr1","rr1","rr1");
+
+        System.out.println(authenticationService.getEntitlementList());
+
+
     }
 
 
