@@ -3,9 +3,8 @@ package cscie97.smartcity.authentication;
 import cscie97.smartcity.authentication.domain.AuthToken;
 import cscie97.smartcity.authentication.domain.Entitlement;
 import cscie97.smartcity.authentication.domain.User;
-import cscie97.smartcity.controller.ControllerImpl;
 
-import java.util.List;
+import java.util.HashMap;
 
 public interface AuthenticationService {
 
@@ -27,8 +26,8 @@ public interface AuthenticationService {
     boolean checkAccess(String authToken, String requiredPermission, String resource);
 
 
-    List<User> getUserList();
-    List<Entitlement> getEntitlementList();
+    HashMap<String, User> getUserList();
+    HashMap<String, Entitlement> getEntitlementList();
 
 
 

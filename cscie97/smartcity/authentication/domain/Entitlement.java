@@ -44,7 +44,7 @@ public abstract class Entitlement {
 
     @Override
     public String toString() {
-        return "{" +
+        return "{ " +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +

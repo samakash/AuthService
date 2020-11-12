@@ -45,9 +45,10 @@ public class Tester {
 
         authenticationService.createPermission("per1","per1","per1");
         authenticationService.createRole("role1","role1","role1");
-        authenticationService.createResourceRole("rr1","rr1","rr1");
+//        authenticationService.createResourceRole("rr1","rr1","rr1");
+        authenticationService.addPermissionToRole("per1","role1");
 
-        System.out.println(authenticationService.getEntitlementList());
+        System.out.println(authenticationService.getEntitlementList().get("role1"));
 
 
     }

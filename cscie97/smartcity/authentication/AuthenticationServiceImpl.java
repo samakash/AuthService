@@ -3,17 +3,19 @@ package cscie97.smartcity.authentication;
 import cscie97.smartcity.authentication.domain.*;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 public class AuthenticationServiceImpl implements AuthenticationService{
 
     public static AuthenticationServiceImpl instance;
-    private List<User> userList;
-    private  List<Entitlement> entitlementList;
+    private HashMap<String, User> userList;
+    private HashMap<String, Entitlement> entitlementList;
+
+
 
     private AuthenticationServiceImpl() {
-        this.userList = new ArrayList<>();
-        this.entitlementList = new ArrayList<>();
+        this.userList = new HashMap<>();
+        this.entitlementList = new HashMap<>();
     }
 
     public static AuthenticationServiceImpl getInstance() {
@@ -23,19 +25,19 @@ public class AuthenticationServiceImpl implements AuthenticationService{
         return instance;
     }
 
-    public List<User> getUserList() {
+    public HashMap<String, User> getUserList() {
         return userList;
     }
 
-    public void setUserList(List<User> userList) {
+    public void setUserList(HashMap<String, User> userList) {
         this.userList = userList;
     }
 
-    public List<Entitlement> getEntitlementList() {
+    public HashMap<String, Entitlement> getEntitlementList() {
         return entitlementList;
     }
 
-    public void setEntitlementList(List<Entitlement> entitlementList) {
+    public void setEntitlementList(HashMap<String, Entitlement> entitlementList) {
         this.entitlementList = entitlementList;
     }
 
@@ -56,8 +58,22 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
     @Override
     public void addPermissionToRole(String permissionId, String roleId) {
+        try{
+            if(entitlementList.containsKey(permissionId) && entitlementList.containsKey(roleId)){
+                Entitlement role = entitlementList.get(roleId);
+                role.getEntitlementsList().add(entitlementList.get(permissionId));
+                Visitor visitor = new InventoryUpdate();
+                role.accept(visitor);
+                System.out.println("Added Permission "+permissionId+" to Role "+roleId+ " successfully");
 
-        
+            } else{
+                throw new AuthenticationException("add Permission to Role failed","permission id or role id is not found");
+            }
+
+        } catch (AuthenticationException e){
+            System.out.println(e);
+        }
+
     }
 
     @Override

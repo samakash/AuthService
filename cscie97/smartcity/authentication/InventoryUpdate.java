@@ -11,15 +11,13 @@ public class InventoryUpdate implements Visitor {
         try{
             AuthenticationService authenticationService = AuthenticationService.getInstance();
 
-            if (authenticationService.getUserList().stream().anyMatch(ti -> ti.getId() == user.getId())) {
-                int index = IntStream.range(0, authenticationService.getUserList().size())
-                        .filter(i -> authenticationService.getUserList().get(i).getId().equals(user.getId())).findFirst().orElse(-1);
+            if (authenticationService.getUserList().containsKey(user.getId()))  {
 
-                authenticationService.getUserList().get(index).setId(user.getId());
-                authenticationService.getUserList().get(index).setName(user.getName());
-                authenticationService.getUserList().get(index).setAuthToken(user.getAuthToken());
-                authenticationService.getUserList().get(index).setCredentials(user.getCredentials());
-                authenticationService.getUserList().get(index).setEntitlements(user.getEntitlements());
+                authenticationService.getUserList().get(user.getId()).setId(user.getId());
+                authenticationService.getUserList().get(user.getId()).setName(user.getName());
+                authenticationService.getUserList().get(user.getId()).setAuthToken(user.getAuthToken());
+                authenticationService.getUserList().get(user.getId()).setCredentials(user.getCredentials());
+                authenticationService.getUserList().get(user.getId()).setEntitlements(user.getEntitlements());
 
                 System.out.println("Update user is completed successfully - User Id: "+user.getId());
 
@@ -36,19 +34,16 @@ public class InventoryUpdate implements Visitor {
         try{
             AuthenticationService authenticationService = AuthenticationService.getInstance();
 
-            if (authenticationService.getEntitlementList().stream().anyMatch(ti -> ti.getId() == entitlement.getId())) {
+            if (authenticationService.getEntitlementList().containsKey(entitlement.getId())) {
 
-                int index = IntStream.range(0, authenticationService.getEntitlementList().size())
-                        .filter(i -> authenticationService.getEntitlementList().get(i).getId().equals(entitlement.getId())).findFirst().orElse(-1);
-
-                authenticationService.getEntitlementList().get(index).setId(entitlement.getId());
-                authenticationService.getEntitlementList().get(index).setName(entitlement.getName());
-                authenticationService.getEntitlementList().get(index).setDescription(entitlement.getDescription());
+                authenticationService.getEntitlementList().get(entitlement.getId()).setId(entitlement.getId());
+                authenticationService.getEntitlementList().get(entitlement.getId()).setName(entitlement.getName());
+                authenticationService.getEntitlementList().get(entitlement.getId()).setDescription(entitlement.getDescription());
 
                 System.out.println("Update Entitlement is completed successfully - Entitlement Id: "+entitlement.getId());
 
             } else {
-                throw new AuthenticationException("Update User Failed","User id is not found");
+                throw new AuthenticationException("Update Entitlement Failed","entitlement id is not found");
             }
         } catch (AuthenticationException e){
             System.out.println(e);

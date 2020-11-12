@@ -22,7 +22,7 @@ public class ResourceRole extends Role {
 
     @Override
     public String toString() {
-        return "ResourceRole{ " + super.toString() +
+        return " ResourceRole{ " + super.toString() +
                 " resources=" + resources +
                 "} ";
     }
