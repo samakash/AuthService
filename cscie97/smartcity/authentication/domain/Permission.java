@@ -1,5 +1,6 @@
 package cscie97.smartcity.authentication.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Permission extends Entitlement{
@@ -20,6 +21,8 @@ public class Permission extends Entitlement{
 
     @Override
     public List<Entitlement> getEntitlementsList() {
-        return null;
+        List<Entitlement> le = new ArrayList();
+        le.add(this);
+        return le;
     }
 }

@@ -27,5 +27,10 @@ public class ResourceRole extends Role {
                 "} ";
     }
 
+    @Override
+    public List<String> extractComposite(List<Entitlement> entitlements) {
+        return super.extractComposite(entitlements);
+    }
+
 
 }

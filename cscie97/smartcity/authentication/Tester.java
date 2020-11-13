@@ -2,6 +2,8 @@ package cscie97.smartcity.authentication;
 
 import cscie97.smartcity.authentication.domain.*;
 
+import java.util.List;
+
 public class Tester {
 
     public static void main(String[] args) {
@@ -17,38 +19,50 @@ public class Tester {
 //        user.getCredentials().add(voice);
 //        user.getCredentials().add(face);
 //
-//        Entitlement e1 = new Role("role1","role1","role1");
-//        Entitlement e2 = new Permission("per1","per1","per2");
-//        Entitlement e3 = new Permission("per2","per2","per2");
-//        Entitlement e4 = new ResourceRole("rr1","rr1","rr1");
+        Entitlement e1 = new Role("role1","role1","role1");
+        Entitlement e2 = new Permission("per1","per1","per2");
+        Entitlement e3 = new Permission("per2","per2","per2");
+
+        Entitlement e4 = new Permission("per3","per3","per3");
+        Entitlement e5 = new Permission("per4","per4","per4");
+
+        Entitlement e6 = new ResourceRole("RR2","role2","role2");
 //
 //        Resource resource = new Resource("res1","res1");
 //
 //        e4.getResources().add(resource);
-//        e1.getEntitlementsList().add(e2);
-//        e1.getEntitlementsList().add(e4);
+        e1.getEntitlementsList().add(e2);
+        e1.getEntitlementsList().add(e3);
+
+        e6.getEntitlementsList().add(e4);
+        e6.getEntitlementsList().add(e5);
+
+        e1.getEntitlementsList().add(e6);
+
+        List<String> output = e1.extractComposite(e1.getEntitlementsList());
+        System.out.println(output);
 //
 //        user.getEntitlements().add(e4);
 //        System.out.println(user);
 
-        Visitor v1 = new InventoryAdd();
-        Visitor v2 = new InventoryUpdate();
-        Visitor v3 = new CheckAccess();
+//        Visitor v1 = new InventoryAdd();
+//        Visitor v2 = new InventoryUpdate();
+//        Visitor v3 = new CheckAccess();
 
 //        user.accept(v1);
 //        user.accept(v2);
 //        user.accept(v3);
 //
-        AuthenticationService authenticationService = AuthenticationService.getInstance();
-        authenticationService.createUser("user1","user1");
-        authenticationService.createUser("user2","user2");
-
-        authenticationService.createPermission("per1","per1","per1");
-        authenticationService.createRole("role1","role1","role1");
-//        authenticationService.createResourceRole("rr1","rr1","rr1");
-        authenticationService.addPermissionToRole("per1","role1");
-
-        System.out.println(authenticationService.getEntitlementList().get("role1"));
+//        AuthenticationService authenticationService = AuthenticationService.getInstance();
+//        authenticationService.createUser("user1","user1");
+//        authenticationService.createUser("user2","user2");
+//
+//        authenticationService.createPermission("per1","per1","per1");
+//        authenticationService.createRole("role1","role1","role1");
+////        authenticationService.createResourceRole("rr1","rr1","rr1");
+//        authenticationService.addPermissionToRole("per1","role1");
+//
+//        System.out.println(authenticationService.getEntitlementList().get("role1"));
 
 
     }

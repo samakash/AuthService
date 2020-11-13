@@ -65,11 +65,9 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                 Visitor visitor = new InventoryUpdate();
                 role.accept(visitor);
                 System.out.println("Added Permission "+permissionId+" to Role "+roleId+ " successfully");
-
             } else{
                 throw new AuthenticationException("add Permission to Role failed","permission id or role id is not found");
             }
-
         } catch (AuthenticationException e){
             System.out.println(e);
         }
@@ -86,10 +84,12 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     @Override
     public void addUserCredential(String userId, String credentialId, String credentialType, String password) {
 
+
     }
 
     @Override
     public void addRoleToUser(String userId, String roleId) {
+
 
     }
 

@@ -3,6 +3,8 @@ package cscie97.smartcity.authentication;
 import cscie97.smartcity.authentication.domain.Entitlement;
 import cscie97.smartcity.authentication.domain.User;
 
+import java.util.List;
+import java.util.Map;
 import java.util.stream.IntStream;
 
 public class InventoryUpdate implements Visitor {
@@ -39,8 +41,15 @@ public class InventoryUpdate implements Visitor {
                 authenticationService.getEntitlementList().get(entitlement.getId()).setId(entitlement.getId());
                 authenticationService.getEntitlementList().get(entitlement.getId()).setName(entitlement.getName());
                 authenticationService.getEntitlementList().get(entitlement.getId()).setDescription(entitlement.getDescription());
-
                 System.out.println("Update Entitlement is completed successfully - Entitlement Id: "+entitlement.getId());
+
+                //loop in all users and update role
+                for (Map.Entry<String,User> entry : authenticationService.getUserList().entrySet()){
+                    User user = entry.getValue();
+
+                }
+
+
 
             } else {
                 throw new AuthenticationException("Update Entitlement Failed","entitlement id is not found");
@@ -49,4 +58,9 @@ public class InventoryUpdate implements Visitor {
             System.out.println(e);
         }
     }
+
+
+
+
+
 }

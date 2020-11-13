@@ -36,4 +36,8 @@ public class Role extends Entitlement {
                 ;
     }
 
+    @Override
+    public List<String> extractComposite(List<Entitlement> entitlements) {
+        return super.extractComposite(entitlements);
+    }
 }

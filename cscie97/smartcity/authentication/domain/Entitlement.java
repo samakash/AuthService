@@ -2,6 +2,7 @@ package cscie97.smartcity.authentication.domain;
 
 import cscie97.smartcity.authentication.Visitor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Entitlement {
@@ -56,6 +57,33 @@ public abstract class Entitlement {
 
     public void accept(Visitor visitor){
         visitor.visit(this);
+    }
+
+    public List<String> extractComposite(List<Entitlement> entitlements) {
+        List<String> extracted = new ArrayList<>();
+        StringBuilder compositeBuilder = new StringBuilder();
+        compositeBuilder.append("   ");
+        for (Object obj : entitlements) {
+            // Recover the type of this object
+            if (obj instanceof Role) {
+                extracted.add(((Role) obj).getId());
+                Entitlement role = (Role) obj;
+                for(Entitlement e: role.getEntitlementsList()){
+                    extracted.add(e.getId());
+                }
+                role.extractComposite((role.getEntitlementsList()));
+            } else if (obj instanceof ResourceRole) {
+                extracted.add(((ResourceRole) obj).getId());
+                Entitlement role = (ResourceRole) obj;
+                for(Entitlement e: role.getEntitlementsList()){
+                    extracted.add(e.getId());
+                }
+                ((ResourceRole)obj).extractComposite(((ResourceRole) obj).getEntitlementsList());
+            }else {
+                extracted.add(((Permission) obj).getId());
+            }
+        }
+        return extracted;
     }
 
 
