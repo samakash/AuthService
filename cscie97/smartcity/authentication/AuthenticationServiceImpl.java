@@ -83,8 +83,30 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
     @Override
     public void addUserCredential(String userId, String credentialId, String credentialType, String password) {
-
-
+        try{
+            if(userList.containsKey(userId)){
+                    if(credentialType.equals("password")){
+                        Credential credential = new Login(credentialId,credentialId,hashCredential(password));
+                        User user = userList.get(userId);
+                        user.getCredentials().add(credential);
+                        user.accept(new InventoryUpdate());
+                    }else if (credentialType.equals("faceprint")){
+                        Credential credential = new FacePrint(credentialId,hashCredential(password));
+                        User user = userList.get(userId);
+                        user.getCredentials().add(credential);
+                        user.accept(new InventoryUpdate());
+                    }else if (credentialType.equals("voiceprint")){
+                        Credential credential = new VoicePrint(credentialId,hashCredential(password));
+                        User user = userList.get(userId);
+                        user.getCredentials().add(credential);
+                        user.accept(new InventoryUpdate());
+                    } else {
+                        throw new AuthenticationException("Add User Credentials failed","Authentication type is not supported");
+                    }
+            }
+        } catch (AuthenticationException e){
+            System.out.println(e);
+        }
     }
 
     @Override
@@ -122,7 +144,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
 
     private String hashCredential(String value){
-        return null;
+        return "passwordSam";
     }
 
 }

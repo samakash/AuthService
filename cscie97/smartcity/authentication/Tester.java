@@ -53,16 +53,26 @@ public class Tester {
 //        user.accept(v2);
 //        user.accept(v3);
 //
-//        AuthenticationService authenticationService = AuthenticationService.getInstance();
-//        authenticationService.createUser("user1","user1");
-//        authenticationService.createUser("user2","user2");
+        AuthenticationService authenticationService = AuthenticationService.getInstance();
+        authenticationService.createUser("user1","user1");
+        authenticationService.createUser("user2","user2");
+
+        authenticationService.createPermission("per1","per1","per1");
+        authenticationService.createRole("role1","role1","role1");
+//        authenticationService.createResourceRole("rr1","rr1","rr1");
+        authenticationService.addPermissionToRole("per1","role1");
+
+//        authenticationService.addUserCredential("user1","c1","password","sam");
+//        authenticationService.addUserCredential("user1","c2","faceprint","sam");
+//        authenticationService.addUserCredential("user1","c3","voiceprint","sam");
+        authenticationService.addUserCredential("user1","c3","voiceprint","sam");
+        authenticationService.addUserCredential("user1","c3","asf","sam");
+
+        System.out.println(authenticationService.getUserList().get("user1"));
 //
-//        authenticationService.createPermission("per1","per1","per1");
-//        authenticationService.createRole("role1","role1","role1");
-////        authenticationService.createResourceRole("rr1","rr1","rr1");
-//        authenticationService.addPermissionToRole("per1","role1");
-//
-//        System.out.println(authenticationService.getEntitlementList().get("role1"));
+
+
+
 
 
     }
