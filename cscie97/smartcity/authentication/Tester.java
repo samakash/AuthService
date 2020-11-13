@@ -62,13 +62,18 @@ public class Tester {
 //        authenticationService.createResourceRole("rr1","rr1","rr1");
         authenticationService.addPermissionToRole("per1","role1");
 
+        authenticationService.addRoleToUser("user1","role1");
+
 //        authenticationService.addUserCredential("user1","c1","password","sam");
 //        authenticationService.addUserCredential("user1","c2","faceprint","sam");
 //        authenticationService.addUserCredential("user1","c3","voiceprint","sam");
-        authenticationService.addUserCredential("user1","c3","voiceprint","sam");
-        authenticationService.addUserCredential("user1","c3","asf","sam");
+//        authenticationService.addUserCredential("user1","c3","voiceprint","sam");
+//        authenticationService.addUserCredential("user1","c3","asf","sam");
+        authenticationService.createResourceRole("rr1","rr1","rr1");
+        authenticationService.addResourceToResourceRole("rr1","r1","r1");
+        authenticationService.addResourceToResourceRole("role1","r1","r1");
 
-        System.out.println(authenticationService.getUserList().get("user1"));
+        System.out.println(authenticationService.getEntitlementList().get("rr1"));
 //
 
 

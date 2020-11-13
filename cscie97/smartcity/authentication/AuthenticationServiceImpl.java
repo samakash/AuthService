@@ -4,6 +4,7 @@ import cscie97.smartcity.authentication.domain.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.SortedMap;
 
 public class AuthenticationServiceImpl implements AuthenticationService{
 
@@ -111,8 +112,13 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
     @Override
     public void addRoleToUser(String userId, String roleId) {
-
-
+        if(entitlementList.containsKey(roleId) && userList.containsKey(userId)) {
+            User user = userList.get(userId);
+            Entitlement role = entitlementList.get(roleId);
+            user.getEntitlements().add(role);
+            user.accept(new InventoryUpdate());
+            System.out.println("Role "+roleId+" has been added to User "+userId+" Successfully");
+        }
     }
 
     @Override
@@ -124,6 +130,23 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
     @Override
     public void addResourceToResourceRole(String roleId, String resourceId, String resourceDescription) {
+        try{
+            if(entitlementList.containsKey(roleId)){
+                if(entitlementList.get(roleId) instanceof ResourceRole){
+                    Resource resource = new Resource(resourceId,resourceDescription);
+                    Entitlement role =  entitlementList.get(roleId);
+                    role.getResources().add(resource);
+                    role.accept(new InventoryUpdate());
+                    System.out.println("Resource "+resourceId+" has been added to resource Role "+roleId);
+                } else{
+                    throw new AuthenticationException("Add Resource to ResourceRole Failed","Role id is not for a Resource Role");
+                }
+            } else {
+                throw new AuthenticationException("Add Resource to ResourceRole Failed","Role Id is not found");
+            }
+        } catch (AuthenticationException e){
+            System.out.println(e);
+        }
 
     }
 
