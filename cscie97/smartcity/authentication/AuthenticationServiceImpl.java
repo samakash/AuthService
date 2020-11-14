@@ -4,6 +4,7 @@ import cscie97.smartcity.authentication.domain.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.SortedMap;
 
 public class AuthenticationServiceImpl implements AuthenticationService{
@@ -87,7 +88,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
         try{
             if(userList.containsKey(userId)){
                     if(credentialType.equals("password")){
-                        Credential credential = new Login(credentialId,credentialId,hashCredential(password));
+                        Credential credential = new Login(credentialId,userId,hashCredential(password));
                         User user = userList.get(userId);
                         user.getCredentials().add(credential);
                         user.accept(new InventoryUpdate());
@@ -152,16 +153,55 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
     @Override
     public AuthToken login(String username, String password) {
-        return null;
-    }
+        AuthToken authToken = null;
+        try{
+            if(userList.containsKey(username)) {
+                User user = userList.get(username);
+                Credential userCredential = null;
+                for (Credential credential: user.getCredentials()) {
+                    if (credential instanceof Login){
+                        userCredential = credential;
+                    }
+                }
+                if(userCredential != null && ((Login)userCredential).getUsername().equals(username)
+                        && ((Login)userCredential).getPassword().equals(hashCredential(password))){
+                    authToken = new AuthToken(username, username, "", TokenState.active);
+                    user.setAuthToken(authToken);
+                    user.accept(new InventoryUpdate());
+                } else {
+                    throw new AuthenticationException("Login Failed","please check username and password");
+                }
+            } else{
+                throw new AuthenticationException("Login Failed","please check username and password");
+            }
+        } catch (AuthenticationException ex){
+            System.out.println(ex);
+        }
+            return authToken;
+        }
+
+
 
     @Override
     public void logout(String userId) {
-
+        try{
+            if(userList.containsKey(userId)) {
+                User user = userList.get(userId);
+                user.getAuthToken().setState(TokenState.expired);
+                user.accept(new InventoryUpdate());
+            } else{
+                throw new AuthenticationException("logout Failed","username is not found");
+            }
+        } catch (AuthenticationException ex){
+            System.out.println(ex);
+        }
     }
 
     @Override
     public boolean checkAccess(String authToken, String requiredPermission, String resource) {
+        for(Map.Entry<String,User> entry : userList.entrySet()){
+
+        }
         return false;
     }
 

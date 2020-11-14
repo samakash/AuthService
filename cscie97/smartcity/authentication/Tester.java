@@ -64,16 +64,19 @@ public class Tester {
 
         authenticationService.addRoleToUser("user1","role1");
 
-//        authenticationService.addUserCredential("user1","c1","password","sam");
+        authenticationService.addUserCredential("user1","user1","password","sam");
 //        authenticationService.addUserCredential("user1","c2","faceprint","sam");
 //        authenticationService.addUserCredential("user1","c3","voiceprint","sam");
 //        authenticationService.addUserCredential("user1","c3","voiceprint","sam");
 //        authenticationService.addUserCredential("user1","c3","asf","sam");
-        authenticationService.createResourceRole("rr1","rr1","rr1");
-        authenticationService.addResourceToResourceRole("rr1","r1","r1");
-        authenticationService.addResourceToResourceRole("role1","r1","r1");
+//        authenticationService.createResourceRole("rr1","rr1","rr1");
+//        authenticationService.addResourceToResourceRole("rr1","r1","r1");
+//        authenticationService.addResourceToResourceRole("role1","r1","r1");
 
-        System.out.println(authenticationService.getEntitlementList().get("rr1"));
+        AuthToken a = authenticationService.login("user1","fa");
+        System.out.println(a);
+        authenticationService.logout("user1");
+        System.out.println(a);
 //
 
 
