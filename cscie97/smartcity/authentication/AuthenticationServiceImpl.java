@@ -2,7 +2,9 @@ package cscie97.smartcity.authentication;
 
 import cscie97.smartcity.authentication.domain.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AuthenticationServiceImpl implements AuthenticationService{
@@ -266,10 +268,64 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
     @Override
     public boolean checkAccess(String authToken, String requiredPermission, String resource) {
-        for(Map.Entry<String,User> entry : userList.entrySet()){
+        boolean passedExp = false;
+        boolean passedPer = false;
+        boolean passedRes = false;
 
+        try {
+            if(authTokenList.containsKey(authToken)) {
+                //validate if token expired
+                if (getAuthTokenList().get(authToken).getState().equals(TokenState.active)) {
+                    passedExp = true;
+                } else{
+                    throw new AuthenticationException("Authentication Failed","AuthToken is expired.");
+                }
+                //check required permission adn resources
+                List<String> tempEntitlementsList = new ArrayList<>();
+                List<String> tempResourcesList = new ArrayList<>();
+                AuthToken authToken1 = authTokenList.get(authToken);
+                for (Entitlement entitlement : authToken1.getUser().getEntitlements()) {
+                    tempEntitlementsList.addAll(entitlement.extractComposite(authToken1.getUser().getEntitlements()));
+                    if(entitlement instanceof ResourceRole){
+                        for(Resource resource1 : entitlement.getResources()){
+                            tempResourcesList.add(resource1.getId());
+                        }
+                    }
+                }
+
+                if(tempEntitlementsList.contains(requiredPermission)){
+                    passedPer = true;
+                } else{
+                    throw new AuthenticationException("Authentication Failed","User doesn't have required permissions");
+                }
+                if(!resource.equals("") && tempResourcesList.contains(resource)){
+                    passedRes = true;
+                } else if (!resource.equals("") && !tempResourcesList.contains(resource)){
+                    throw new AuthenticationException("Authentication Failed","Required resource is not associated with any resource roles for this user");
+                }
+
+            } else{
+                throw new AuthenticationException("Authentication Failed","authToken is not valid");
+            }
+
+        } catch (AuthenticationException e){
+            System.out.println(e);
         }
-        return false;
+
+        if (resource.equals("")){
+            if(passedExp && passedPer){
+                return true;
+            } else {
+                return false;
+            }
+        } else{
+            if(passedExp && passedPer && passedRes){
+                return  true;
+            } else{
+                return false;
+            }
+        }
+
     }
 
 
