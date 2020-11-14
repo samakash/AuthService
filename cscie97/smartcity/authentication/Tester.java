@@ -19,34 +19,34 @@ public class Tester {
 //        user.getCredentials().add(voice);
 //        user.getCredentials().add(face);
 //
-        Entitlement e1 = new Role("role1","role1","role1");
-        Entitlement e2 = new Permission("per1","per1","per2");
-        Entitlement e3 = new Permission("per2","per2","per2");
-
-        Entitlement e4 = new Permission("per3","per3","per3");
-        Entitlement e5 = new Permission("per4","per4","per4");
-
-        Entitlement e6 = new ResourceRole("RR2","role2","role2");
+//        Entitlement e1 = new Role("role1","role1","role1");
+//        Entitlement e2 = new Permission("per1","per1","per2");
+//        Entitlement e3 = new Permission("per2","per2","per2");
+//
+//        Entitlement e4 = new Permission("per3","per3","per3");
+//        Entitlement e5 = new Permission("per4","per4","per4");
+//
+//        Entitlement e6 = new ResourceRole("RR2","role2","role2");
 //
 //        Resource resource = new Resource("res1","res1");
 //
 //        e4.getResources().add(resource);
-        e1.getEntitlementsList().add(e2);
-        e1.getEntitlementsList().add(e3);
-
-        e6.getEntitlementsList().add(e4);
-        e6.getEntitlementsList().add(e5);
-
-        e1.getEntitlementsList().add(e6);
-
-        List<String> output = e1.extractComposite(e1.getEntitlementsList());
-        System.out.println(output);
+//        e1.getEntitlementsList().add(e2);
+//        e1.getEntitlementsList().add(e3);
+//
+//        e6.getEntitlementsList().add(e4);
+//        e6.getEntitlementsList().add(e5);
+//
+//        e1.getEntitlementsList().add(e6);
+//
+//        List<String> output = e1.extractComposite(e1.getEntitlementsList());
+//        System.out.println(output);
 //
 //        user.getEntitlements().add(e4);
 //        System.out.println(user);
 
 //        Visitor v1 = new InventoryAdd();
-//        Visitor v2 = new InventoryUpdate();
+//        Visitor v2 = new Inventory();
 //        Visitor v3 = new CheckAccess();
 
 //        user.accept(v1);
@@ -58,26 +58,34 @@ public class Tester {
         authenticationService.createUser("user2","user2");
 
         authenticationService.createPermission("per1","per1","per1");
+        authenticationService.createPermission("per2","per2","per2");
         authenticationService.createRole("role1","role1","role1");
-//        authenticationService.createResourceRole("rr1","rr1","rr1");
+        authenticationService.createResourceRole("rr1","rr1","rr1");
         authenticationService.addPermissionToRole("per1","role1");
+        authenticationService.addPermissionToRole("per2","rr1");
 
+//
         authenticationService.addRoleToUser("user1","role1");
-
+        authenticationService.addRoleToUser("user1","rr1");
+//
         authenticationService.addUserCredential("user1","user1","password","sam");
-//        authenticationService.addUserCredential("user1","c2","faceprint","sam");
-//        authenticationService.addUserCredential("user1","c3","voiceprint","sam");
+//        authenticationService.addUserCredential("user1","user1","faceprint","sam");
+        authenticationService.addUserCredential("user1","c3","voiceprint","sam");
 //        authenticationService.addUserCredential("user1","c3","voiceprint","sam");
 //        authenticationService.addUserCredential("user1","c3","asf","sam");
 //        authenticationService.createResourceRole("rr1","rr1","rr1");
-//        authenticationService.addResourceToResourceRole("rr1","r1","r1");
-//        authenticationService.addResourceToResourceRole("role1","r1","r1");
-
-        AuthToken a = authenticationService.login("user1","fa");
-        System.out.println(a);
-        authenticationService.logout("user1");
-        System.out.println(a);
+        authenticationService.addResourceToResourceRole("rr1","r1","r1");
 //
+        System.out.println(authenticationService.login("user1","sam"));
+        System.out.println(authenticationService.login("user1","sam"));
+//        System.out.println(a);
+
+//        System.out.println(a);
+//
+        System.out.println(authenticationService.getUserList());
+//        System.out.println(authenticationService.getEntitlementList());
+//        authenticationService.logout("user1");
+        System.out.println(authenticationService.getAuthTokenList());
 
 
 

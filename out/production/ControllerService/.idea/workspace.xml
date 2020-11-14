@@ -2,42 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5313775b-9ff3-4eaa-b03b-ad66b9576a3e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/cscie97/smartcity/authentication/AuthenticationException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cscie97/smartcity/authentication/AuthenticationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cscie97/smartcity/authentication/AuthenticationServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cscie97/smartcity/authentication/CheckAccess.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cscie97/smartcity/authentication/InventoryAdd.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cscie97/smartcity/authentication/InventoryUpdate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cscie97/smartcity/authentication/domain/Permission.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cscie97/smartcity/authentication/domain/Resource.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cscie97/smartcity/authentication/domain/ResourceRole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SmartCityProject.asta" beforeDir="false" afterPath="$PROJECT_DIR$/SmartCityProject.asta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cscie97/smartcity/authentication/AuthToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/cscie97/smartcity/authentication/domain/AuthToken.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cscie97/smartcity/authentication/Credential.java" beforeDir="false" afterPath="$PROJECT_DIR$/cscie97/smartcity/authentication/domain/Credential.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cscie97/smartcity/authentication/Entitlement.java" beforeDir="false" afterPath="$PROJECT_DIR$/cscie97/smartcity/authentication/domain/Entitlement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cscie97/smartcity/authentication/FacePrint.java" beforeDir="false" afterPath="$PROJECT_DIR$/cscie97/smartcity/authentication/domain/FacePrint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cscie97/smartcity/authentication/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/cscie97/smartcity/authentication/domain/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cscie97/smartcity/authentication/Permission.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cscie97/smartcity/authentication/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/cscie97/smartcity/authentication/domain/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cscie97/smartcity/authentication/AuthenticationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cscie97/smartcity/authentication/AuthenticationServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cscie97/smartcity/authentication/InventoryAdd.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cscie97/smartcity/authentication/InventoryUpdate.java" beforeDir="false" afterPath="$PROJECT_DIR$/cscie97/smartcity/authentication/Inventory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cscie97/smartcity/authentication/Tester.java" beforeDir="false" afterPath="$PROJECT_DIR$/cscie97/smartcity/authentication/Tester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cscie97/smartcity/authentication/TokenState.java" beforeDir="false" afterPath="$PROJECT_DIR$/cscie97/smartcity/authentication/domain/TokenState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cscie97/smartcity/authentication/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/cscie97/smartcity/authentication/domain/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cscie97/smartcity/authentication/Visitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/cscie97/smartcity/authentication/Visitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cscie97/smartcity/authentication/VoicePrint.java" beforeDir="false" afterPath="$PROJECT_DIR$/cscie97/smartcity/authentication/domain/VoicePrint.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ControllerService/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ControllerService/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ControllerService/SmartCityProject.asta" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ControllerService/SmartCityProject.asta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/AuthToken.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/Credential.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/Entitlement.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/FacePrint.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/Login.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/Permission.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/Role.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/AuthenticationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/AuthenticationService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/AuthenticationServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/AuthenticationServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/CheckAccess.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/CheckAccess.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/InventoryAdd.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/InventoryUpdate.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/Tester.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/Tester.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/TokenState.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/User.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/Visitor.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/Visitor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/VoicePrint.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/domain/AuthToken.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ControllerService/cscie97/smartcity/authentication/domain/AuthToken.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/~$thentication Service Design Document.docx" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -52,11 +30,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cscie97/smartcity/controller/ControllerImpl.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/Tester.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="17" />
+            <state relative-caret-position="271">
+              <caret line="85" column="53" selection-start-line="85" selection-start-column="53" selection-end-line="85" selection-end-column="53" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -64,26 +42,40 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/Tester.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/AuthenticationServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="21" column="60" selection-start-line="21" selection-start-column="60" selection-end-line="21" selection-end-column="60" />
+            <state relative-caret-position="249">
+              <caret line="243" column="45" lean-forward="true" selection-start-line="243" selection-start-column="45" selection-end-line="243" selection-end-column="45" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#904#905#0" expanded="true" />
+                <element signature="e#935#936#0" expanded="true" />
+                <element signature="e#987#988#0" expanded="true" />
+                <element signature="e#1027#1028#0" expanded="true" />
+                <element signature="e#1080#1081#0" expanded="true" />
+                <element signature="e#1118#1119#0" expanded="true" />
+                <element signature="e#1346#1347#0" expanded="true" />
+                <element signature="e#1382#1383#0" expanded="true" />
+                <element signature="e#1460#1461#0" expanded="true" />
+                <element signature="e#1510#1511#0" expanded="true" />
+                <element signature="e#9754#9755#0" expanded="true" />
+                <element signature="e#9790#9791#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/CheckAccess.java">
+        <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/domain/AuthToken.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+            <state relative-caret-position="139">
+              <caret line="45" column="41" selection-start-line="45" selection-start-column="19" selection-end-line="45" selection-end-column="41" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#250#251#0" expanded="true" />
-                <element signature="e#286#287#0" expanded="true" />
-                <element signature="e#379#380#0" expanded="true" />
-                <element signature="e#444#445#0" expanded="true" />
+                <element signature="e#1434#1435#0" expanded="true" />
+                <element signature="e#1461#1462#0" expanded="true" />
+                <element signature="e#1499#1500#0" expanded="true" />
+                <element signature="e#1531#1532#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -92,39 +84,19 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/Visitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="120">
+              <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="36" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/InventoryAdd.java">
+        <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/domain/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+            <state relative-caret-position="413">
+              <caret line="75" column="4" selection-start-line="75" selection-start-column="4" selection-end-line="77" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#195#196#0" expanded="true" />
-                <element signature="e#231#232#0" expanded="true" />
-                <element signature="e#308#309#0" expanded="true" />
-                <element signature="e#364#365#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/InventoryUpdate.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#254#255#0" expanded="true" />
-                <element signature="e#290#291#0" expanded="true" />
-                <element signature="e#370#371#0" expanded="true" />
-                <element signature="e#422#423#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -133,49 +105,41 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/AuthenticationService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="86" selection-start-line="22" selection-start-column="86" selection-end-line="22" selection-end-column="86" />
+            <state relative-caret-position="196">
+              <caret line="19" column="26" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#189#190#0" expanded="true" />
-                <element signature="e#252#253#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cscie97/smartcity/controller/Controller.java">
+        <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/Inventory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="19" column="5" selection-start-line="17" selection-start-column="4" selection-end-line="19" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/AuthenticationServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+            <state relative-caret-position="240">
+              <caret line="16" column="46" selection-start-line="16" selection-start-column="46" selection-end-line="16" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1708#1709#0" expanded="true" />
-                <element signature="e#1735#1736#0" expanded="true" />
-                <element signature="e#1907#1908#0" expanded="true" />
-                <element signature="e#1935#1936#0" expanded="true" />
-                <element signature="e#1966#1967#0" expanded="true" />
-                <element signature="e#1987#1988#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/AuthenticationException.java">
+        <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/CheckAccess.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+            <state relative-caret-position="315">
+              <caret line="21" column="1" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#250#251#0" expanded="true" />
+                <element signature="e#315#316#0" expanded="true" />
+                <element signature="e#379#380#0" expanded="true" />
+                <element signature="e#451#452#0" expanded="true" />
+                <element signature="e#569#570#0" expanded="true" />
+                <element signature="e#641#642#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -207,13 +171,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/cscie97/smartcity/controller/Subject.java" />
-        <option value="$PROJECT_DIR$/cscie97/smartcity/controller/ObserverImpl.java" />
-        <option value="$PROJECT_DIR$/cscie97/smartcity/controller/commands/BusRoute.java" />
-        <option value="$PROJECT_DIR$/cscie97/smartcity/controller/commands/MissingChild.java" />
-        <option value="$PROJECT_DIR$/cscie97/smartcity/controller/ControllerException.java" />
-        <option value="$PROJECT_DIR$/cscie97/smartcity/controller/commands/Command.java" />
-        <option value="$PROJECT_DIR$/cscie97/smartcity/controller/commands/BrokenGlassCmd.java" />
         <option value="$PROJECT_DIR$/cscie97/smartcity/controller/commands/BusRouteCmd.java" />
         <option value="$PROJECT_DIR$/cscie97/smartcity/controller/commands/Co2EventCmd.java" />
         <option value="$PROJECT_DIR$/cscie97/smartcity/controller/commands/EmergencyCmd.java" />
@@ -243,7 +200,6 @@
         <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/Credential.java" />
         <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/VoicePrint.java" />
         <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/FacePrint.java" />
-        <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/Visitor.java" />
         <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/Resource.java" />
         <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/User.java" />
         <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/Entitlement.java" />
@@ -252,12 +208,20 @@
         <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/ResourceRole.java" />
         <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/domain/AuthenticationException.java" />
         <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/AuthenticationException.java" />
-        <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/AuthenticationService.java" />
-        <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/AuthenticationServiceImpl.java" />
         <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/domain/InventoryAdd.java" />
+        <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/domain/Role.java" />
+        <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/domain/ResourceRole.java" />
+        <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/domain/Permission.java" />
+        <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/domain/Entitlement.java" />
+        <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/domain/AuthToken.java" />
+        <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/Visitor.java" />
+        <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/AuthenticationService.java" />
+        <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/InventoryAdd.java" />
         <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/InventoryUpdate.java" />
-        <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/Tester.java" />
         <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/CheckAccess.java" />
+        <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/Inventory.java" />
+        <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/AuthenticationServiceImpl.java" />
+        <option value="$PROJECT_DIR$/cscie97/smartcity/authentication/Tester.java" />
       </list>
     </option>
   </component>
@@ -307,20 +271,6 @@
               <item name="cscie97" type="462c0819:PsiDirectoryNode" />
               <item name="smartcity" type="462c0819:PsiDirectoryNode" />
               <item name="authentication" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AuthenticationService" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AuthenticationService" type="462c0819:PsiDirectoryNode" />
-              <item name="cscie97" type="462c0819:PsiDirectoryNode" />
-              <item name="smartcity" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AuthenticationService" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AuthenticationService" type="462c0819:PsiDirectoryNode" />
-              <item name="cscie97" type="462c0819:PsiDirectoryNode" />
-              <item name="smartcity" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -403,7 +353,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1680" height="947" extended-state="6" />
+    <frame x="0" y="23" width="1680" height="943" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Designer" order="0" />
@@ -411,7 +361,7 @@
       <window_info id="Capture Tool" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
-      <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.24481075" />
+      <window_info content_ui="combo" id="Project" order="5" visible="true" weight="0.24481075" />
       <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
@@ -419,7 +369,7 @@
       <window_info anchor="bottom" id="Version Control" order="3" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" weight="0.32902467" />
-      <window_info anchor="bottom" id="Run" order="6" visible="true" weight="0.3251462" />
+      <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.3266745" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.39952996" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -447,16 +397,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/cscie97/smartcity/controller/commands/BusRouteCmd.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="18" column="39" lean-forward="true" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cscie97/smartcity/controller/commands/Co2EventCmd.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="338">
@@ -673,82 +613,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/domain/AuthToken.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="58" column="18" selection-start-line="58" selection-start-column="18" selection-end-line="58" selection-end-column="18" />
-          <folding>
-            <element signature="e#530#531#0" expanded="true" />
-            <element signature="e#555#556#0" expanded="true" />
-            <element signature="e#591#592#0" expanded="true" />
-            <element signature="e#619#620#0" expanded="true" />
-            <element signature="e#655#656#0" expanded="true" />
-            <element signature="e#687#688#0" expanded="true" />
-            <element signature="e#737#738#0" expanded="true" />
-            <element signature="e#779#780#0" expanded="true" />
-            <element signature="e#820#821#0" expanded="true" />
-            <element signature="e#857#858#0" expanded="true" />
-            <element signature="e#917#918#0" expanded="true" />
-            <element signature="e#969#970#0" expanded="true" />
-            <element signature="e#1016#1017#0" expanded="true" />
-            <element signature="e#1059#1060#0" expanded="true" />
-            <element signature="e#1232#1233#0" expanded="true" />
-            <element signature="e#1260#1261#0" expanded="true" />
-            <element signature="e#1306#1307#0" expanded="true" />
-            <element signature="e#1340#1341#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cscie97/smartcity/test/TestDriver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="11" column="5" selection-start-line="5" selection-start-column="3" selection-end-line="11" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/domain/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="63" selection-start-line="63" selection-end-line="63" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1159#1160#0" expanded="true" />
-            <element signature="e#1194#1195#0" expanded="true" />
-            <element signature="e#1261#1262#0" expanded="true" />
-            <element signature="e#1309#1310#0" expanded="true" />
-            <element signature="e#1332#1333#0" expanded="true" />
-            <element signature="e#1367#1368#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/domain/ResourceRole.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#380#381#0" expanded="true" />
-            <element signature="e#412#413#0" expanded="true" />
-            <element signature="e#470#471#0" expanded="true" />
-            <element signature="e#512#513#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/domain/Permission.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding>
-            <element signature="e#364#365#0" expanded="true" />
-            <element signature="e#421#422#0" expanded="true" />
-            <element signature="e#486#487#0" expanded="true" />
-            <element signature="e#513#514#0" expanded="true" />
-            <element signature="e#486#487#0" expanded="true" />
-            <element signature="e#513#514#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -763,43 +631,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/domain/Entitlement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-          <folding>
-            <element signature="e#379#380#0" expanded="true" />
-            <element signature="e#404#405#0" expanded="true" />
-            <element signature="e#440#441#0" expanded="true" />
-            <element signature="e#468#469#0" expanded="true" />
-            <element signature="e#499#500#0" expanded="true" />
-            <element signature="e#526#527#0" expanded="true" />
-            <element signature="e#566#567#0" expanded="true" />
-            <element signature="e#598#599#0" expanded="true" />
-            <element signature="e#636#637#0" expanded="true" />
-            <element signature="e#670#671#0" expanded="true" />
-            <element signature="e#724#725#0" expanded="true" />
-            <element signature="e#770#771#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/domain/Role.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#394#395#0" expanded="true" />
-            <element signature="e#433#434#0" expanded="true" />
-            <element signature="e#508#509#0" expanded="true" />
-            <element signature="e#564#565#0" expanded="true" />
-            <element signature="e#648#649#0" expanded="true" />
-            <element signature="e#675#676#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -831,13 +662,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/AuthenticationException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cscie97/smartcity/controller/ControllerImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -855,87 +679,164 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/AuthenticationService.java">
+    <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/AuthenticationException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="86" selection-start-line="22" selection-start-column="86" selection-end-line="22" selection-end-column="86" />
+        <state relative-caret-position="75">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-14.0.1.jdk/Contents/Home/lib/src.zip!/java.base/java/util/function/IntPredicate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="49" column="12" selection-start-line="49" selection-start-column="12" selection-end-line="49" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/domain/Role.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#189#190#0" expanded="true" />
-            <element signature="e#252#253#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/AuthenticationServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/domain/Permission.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        <state relative-caret-position="360">
+          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1708#1709#0" expanded="true" />
-            <element signature="e#1735#1736#0" expanded="true" />
-            <element signature="e#1907#1908#0" expanded="true" />
-            <element signature="e#1935#1936#0" expanded="true" />
-            <element signature="e#1966#1967#0" expanded="true" />
-            <element signature="e#1987#1988#0" expanded="true" />
+            <element signature="e#394#395#0" expanded="true" />
+            <element signature="e#421#422#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/domain/ResourceRole.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="25" lean-forward="true" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/domain/Entitlement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="82" column="58" lean-forward="true" selection-start-line="82" selection-start-column="58" selection-end-line="82" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/domain/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="413">
+          <caret line="75" column="4" selection-start-line="75" selection-start-column="4" selection-end-line="77" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/domain/AuthToken.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="45" column="41" selection-start-line="45" selection-start-column="19" selection-end-line="45" selection-end-column="41" />
+          <folding>
+            <element signature="e#1434#1435#0" expanded="true" />
+            <element signature="e#1461#1462#0" expanded="true" />
+            <element signature="e#1499#1500#0" expanded="true" />
+            <element signature="e#1531#1532#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/Visitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/InventoryAdd.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#195#196#0" expanded="true" />
-            <element signature="e#231#232#0" expanded="true" />
-            <element signature="e#308#309#0" expanded="true" />
-            <element signature="e#364#365#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/InventoryUpdate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#254#255#0" expanded="true" />
-            <element signature="e#290#291#0" expanded="true" />
-            <element signature="e#370#371#0" expanded="true" />
-            <element signature="e#422#423#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="120">
+          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/CheckAccess.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        <state relative-caret-position="315">
+          <caret line="21" column="1" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#250#251#0" expanded="true" />
-            <element signature="e#286#287#0" expanded="true" />
+            <element signature="e#315#316#0" expanded="true" />
             <element signature="e#379#380#0" expanded="true" />
-            <element signature="e#444#445#0" expanded="true" />
+            <element signature="e#451#452#0" expanded="true" />
+            <element signature="e#569#570#0" expanded="true" />
+            <element signature="e#641#642#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/InventoryAdd.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="609">
+          <caret line="51" column="89" selection-start-line="50" selection-start-column="16" selection-end-line="51" selection-end-column="89" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/Inventory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="46" selection-start-line="16" selection-start-column="46" selection-end-line="16" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/AuthenticationService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="19" column="26" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/AuthenticationServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="243" column="45" lean-forward="true" selection-start-line="243" selection-start-column="45" selection-end-line="243" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#904#905#0" expanded="true" />
+            <element signature="e#935#936#0" expanded="true" />
+            <element signature="e#987#988#0" expanded="true" />
+            <element signature="e#1027#1028#0" expanded="true" />
+            <element signature="e#1080#1081#0" expanded="true" />
+            <element signature="e#1118#1119#0" expanded="true" />
+            <element signature="e#1346#1347#0" expanded="true" />
+            <element signature="e#1382#1383#0" expanded="true" />
+            <element signature="e#1460#1461#0" expanded="true" />
+            <element signature="e#1510#1511#0" expanded="true" />
+            <element signature="e#9754#9755#0" expanded="true" />
+            <element signature="e#9790#9791#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cscie97/smartcity/authentication/Tester.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="21" column="60" selection-start-line="21" selection-start-column="60" selection-end-line="21" selection-end-column="60" />
+        <state relative-caret-position="271">
+          <caret line="85" column="53" selection-start-line="85" selection-start-column="53" selection-end-line="85" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
