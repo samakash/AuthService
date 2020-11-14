@@ -1,5 +1,6 @@
 package cscie97.smartcity.authentication;
 
+import cscie97.smartcity.authentication.domain.AuthToken;
 import cscie97.smartcity.authentication.domain.Entitlement;
 import cscie97.smartcity.authentication.domain.User;
 
@@ -48,9 +49,6 @@ public class InventoryUpdate implements Visitor {
                     User user = entry.getValue();
 
                 }
-
-
-
             } else {
                 throw new AuthenticationException("Update Entitlement Failed","entitlement id is not found");
             }
@@ -59,8 +57,30 @@ public class InventoryUpdate implements Visitor {
         }
     }
 
+    @Override
+    public void visit(AuthToken authToken) {
 
+        try{
+            AuthenticationService authenticationService = AuthenticationService.getInstance();
 
+            if (authenticationService.getAuthTokenList().containsKey(authToken.getId())) {
+
+                authenticationService.getAuthTokenList().get(authToken.getId()).setId(authToken.getId());
+                authenticationService.getAuthTokenList().get(authToken.getId()).setAuthValue(authToken.getAuthValue());
+                authenticationService.getAuthTokenList().get(authToken.getId()).setState(authToken.getState());
+                authenticationService.getAuthTokenList().get(authToken.getId()).setExpirationTime(authToken.getExpirationTime());
+                authenticationService.getAuthTokenList().get(authToken.getId()).setUser(authToken.getUser());
+                authenticationService.getAuthTokenList().get(authToken.getId()).setSufficientPermission(authToken.isSufficientPermission());
+                System.out.println("Update Authtoken is completed successfully - Authtoken Id: "+authToken.getId());
+
+            } else {
+                throw new AuthenticationException("Update Authtoken Failed","Authtoken id is not found");
+            }
+        } catch (AuthenticationException e){
+            System.out.println(e);
+        }
+
+    }
 
 
 }

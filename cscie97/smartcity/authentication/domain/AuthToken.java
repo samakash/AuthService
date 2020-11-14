@@ -1,11 +1,14 @@
 package cscie97.smartcity.authentication.domain;
 
+import cscie97.smartcity.authentication.Visitor;
+
 public class AuthToken {
     private String id;
     private String authValue;
     private String expirationTime;
     private boolean sufficientPermission;
     private TokenState state;
+    private User user;
 
     public AuthToken(String id, String authValue, String expirationTime, TokenState state) {
         this.id = id;
@@ -13,6 +16,7 @@ public class AuthToken {
         this.expirationTime = expirationTime;
         this.sufficientPermission = false;
         this.state = state;
+        this.user = null;
     }
 
     public String getId() {
@@ -55,6 +59,14 @@ public class AuthToken {
         this.state = state;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "AuthToken{" +
@@ -63,5 +75,9 @@ public class AuthToken {
                 ", expirationTime='" + expirationTime + '\'' +
                 ", state=" + state +
                 '}';
+    }
+
+    public void accept(Visitor visitor){
+        visitor.visit(this);
     }
 }

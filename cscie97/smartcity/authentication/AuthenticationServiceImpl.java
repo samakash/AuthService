@@ -12,12 +12,14 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     public static AuthenticationServiceImpl instance;
     private HashMap<String, User> userList;
     private HashMap<String, Entitlement> entitlementList;
+    private HashMap<String, AuthToken> authTokenList;
 
 
 
     private AuthenticationServiceImpl() {
         this.userList = new HashMap<>();
         this.entitlementList = new HashMap<>();
+        this.authTokenList = new HashMap<>();
     }
 
     public static AuthenticationServiceImpl getInstance() {
@@ -41,6 +43,14 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
     public void setEntitlementList(HashMap<String, Entitlement> entitlementList) {
         this.entitlementList = entitlementList;
+    }
+
+    public HashMap<String, AuthToken> getAuthTokenList() {
+        return authTokenList;
+    }
+
+    public void setAuthTokenList(HashMap<String, AuthToken> authTokenList) {
+        this.authTokenList = authTokenList;
     }
 
     @Override
@@ -166,8 +176,12 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                 if(userCredential != null && ((Login)userCredential).getUsername().equals(username)
                         && ((Login)userCredential).getPassword().equals(hashCredential(password))){
                     authToken = new AuthToken(username, username, "", TokenState.active);
+                    authToken.setUser(user);
+                    authToken.accept(new InventoryAdd());
+
                     user.setAuthToken(authToken);
                     user.accept(new InventoryUpdate());
+
                 } else {
                     throw new AuthenticationException("Login Failed","please check username and password");
                 }

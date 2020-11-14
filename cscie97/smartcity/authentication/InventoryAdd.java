@@ -1,6 +1,7 @@
 package cscie97.smartcity.authentication;
 
 import cscie97.smartcity.authentication.Visitor;
+import cscie97.smartcity.authentication.domain.AuthToken;
 import cscie97.smartcity.authentication.domain.Entitlement;
 import cscie97.smartcity.authentication.domain.User;
 
@@ -33,6 +34,22 @@ public class InventoryAdd implements Visitor {
             } else {
                 authenticationService.getEntitlementList().put(entitlement.getId(),entitlement);
                 System.out.println("New entitlement is created successfully - "+entitlement);
+            }
+        } catch (AuthenticationException e){
+            System.out.println(e);
+        }
+    }
+
+    @Override
+    public void visit(AuthToken authToken) {
+        try{
+            AuthenticationService authenticationService = AuthenticationService.getInstance();
+
+            if (authenticationService.getAuthTokenList().containsKey(authToken.getId())) {
+                throw new AuthenticationException("Add Authtoken failed"," Authtoken id already exists");
+            } else {
+                authenticationService.getAuthTokenList().put(authToken.getId(),authToken);
+                System.out.println("New authToken is created successfully - "+authToken);
             }
         } catch (AuthenticationException e){
             System.out.println(e);

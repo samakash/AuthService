@@ -28,6 +28,7 @@ public interface AuthenticationService {
 
     HashMap<String, User> getUserList();
     HashMap<String, Entitlement> getEntitlementList();
+    HashMap<String, AuthToken> getAuthTokenList();
 
 
 
