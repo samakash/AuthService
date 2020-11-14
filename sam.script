@@ -1,0 +1,15 @@
+
+# define permissions
+# define_permission <permission_id> name <permission_name> description <permission_description>
+
+define_permission per1 name "per1" description "per1"
+
+
+# define roles
+# define_role <role_id> name <role_name> description <role_description>
+
+define_role role1 name "role1" description "role1"
+
+# add permission (permission, role ) to role
+# add_permission_to_role role <role_id> permission <permission_id>
+add_permission_to_role role role1 permission per1

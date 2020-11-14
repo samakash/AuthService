@@ -21,8 +21,6 @@ public class Permission extends Entitlement{
 
     @Override
     public List<Entitlement> getEntitlementsList() {
-        List<Entitlement> le = new ArrayList();
-        le.add(this);
-        return le;
+        return null;
     }
 }

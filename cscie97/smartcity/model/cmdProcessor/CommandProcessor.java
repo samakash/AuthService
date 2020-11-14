@@ -1,5 +1,6 @@
 package cscie97.smartcity.model.cmdProcessor;
 
+import cscie97.smartcity.authentication.AuthenticationService;
 import cscie97.smartcity.ledger.LedgerService;
 import cscie97.smartcity.model.service.ModelService;
 
@@ -16,6 +17,7 @@ public class CommandProcessor {
 
 	private ModelService modelService;
 	private LedgerService ledgerService;
+	private AuthenticationService authenticationService;
 	private int lineNumber = 0;
 
 	/**
@@ -24,6 +26,7 @@ public class CommandProcessor {
 	public CommandProcessor() {
 		this.modelService = ModelService.getInstance();
 		this.ledgerService = LedgerService.getInstance();
+		this.authenticationService = AuthenticationService.getInstance();
 	}
 
 	/**
@@ -317,6 +320,68 @@ public class CommandProcessor {
 						break;
 					case "validate":
 						ledgerService.validateLedger();
+						break;
+					case "define_permission":
+						//define_permission auth_user_admin name "User Administrator" description "Create, Update, Delete Users"
+						System.out.println("processing "+ command);
+						String perId = extractCmdValue(command,"define_permission");
+						String userId = extractCmdValue(command,"name");
+						description = extractCmdValue(command,"description");
+						authenticationService.createPermission(perId,userId,description);
+						break;
+					case "define_role":
+						//define_role adult_role name "Adult Role" description "Has all permissions of an adult"
+						System.out.println("processing "+ command);
+						String roleid = extractCmdValue(command,"define_role");
+						String roleName = extractCmdValue(command,"name");
+						description = extractCmdValue(command,"description");
+						authenticationService.createRole(roleid,roleName,description);
+						break;
+					case "add_permission_to_role":
+						//add_permission_to_role role admin_role permission auth_user_admin
+						System.out.println("processing "+ command);
+						roleid = extractCmdValue(command," role");
+						perId = extractCmdValue(command,"permission");
+						authenticationService.addPermissionToRole(perId,roleid);
+						break;
+					case "create_user":
+						//create_user resident_1 name "resident adult Jane"
+						System.out.println("processing "+ command);
+						 userId =  extractCmdValue(command,"create_user");
+						 name = extractCmdValue(command,"name");
+						 authenticationService.createUser(userId,name);
+						break;
+					case "add_user_credential":
+						System.out.println("processing "+ command);
+						//add_user_credential resident_1 type voiceprint value jane-voiceprint
+						userId = extractCmdValue(command,"add_user_credential");
+						String type = extractCmdValue(command,"type");
+						String value = extractCmdValue(command,"value");
+						authenticationService.addUserCredential(userId,userId+type,type,value);
+						break;
+					case "add_role_to_user":
+						System.out.println("processing "+ command);
+						//add_role_to_user resident_1 role adult_role
+						userId = extractCmdValue(command,"add_role_to_user");
+						roleid = extractCmdValue(command,"role");
+						authenticationService.addRoleToUser(userId,roleid);
+						break;
+					case "define_resource_role":
+						System.out.println("processing "+ command);
+						//define_resource_role city1_public_administrator_resource_role name public_administrator_role description "city1 admin"
+						roleid = extractCmdValue(command,"define_resource_role");
+						name = extractCmdValue(command,"name");
+						description = extractCmdValue(command,"description");
+						authenticationService.createResourceRole(roleid,name,description);
+						break;
+					case "add_resource_to_resource_role":
+						System.out.println("processing "+ command);
+						//add_resource_to_resource_role city1_public_administrator_resource_role resource city description "the entire smart city"
+						roleid = extractCmdValue(command,"add_resource_to_resource_role");
+						String resourceId = extractCmdValue(command,"resource");
+						description = extractCmdValue(command,"description");
+						authenticationService.addResourceToResourceRole(roleid,resourceId,description);
+
 						break;
 					default:
 						throw new CommandProcessorException(arr[0],"Command is not supported. Please verify command format",lineNumber);

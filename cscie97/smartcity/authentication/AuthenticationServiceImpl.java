@@ -62,6 +62,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                 Entitlement permission = new Permission(id,name,description);
                 Visitor visitor = new Inventory();
                 visitor.visit(permission);
+                System.out.println("New permission is added Id: "+id);
             }
         } catch (AuthenticationException e){
             System.out.println(e);
@@ -77,6 +78,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                 Entitlement role = new Role(id, name, description);
                 Visitor visitor = new Inventory();
                 visitor.visit(role);
+                System.out.println("New Role is added Id: "+id);
             }
         } catch (AuthenticationException e){
             System.out.println(e);
@@ -110,6 +112,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                 User user = new User(id,name);
                 Visitor visitor = new Inventory();
                 visitor.visit(user);
+                System.out.println("New User is created Id: "+id);
             }
         } catch (AuthenticationException e){
             System.out.println(e);
@@ -125,19 +128,19 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                         User user = userList.get(userId);
                         user.getCredentials().add(credential);
                         user.accept(new Inventory());
-                        System.out.println("New Password credentials added ti user: "+userId);
+                        System.out.println("New Password credentials added to user: "+userId);
                     }else if (credentialType.equals("faceprint")){
                         Credential credential = new FacePrint(credentialId,hashCredential(password));
                         User user = userList.get(userId);
                         user.getCredentials().add(credential);
                         user.accept(new Inventory());
-                        System.out.println("New faceprint credentials added ti user: "+userId);
+                        System.out.println("New faceprint credentials added to user: "+userId);
                     }else if (credentialType.equals("voiceprint")){
                         Credential credential = new VoicePrint(credentialId,hashCredential(password));
                         User user = userList.get(userId);
                         user.getCredentials().add(credential);
                         user.accept(new Inventory());
-                        System.out.println("New voiceprint credentials added ti user: "+userId);
+                        System.out.println("New voiceprint credentials added to user: "+userId);
                     } else {
                         throw new AuthenticationException("Add User Credentials failed","Authentication type is not supported");
                     }
@@ -173,6 +176,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                 Entitlement resourceRole = new ResourceRole(id, name, description);
                 Visitor visitor = new Inventory();
                 visitor.visit(resourceRole);
+                System.out.println("New Resource Role is added Id: "+id);
             }
         } catch (AuthenticationException e){
             System.out.println(e);
