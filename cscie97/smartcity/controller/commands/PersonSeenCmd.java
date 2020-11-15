@@ -1,5 +1,7 @@
 package cscie97.smartcity.controller.commands;
 
+import cscie97.smartcity.authentication.AuthenticationService;
+import cscie97.smartcity.authentication.domain.AuthToken;
 import cscie97.smartcity.ledger.LedgerService;
 import cscie97.smartcity.model.observer.EventBroker;
 import cscie97.smartcity.model.domain.Resident;
@@ -31,15 +33,19 @@ public class PersonSeenCmd implements Command {
         //get model service
 
         //update person location
-        Object person = modelService.showPerson("", eventBroker.getCityId(), eventBroker.getEvent().getSubject().getId());
+        AuthenticationService authenticationService = AuthenticationService.getInstance();
+        AuthToken authToken = authenticationService.login("controller","controller");
+        Object person = modelService.showPerson(authToken.getAuthValue(), eventBroker.getCityId(), eventBroker.getEvent().getSubject().getId());
         if(person instanceof Resident){
             Resident resident = (Resident) person;
-            modelService.updateResident("", eventBroker.getCityId(), resident.getId(), resident.getName(), resident.getBiometricId(),
+            authToken = authenticationService.login("controller","controller");
+            modelService.updateResident(authToken.getAuthValue(), eventBroker.getCityId(), resident.getId(), resident.getName(), resident.getBiometricId(),
                     resident.getPhone(), resident.getRole().toString(), eventBroker.getLocation().getLatitude(), eventBroker.getLocation().getLongitude(),
                     resident.getAccountAddress());
         } else if (person instanceof Visitor){
             Visitor visitor = (Visitor) person;
-            modelService.updateVisitor("", eventBroker.getCityId(), visitor.getId(),visitor.getId(),
+            authToken = authenticationService.login("controller","controller");
+            modelService.updateVisitor(authToken.getAuthValue(), eventBroker.getCityId(), visitor.getId(),visitor.getId(),
                     eventBroker.getLocation().getLatitude(), eventBroker.getLocation().getLongitude());
         }
 

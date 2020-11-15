@@ -1,5 +1,7 @@
 package cscie97.smartcity.controller.commands;
 
+import cscie97.smartcity.authentication.AuthenticationService;
+import cscie97.smartcity.authentication.domain.AuthToken;
 import cscie97.smartcity.model.observer.EventBroker;
 import cscie97.smartcity.ledger.LedgerService;
 import cscie97.smartcity.model.domain.Resident;
@@ -31,11 +33,15 @@ public class LitterEventCmd implements Command {
         System.out.println("Controller processing litter event command");
 
         //send speak command
-        modelService.createSensorOutput("", eventBroker.getCityId(), eventBroker.getDeviceId(),"speaker","Please do not litter");
+        AuthenticationService authenticationService = AuthenticationService.getInstance();
+        AuthToken authToken = authenticationService.login("controller","controller");
+        modelService.createSensorOutput(authToken.getAuthValue(), eventBroker.getCityId(), eventBroker.getDeviceId(),"speaker",
+                "Please do not litter");
 
         //send nearest robot to location to clean garbage
         Robot robot = SmartCityUtils.getNearestRobot(eventBroker.getCityId(), eventBroker.getLocation());
-        modelService.updateRobot("", eventBroker.getCityId(), robot.getId(), robot.getAccountAddress(), robot.getLocation().getLatitude(),
+        authToken = authenticationService.login("controller","controller");
+        modelService.updateRobot(authToken.getAuthValue(), eventBroker.getCityId(), robot.getId(), robot.getAccountAddress(), robot.getLocation().getLatitude(),
                 robot.getLocation().getLongitude(),true,
                 "clean garbage at lat "+eventBroker.getLocation().getLatitude()+" long "+eventBroker.getLocation().getLongitude());
 

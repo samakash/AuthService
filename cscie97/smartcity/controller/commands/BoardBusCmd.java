@@ -1,10 +1,7 @@
 package cscie97.smartcity.controller.commands;
 
 import cscie97.smartcity.authentication.AuthenticationService;
-import cscie97.smartcity.authentication.domain.Credential;
-import cscie97.smartcity.authentication.domain.FacePrint;
-import cscie97.smartcity.authentication.domain.Login;
-import cscie97.smartcity.authentication.domain.VoicePrint;
+import cscie97.smartcity.authentication.domain.*;
 import cscie97.smartcity.controller.Controller;
 import cscie97.smartcity.model.observer.EventBroker;
 import cscie97.smartcity.ledger.LedgerService;
@@ -38,33 +35,41 @@ public class BoardBusCmd implements Command {
      * @param eventBroker
      */
     public void execute(EventBroker eventBroker){
+        try{
+            System.out.println("Controller processing board bus command");
 
-        System.out.println("Controller processing board bus command");
+            //send speaker command
 
-        //send speaker command
+            //get user credentials and use it to authenticate, then use the authToken in the model service.
+            String userId = eventBroker.getEvent().getSubject().getId();
+            Credential userCredential = authenticationService.getUserList().get(userId).getCredentials().get(0);
+            AuthToken authToken = null;
+            if(userCredential instanceof Login){
+                authToken = authenticationService.login(((Login) userCredential).getUsername(),
+                        SmartCityUtils.decrypt(((Login) userCredential).getPassword()));
+            }else if(userCredential instanceof FacePrint){
+                authToken = authenticationService.login(userId,
+                        SmartCityUtils.decrypt(((FacePrint) userCredential).getFacePrintValue()));
+            } else if (userCredential instanceof VoicePrint){
+                authToken = authenticationService.login(userId,
+                        SmartCityUtils.decrypt(((VoicePrint) userCredential).getVoicePrintValue()));
+            }
+            modelService.createSensorOutput(authToken.getAuthValue(), eventBroker.getCityId(), eventBroker.getDeviceId(),"speaker",
+                    "hello, good to see you "+ eventBroker.getEvent().getSubject().getId());
 
-        String userId = eventBroker.getEvent().getSubject().getId();
-        Credential userCredentials = authenticationService.getUserList().get(userId).getCredentials().get(0);
-        if(userCredentials instanceof Login){
-            authenticationService.login(((Login) userCredentials).getUsername(),((Login) userCredentials).getPassword());
-        }else if(userCredentials instanceof FacePrint){
-            authenticationService.login(userId,((FacePrint) userCredentials).getFacePrintValue());
-        } else if (userCredentials instanceof VoicePrint){
+            //If the person is a resident and has a positive account balance, charge persons account for the rate of the bus.
+            AuthToken authToken1 = authenticationService.login("controller","controller");
+            Person person = (Person) modelService.showPerson(authToken1.getAuthValue(),eventBroker.getCityId(),eventBroker.getEvent().getSubject().getId());
+            if (person instanceof Resident){
+                Resident resident = (Resident) person;
+                Vehicle vehicle = (Vehicle) modelService.showDevice("",eventBroker.getCityId(),eventBroker.getDeviceId());
+                ledgerService.processTransaction("t"+ SmartCityUtils.getRandomInt(), (int)vehicle.getFee(), 10,
+                        "Bus ride fee", resident.getAccountAddress(), vehicle.getAccountAddress()
+                );
 
-        }
-
-        modelService.createSensorOutput("", eventBroker.getCityId(), eventBroker.getDeviceId(),"speaker",
-                "hello, good to see you "+ eventBroker.getEvent().getSubject().getId());
-
-        //If the person is a resident and has a positive account balance, charge persons account for the rate of the bus.
-        Person person = (Person) modelService.showPerson("",eventBroker.getCityId(),eventBroker.getEvent().getSubject().getId());
-        if (person instanceof Resident){
-            Resident resident = (Resident) person;
-            Vehicle vehicle = (Vehicle) modelService.showDevice("",eventBroker.getCityId(),eventBroker.getDeviceId());
-            ledgerService.processTransaction("t"+ SmartCityUtils.getRandomInt(), (int)vehicle.getFee(), 10,
-                    "Bus ride fee", resident.getAccountAddress(), vehicle.getAccountAddress()
-                    );
-
+            }
+        } catch (Exception e){
+            System.out.println(e);
         }
 
     }

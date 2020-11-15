@@ -69,7 +69,7 @@ public class Tester {
 //        authenticationService.addRoleToUser("user1","role1");
 //        authenticationService.addRoleToUser("user1","rr1");
 //
-        authenticationService.addUserCredential("user1","user1","password","sam");
+//        authenticationService.addUserCredential("user1","user1","password","sam");
 //        authenticationService.addUserCredential("user1","user1","faceprint","sam");
 //        authenticationService.addUserCredential("user1","c3","voiceprint","sam");
 //        authenticationService.addUserCredential("user1","c3","voiceprint","sam");
@@ -77,8 +77,8 @@ public class Tester {
 //        authenticationService.createResourceRole("rr1","rr1","rr1");
 
 //
-        AuthToken a = authenticationService.login("user1","sam");
-        System.out.println(a);
+//        AuthToken a = authenticationService.login("user1","sam");
+//        System.out.println(a);
 
 //        System.out.println(a);
 //

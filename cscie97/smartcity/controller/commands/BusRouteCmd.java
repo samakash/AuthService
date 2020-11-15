@@ -1,11 +1,14 @@
 package cscie97.smartcity.controller.commands;
 
+import cscie97.smartcity.authentication.AuthenticationService;
+import cscie97.smartcity.authentication.domain.*;
 import cscie97.smartcity.ledger.LedgerService;
 import cscie97.smartcity.model.observer.EventBroker;
 import cscie97.smartcity.model.domain.Device;
 import cscie97.smartcity.model.domain.Vehicle;
 import cscie97.smartcity.model.domain.VehicleType;
 import cscie97.smartcity.model.service.ModelService;
+import cscie97.smartcity.model.utils.SmartCityUtils;
 
 /**
  * This command implementation class is for Bus Route command
@@ -14,6 +17,7 @@ public class BusRouteCmd implements Command {
 
     ModelService modelService;
     LedgerService ledgerService;
+    AuthenticationService authenticationService;
 
     /**
      * constructor of Bus Route command
@@ -21,6 +25,8 @@ public class BusRouteCmd implements Command {
     public BusRouteCmd() {
         this.modelService = ModelService.getInstance();
         this.ledgerService = LedgerService.getInstance();
+        this.authenticationService = AuthenticationService.getInstance();
+
     }
 
     /**
@@ -29,13 +35,30 @@ public class BusRouteCmd implements Command {
      */
     public void execute(EventBroker eventBroker){
         System.out.println("Controller Processing bus route command");
-
-        if(eventBroker.getEvent().getAction().contains("does this bus go to central square")){
-            Device device = (Device) modelService.showDevice("",eventBroker.getCityId(),eventBroker.getDeviceId());
-            if (device instanceof Vehicle && ((Vehicle) device).getVehicleType().equals(VehicleType.bus)){
-                modelService.createSensorOutput("", eventBroker.getCityId(), eventBroker.getDeviceId(),"speaker",
-                        "Yes, this bus goes to Central Square.");
+        try {
+            if(eventBroker.getEvent().getAction().contains("does this bus go to central square")){
+                Device device = (Device) modelService.showDevice("",eventBroker.getCityId(),eventBroker.getDeviceId());
+                if (device instanceof Vehicle && ((Vehicle) device).getVehicleType().equals(VehicleType.bus)){
+                    //get user credentials and use it to authenticate, then use the authToken in the model service.
+                    String userId = eventBroker.getEvent().getSubject().getId();
+                    Credential userCredential = authenticationService.getUserList().get(userId).getCredentials().get(0);
+                    AuthToken authToken = null;
+                    if(userCredential instanceof Login){
+                        authToken = authenticationService.login(((Login) userCredential).getUsername(),
+                                SmartCityUtils.decrypt(((Login) userCredential).getPassword()));
+                    }else if(userCredential instanceof FacePrint){
+                        authToken = authenticationService.login(userId,
+                                SmartCityUtils.decrypt(((FacePrint) userCredential).getFacePrintValue()));
+                    } else if (userCredential instanceof VoicePrint){
+                        authToken = authenticationService.login(userId,
+                                SmartCityUtils.decrypt(((VoicePrint) userCredential).getVoicePrintValue()));
+                    }
+                    modelService.createSensorOutput("", eventBroker.getCityId(), eventBroker.getDeviceId(),"speaker",
+                            "Yes, this bus goes to Central Square.");
+                }
             }
+
+        } catch (Exception e){
 
         }
     }

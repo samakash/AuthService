@@ -1,5 +1,7 @@
 package cscie97.smartcity.controller.commands;
 
+import cscie97.smartcity.authentication.AuthenticationService;
+import cscie97.smartcity.authentication.domain.AuthToken;
 import cscie97.smartcity.ledger.LedgerService;
 import cscie97.smartcity.model.observer.EventBroker;
 import cscie97.smartcity.model.domain.Robot;
@@ -34,7 +36,10 @@ public class BrokenGlassCmd implements Command {
 
         //send nearest robot to clean broken glass
         Robot robot = SmartCityUtils.getNearestRobot(eventBroker.getCityId(), eventBroker.getLocation());
-        modelService.updateRobot("", eventBroker.getCityId(), robot.getId(), robot.getAccountAddress(), robot.getLocation().getLatitude(),
+
+        AuthenticationService authenticationService = AuthenticationService.getInstance();
+        AuthToken authToken = authenticationService.login("controller","controller");
+        modelService.updateRobot(authToken.getAuthValue(), eventBroker.getCityId(), robot.getId(), robot.getAccountAddress(), robot.getLocation().getLatitude(),
                 robot.getLocation().getLongitude(),true,
                 "clean up broken glass lat "+eventBroker.getLocation().getLatitude()+" long "+eventBroker.getLocation().getLongitude());
     }

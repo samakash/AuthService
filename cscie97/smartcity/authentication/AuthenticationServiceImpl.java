@@ -335,7 +335,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
 
     private String hashCredential(String value) throws Exception {
-        return SmartCityUtils.encrypt(value,"passwordpassword");
+        return SmartCityUtils.encrypt(value);
     }
 
 }

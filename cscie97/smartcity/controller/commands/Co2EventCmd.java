@@ -1,5 +1,7 @@
 package cscie97.smartcity.controller.commands;
 
+import cscie97.smartcity.authentication.AuthenticationService;
+import cscie97.smartcity.authentication.domain.AuthToken;
 import cscie97.smartcity.ledger.LedgerService;
 import cscie97.smartcity.model.observer.EventBroker;
 import cscie97.smartcity.model.domain.Device;
@@ -33,7 +35,9 @@ public class Co2EventCmd implements Command {
     public void execute(EventBroker eventBroker){
 
         //get model service and devices
-        Map<String, Device> devicesMap = modelService.showCity("", eventBroker.getCityId()).getDevicesMap();
+        AuthenticationService authenticationService = AuthenticationService.getInstance();
+        AuthToken authToken = authenticationService.login("controller","controller");
+        Map<String, Device> devicesMap = modelService.showCity(authToken.getAuthValue(), eventBroker.getCityId()).getDevicesMap();
 
         //get a list of all cars in the city
         List<Vehicle> allCars = new ArrayList<>();
@@ -59,7 +63,8 @@ public class Co2EventCmd implements Command {
             if(eventCount >3){
                 System.out.println("Controller Processing CO2 level over 1000 command");
                 for(Vehicle car : allCars){
-                    modelService.updateVehicle("", eventBroker.getCityId(), car.getId(), car.getAccountAddress(), car.getLocation().getLatitude(),
+                    authToken = authenticationService.login("controller","controller");
+                    modelService.updateVehicle(authToken.getAuthValue(), eventBroker.getCityId(), car.getId(), car.getAccountAddress(), car.getLocation().getLatitude(),
                             car.getLocation().getLongitude(),false,"Car is disabled due to high CO2 level", car.getFee());
                 }
             }
@@ -81,7 +86,8 @@ public class Co2EventCmd implements Command {
             if(eventCount >3){
                 System.out.println("Controller Processing CO2 level under 1000 command");
                 for(Vehicle car : allCars){
-                    modelService.updateVehicle("", eventBroker.getCityId(), car.getId(), car.getAccountAddress(), car.getLocation().getLatitude(),
+                    authToken = authenticationService.login("controller","controller");
+                    modelService.updateVehicle(authToken.getAuthValue(), eventBroker.getCityId(), car.getId(), car.getAccountAddress(), car.getLocation().getLatitude(),
                             car.getLocation().getLongitude(),true,"Car is enabled due to stable CO2 level", car.getFee());
                 }
             }

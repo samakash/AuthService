@@ -1,5 +1,7 @@
 package cscie97.smartcity.controller.commands;
 
+import cscie97.smartcity.authentication.AuthenticationService;
+import cscie97.smartcity.authentication.domain.AuthToken;
 import cscie97.smartcity.controller.ControllerException;
 import cscie97.smartcity.ledger.LedgerService;
 import cscie97.smartcity.model.observer.EventBroker;
@@ -17,6 +19,7 @@ public class EmergencyCmd implements Command {
 
     ModelService modelService;
     LedgerService ledgerService;
+    AuthenticationService authenticationService;
 
     /**
      * constructor of Emergency command
@@ -24,6 +27,7 @@ public class EmergencyCmd implements Command {
     public EmergencyCmd() {
         this.modelService = ModelService.getInstance();
         this.ledgerService = LedgerService.getInstance();
+        this.authenticationService = AuthenticationService.getInstance();
     }
 
     /**
@@ -39,7 +43,8 @@ public class EmergencyCmd implements Command {
             if(emergencyType.equals(EmergencyType.traffic_accident)){
                 System.out.println("Controller Processing EmergencyCmd Command: "+emergencyType);
                 //send command: announce: "Stay calm, help is on its way"
-                modelService.createSensorOutput("",eventBroker.getCityId(), eventBroker.getDeviceId(),
+                AuthToken authToken = authenticationService.login("controller","controller");
+                modelService.createSensorOutput(authToken.getAuthValue(),eventBroker.getCityId(), eventBroker.getDeviceId(),
                         "speaker","Stay calm, help is on its way");
                 //get a list of all robots
                 LinkedList<Robot> allRobots = new LinkedList<>();
@@ -67,11 +72,12 @@ public class EmergencyCmd implements Command {
                 //send commands to the nearest two robots
                 String commandValue = "address "+emergencyType+" at lat "+eventBroker.getLocation().getLatitude()+" long "+
                         eventBroker.getLocation().getLongitude();
-
-                modelService.updateRobot("", eventBroker.getCityId(), nearestRobot.getId(), nearestRobot.getAccountAddress(),
+                authToken = authenticationService.login("controller","controller");
+                modelService.updateRobot(authToken.getAuthValue(), eventBroker.getCityId(), nearestRobot.getId(), nearestRobot.getAccountAddress(),
                         nearestRobot.getLocation().getLatitude(), nearestRobot.getLocation().getLongitude(), true,
                         commandValue);
-                modelService.updateRobot("", eventBroker.getCityId(), secondNearestRobot.getId(), secondNearestRobot.getAccountAddress(),
+                authToken = authenticationService.login("controller","controller");
+                modelService.updateRobot(authToken.getAuthValue(), eventBroker.getCityId(), secondNearestRobot.getId(), secondNearestRobot.getAccountAddress(),
                         secondNearestRobot.getLocation().getLatitude(), secondNearestRobot.getLocation().getLongitude(), true,
                         commandValue);
             } else {
@@ -79,7 +85,8 @@ public class EmergencyCmd implements Command {
                 // send speaker command to all devices
                 for (Map.Entry mapElement : devicesMap.entrySet()){
                     Device device = (Device) mapElement.getValue();
-                    modelService.createSensorOutput("",eventBroker.getCityId(), device.getId(),
+                    AuthToken authToken = authenticationService.login("controller","controller");
+                    modelService.createSensorOutput(authToken.getAuthValue(),eventBroker.getCityId(), device.getId(),
                             "speaker","There is a "+emergencyType+" in "+eventBroker.getCityId()+", please find shelter immediately");
 
                 }
@@ -94,7 +101,8 @@ public class EmergencyCmd implements Command {
                 int robotsCount = allRobots.size();
                 for(int i =0; i< (robotsCount/2); i++){
                     Robot robot = allRobots.get(i);
-                    modelService.updateRobot("", eventBroker.getCityId(), robot.getId(), robot.getAccountAddress(),
+                    AuthToken authToken = authenticationService.login("controller","controller");
+                    modelService.updateRobot(authToken.getAuthValue(), eventBroker.getCityId(), robot.getId(), robot.getAccountAddress(),
                             robot.getLocation().getLatitude(),robot.getLocation().getLongitude(),true,
                             "address "+emergencyType+" at lat "+eventBroker.getLocation().getLatitude()+" long "+
                             eventBroker.getLocation().getLongitude());
@@ -102,7 +110,8 @@ public class EmergencyCmd implements Command {
 
                 for(int i = robotsCount/2; i<=robotsCount-1; i++){
                     Robot robot = allRobots.get(i);
-                    modelService.updateRobot("", eventBroker.getCityId(), robot.getId(), robot.getAccountAddress(),
+                    AuthToken authToken = authenticationService.login("controller","controller");
+                    modelService.updateRobot(authToken.getAuthValue(), eventBroker.getCityId(), robot.getId(), robot.getAccountAddress(),
                             robot.getLocation().getLatitude(),robot.getLocation().getLongitude(),true,
                             "Help people find shelter");
                 }

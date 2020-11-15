@@ -1,5 +1,7 @@
 package cscie97.smartcity.model.utils;
 
+import cscie97.smartcity.authentication.AuthenticationService;
+import cscie97.smartcity.authentication.domain.AuthToken;
 import cscie97.smartcity.model.domain.Device;
 import cscie97.smartcity.model.domain.Location;
 import cscie97.smartcity.model.domain.Robot;
@@ -74,7 +76,9 @@ public class SmartCityUtils {
     public static Robot getNearestRobot(String cityId, Location location){
         Robot nearestRobot = null;
         ModelService modelService = ModelService.getInstance();
-        Map<String, Device> devicesMap = modelService.showCity("", cityId).getDevicesMap();
+        AuthenticationService authenticationService = AuthenticationService.getInstance();
+        AuthToken authToken = authenticationService.login("controller","controller");
+        Map<String, Device> devicesMap = modelService.showCity(authToken.getAuthValue(), cityId).getDevicesMap();
 
         LinkedList<Robot> allRobots = new LinkedList<>();
         for (Map.Entry mapElement : devicesMap.entrySet()){
@@ -104,7 +108,9 @@ public class SmartCityUtils {
         return int_random;
     }
 
-    public static String encrypt(String str,String k) throws Exception {
+    //Citation: https://github.com/rakesh679/JavaCode/blob/master/DecryptAndEncrypt%20.java
+    public static String encrypt(String str) throws Exception {
+        String k = "passwordpassword";
         Cipher ecipher = Cipher.getInstance("AES");
         Key aeskey = new SecretKeySpec(k.getBytes(),"AES");
         byte[] utf8 = str.getBytes("UTF8");
@@ -114,7 +120,9 @@ public class SmartCityUtils {
 
     }
 
-    public static String decrypt(String str,String k) throws Exception {
+    //Citation: https://github.com/rakesh679/JavaCode/blob/master/DecryptAndEncrypt%20.java
+    public static String decrypt(String str) throws Exception {
+        String k = "passwordpassword";
         Cipher  dcipher = Cipher.getInstance("AES");
         Key aesKey = new SecretKeySpec(k.getBytes(), "AES");
         dcipher.init(dcipher.DECRYPT_MODE, aesKey);
