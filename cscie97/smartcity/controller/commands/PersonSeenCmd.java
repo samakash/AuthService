@@ -30,12 +30,16 @@ public class PersonSeenCmd implements Command {
      */
     public void execute(EventBroker eventBroker){
         System.out.println("Controller processing person seen command");
+        System.out.println("here"+eventBroker);
         //get model service
 
         //update person location
         AuthenticationService authenticationService = AuthenticationService.getInstance();
         AuthToken authToken = authenticationService.login("controller","controller");
+
         Object person = modelService.showPerson(authToken.getAuthValue(), eventBroker.getCityId(), eventBroker.getEvent().getSubject().getId());
+
+
         if(person instanceof Resident){
             Resident resident = (Resident) person;
             authToken = authenticationService.login("controller","controller");

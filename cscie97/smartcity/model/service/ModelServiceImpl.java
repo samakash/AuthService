@@ -7,7 +7,9 @@ import cscie97.smartcity.model.observer.ObserverImpl;
 import cscie97.smartcity.model.observer.SubjectImpl;
 import cscie97.smartcity.model.domain.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -224,7 +226,10 @@ public class ModelServiceImpl extends SubjectImpl implements ModelService {
 	 */
 	public void updateInfoKiosk(String auth_token, String city_id, String deviceId,String accountAddress, boolean enabled, String imgUrl,
 								String redirectingURL) {
-		if(authenticationService.checkAccess(auth_token,"scms_manage_device","")){
+		List<String> requiredPermissions = new ArrayList<>();
+		requiredPermissions.add("scms_manage_device");
+		requiredPermissions.add("scms_use_kiosk");
+		if(authenticationService.checkAccess(auth_token,requiredPermissions,"")){
 			try{
 				if(! citiesMap.containsKey(city_id)){
 					throw new ModelServiceException("create device failed","City ID is not found.");
@@ -377,7 +382,10 @@ public class ModelServiceImpl extends SubjectImpl implements ModelService {
 	 */
 	public void updateRobot(String auth_token, String city_id, String deviceId, String accountAddress,float lat, float _long,
 							boolean enabled, String activity) {
-		if(authenticationService.checkAccess(auth_token,"scms_manage_device","")){
+		List<String> requiredPermissions = new ArrayList<>();
+		requiredPermissions.add("scms_manage_device");
+		requiredPermissions.add("scms_control_robot");
+		if(authenticationService.checkAccess(auth_token,requiredPermissions,"")){
 			try{
 				if(! citiesMap.containsKey(city_id)){
 					throw new ModelServiceException("create device failed","City ID is not found.");
@@ -533,7 +541,6 @@ public class ModelServiceImpl extends SubjectImpl implements ModelService {
 	 */
 	public void updateVehicle(String auth_token, String city_id, String deviceId, String accountAddress,
 							  float lat, float _long, boolean enabled, String activity, double fee) {
-		if(authenticationService.checkAccess(auth_token,"scms_manage_device","")){
 			try{
 				if(! citiesMap.containsKey(city_id)){
 					throw new ModelServiceException("create device failed","City ID is not found.");
@@ -546,18 +553,39 @@ public class ModelServiceImpl extends SubjectImpl implements ModelService {
 						throw new ModelServiceException("Location is invalid", "Location is not within the city radius borders");
 					} else {
 						Vehicle device = (Vehicle) city.getDevicesMap().get(deviceId);
-						device.setAccountAddress(accountAddress);
-						device.setEnabled(enabled);
-						device.setActivity(activity);
-						device.setFee(fee);
-						device.setLocation(new Location(lat, _long));
-						System.out.println("vehicle " + deviceId + " is updated");
+						if(device.getVehicleType().equals(VehicleType.bus)){
+							List<String> requiredPermissions = new ArrayList<>();
+							requiredPermissions.add("scms_manage_device");
+							requiredPermissions.add("scms_ride_bus");
+							if(authenticationService.checkAccess(auth_token,requiredPermissions,"")){
+								device.setAccountAddress(accountAddress);
+								device.setEnabled(enabled);
+								device.setActivity(activity);
+								device.setFee(fee);
+								device.setLocation(new Location(lat, _long));
+								System.out.println("vehicle " + deviceId + " is updated");
+							}
+
+						} else if (device.getVehicleType().equals(VehicleType.car)){
+							List<String> requiredPermissions = new ArrayList<>();
+							requiredPermissions.add("scms_manage_device");
+							requiredPermissions.add("scms_drive_car");
+							if(authenticationService.checkAccess(auth_token,requiredPermissions,"")){
+								device.setAccountAddress(accountAddress);
+								device.setEnabled(enabled);
+								device.setActivity(activity);
+								device.setFee(fee);
+								device.setLocation(new Location(lat, _long));
+								System.out.println("vehicle " + deviceId + " is updated");
+							}
+						}
+
 					}
 				}
 			} catch (ModelServiceException e){
 				System.out.println(e);
 			}
-		}
+
 	}
 
 	/**
@@ -599,8 +627,14 @@ public class ModelServiceImpl extends SubjectImpl implements ModelService {
 	 * @return Event
 	 */
 	public Event createSensorEvent(String auth_token, String city_id, String device_id, String sensorType, String action, String subjectId) {
+		List<String> requiredPermissions = new ArrayList<>();
+		requiredPermissions.add("scms_manage_device");
+		requiredPermissions.add("admin_role");
+		requiredPermissions.add("adult_role");
+		requiredPermissions.add("child_role");
+
 		Event event = null;
-		if(authenticationService.checkAccess(auth_token,"scms_manage_device","")){
+		if(authenticationService.checkAccess(auth_token,requiredPermissions,"")){
 			try{
 				if(! citiesMap.containsKey(city_id)){
 					throw new ModelServiceException("create device failed","City ID is not found.");
@@ -652,8 +686,13 @@ public class ModelServiceImpl extends SubjectImpl implements ModelService {
 	 * @return Event
 	 */
 	public Event createSensorOutput(String auth_token, String city_id, String device_id, String sensorType, String action) {
+		List<String> requiredPermissions = new ArrayList<>();
+		requiredPermissions.add("scms_manage_device");
+		requiredPermissions.add("admin_role");
+		requiredPermissions.add("adult_role");
+		requiredPermissions.add("child_role");
 		Event event = null;
-		if(authenticationService.checkAccess(auth_token,"scms_manage_device","")){
+		if(authenticationService.checkAccess(auth_token,requiredPermissions,"")){
 			try{
 				if(! citiesMap.containsKey(city_id)){
 					throw new ModelServiceException("create device failed","City ID is not found.");

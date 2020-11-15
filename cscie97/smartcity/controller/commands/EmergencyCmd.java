@@ -35,7 +35,8 @@ public class EmergencyCmd implements Command {
      * @param eventBroker
      */
     public void execute(EventBroker eventBroker){
-        Map<String, Device> devicesMap = modelService.showCity("", eventBroker.getCityId()).getDevicesMap();
+        AuthToken authToken = authenticationService.login("controller","controller");
+        Map<String, Device> devicesMap = modelService.showCity(authToken.getAuthValue(), eventBroker.getCityId()).getDevicesMap();
 
         //get emergency type
         try{
@@ -43,7 +44,7 @@ public class EmergencyCmd implements Command {
             if(emergencyType.equals(EmergencyType.traffic_accident)){
                 System.out.println("Controller Processing EmergencyCmd Command: "+emergencyType);
                 //send command: announce: "Stay calm, help is on its way"
-                AuthToken authToken = authenticationService.login("controller","controller");
+                authToken = authenticationService.login("controller","controller");
                 modelService.createSensorOutput(authToken.getAuthValue(),eventBroker.getCityId(), eventBroker.getDeviceId(),
                         "speaker","Stay calm, help is on its way");
                 //get a list of all robots
@@ -85,7 +86,7 @@ public class EmergencyCmd implements Command {
                 // send speaker command to all devices
                 for (Map.Entry mapElement : devicesMap.entrySet()){
                     Device device = (Device) mapElement.getValue();
-                    AuthToken authToken = authenticationService.login("controller","controller");
+                    authToken = authenticationService.login("controller","controller");
                     modelService.createSensorOutput(authToken.getAuthValue(),eventBroker.getCityId(), device.getId(),
                             "speaker","There is a "+emergencyType+" in "+eventBroker.getCityId()+", please find shelter immediately");
 
@@ -101,7 +102,7 @@ public class EmergencyCmd implements Command {
                 int robotsCount = allRobots.size();
                 for(int i =0; i< (robotsCount/2); i++){
                     Robot robot = allRobots.get(i);
-                    AuthToken authToken = authenticationService.login("controller","controller");
+                    authToken = authenticationService.login("controller","controller");
                     modelService.updateRobot(authToken.getAuthValue(), eventBroker.getCityId(), robot.getId(), robot.getAccountAddress(),
                             robot.getLocation().getLatitude(),robot.getLocation().getLongitude(),true,
                             "address "+emergencyType+" at lat "+eventBroker.getLocation().getLatitude()+" long "+
@@ -110,7 +111,7 @@ public class EmergencyCmd implements Command {
 
                 for(int i = robotsCount/2; i<=robotsCount-1; i++){
                     Robot robot = allRobots.get(i);
-                    AuthToken authToken = authenticationService.login("controller","controller");
+                    authToken = authenticationService.login("controller","controller");
                     modelService.updateRobot(authToken.getAuthValue(), eventBroker.getCityId(), robot.getId(), robot.getAccountAddress(),
                             robot.getLocation().getLatitude(),robot.getLocation().getLongitude(),true,
                             "Help people find shelter");

@@ -61,26 +61,31 @@ public abstract class Entitlement {
 
     public List<String> extractComposite(List<Entitlement> entitlements) {
         List<String> extracted = new ArrayList<>();
-        StringBuilder compositeBuilder = new StringBuilder();
-        compositeBuilder.append("   ");
+//        extracted.add(this.getId());
         for (Object obj : entitlements) {
             // Recover the type of this object
             if (obj instanceof Role) {
                 extracted.add(((Role) obj).getId());
                 Entitlement role = (Role) obj;
                 for(Entitlement e: role.getEntitlementsList()){
-                    extracted.add(e.getId());
+                    if(!extracted.contains(e.id)){
+                        extracted.add(e.getId());
+                    }
                 }
                 role.extractComposite((role.getEntitlementsList()));
             } else if (obj instanceof ResourceRole) {
                 extracted.add(((ResourceRole) obj).getId());
                 Entitlement role = (ResourceRole) obj;
                 for(Entitlement e: role.getEntitlementsList()){
-                    extracted.add(e.getId());
+                    if(!extracted.contains(e.id)){
+                        extracted.add(e.getId());
+                    }
                 }
                 ((ResourceRole)obj).extractComposite(((ResourceRole) obj).getEntitlementsList());
             }else {
-                extracted.add(((Permission) obj).getId());
+                if(!extracted.contains(((Permission) obj).getId())){
+                    extracted.add(((Permission) obj).getId());
+                }
             }
         }
         return extracted;

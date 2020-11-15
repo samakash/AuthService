@@ -222,6 +222,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                             authToken.accept(new Inventory());
                             user.setAuthToken(authToken);
                             user.accept(new Inventory());
+                            System.out.println("New authToken is generated for user: "+user.getId());
                             break;
                         } else {
                             throw new AuthenticationException("Login Failed","please check username and password");
@@ -233,6 +234,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                             authToken.accept(new Inventory());
                             user.setAuthToken(authToken);
                             user.accept(new Inventory());
+                            System.out.println("New authToken is generated for user: "+user.getId());
                         }
                     } else if (credential instanceof VoicePrint){
                         if(((VoicePrint)credential).getVoicePrintValue().equals(hashCredential(password))){
@@ -241,10 +243,10 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                             authToken.accept(new Inventory());
                             user.setAuthToken(authToken);
                             user.accept(new Inventory());
+                            System.out.println("New authToken is generated for user: "+user.getId());
                         }
                     }
                 }
-
             } else{
                 throw new AuthenticationException("Login Failed","please check username and password");
             }
@@ -272,20 +274,14 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     }
 
     @Override
-    public boolean checkAccess(String authToken, String requiredPermission, String resource) {
+    public boolean checkAccess(String authToken, Object requiredPermission, String resource) {
         boolean passedExp = false;
         boolean passedPer = false;
         boolean passedRes = false;
 
         try {
             if(authTokenList.containsKey(authToken)) {
-                //validate if token expired
-                if (getAuthTokenList().get(authToken).getState().equals(TokenState.active)) {
-                    passedExp = true;
-                } else{
-                    throw new AuthenticationException("Authentication Failed","AuthToken is expired.");
-                }
-                //check required permission adn resources
+                //extract all associated permission for this user
                 List<String> tempEntitlementsList = new ArrayList<>();
                 List<String> tempResourcesList = new ArrayList<>();
                 AuthToken authToken1 = authTokenList.get(authToken);
@@ -297,18 +293,48 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                         }
                     }
                 }
-
-                if(tempEntitlementsList.contains(requiredPermission)){
-                    passedPer = true;
-                } else{
-                    throw new AuthenticationException("Authentication Failed","User doesn't have required permissions");
+//                System.out.println("CheckAccess extracted entitlements: "+tempEntitlementsList);
+                if(requiredPermission instanceof String){
+                    //validate if token expired
+                    if (getAuthTokenList().get(authToken).getState().equals(TokenState.active)) {
+                        passedExp = true;
+                    } else{
+                        throw new AuthenticationException("Authentication Failed","AuthToken is expired.");
+                    }
+                    //check required permission adn resources
+                    if(tempEntitlementsList.contains(requiredPermission)){
+                        passedPer = true;
+                    } else{
+                        throw new AuthenticationException("Authentication Failed","User doesn't have required permissions");
+                    }
+                    if(!resource.equals("") && tempResourcesList.contains(resource)){
+                        passedRes = true;
+                    } else if (!resource.equals("") && !tempResourcesList.contains(resource)){
+                        throw new AuthenticationException("Authentication Failed","Required resource is not associated with any resource roles for this user");
+                    }
+                } else if (requiredPermission instanceof List){
+                    //validate if token expired
+                    if (getAuthTokenList().get(authToken).getState().equals(TokenState.active)) {
+                        passedExp = true;
+                    } else{
+                        throw new AuthenticationException("Authentication Failed","AuthToken is expired.");
+                    }
+                    //check required permission adn resources
+                    List<String> ls = (List<String>) requiredPermission;
+                    for(String val : ls){
+                        if(tempEntitlementsList.contains(val)){
+                            passedPer = true;
+                        }
+                    }
+                    if(!passedPer){
+                        throw new AuthenticationException("Authentication Failed","User doesn't have required permissions");
+                    }
+                    if(!resource.equals("") && tempResourcesList.contains(resource)){
+                        passedRes = true;
+                    } else if (!resource.equals("") && !tempResourcesList.contains(resource)){
+                        throw new AuthenticationException("Authentication Failed","Required resource is not associated with any resource roles for this user");
+                    }
                 }
-                if(!resource.equals("") && tempResourcesList.contains(resource)){
-                    passedRes = true;
-                } else if (!resource.equals("") && !tempResourcesList.contains(resource)){
-                    throw new AuthenticationException("Authentication Failed","Required resource is not associated with any resource roles for this user");
-                }
-
             } else{
                 throw new AuthenticationException("Authentication Failed","authToken is not valid");
             }

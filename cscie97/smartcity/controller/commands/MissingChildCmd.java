@@ -44,7 +44,6 @@ public class MissingChildCmd implements Command {
                 if(resident.getRole().equals(Role.child)){
 
                     //get user credentials and use it to authenticate, then use the authToken in the model service.
-
                     String userId = eventBroker.getEvent().getSubject().getId();
                     Credential userCredential = authenticationService.getUserList().get(userId).getCredentials().get(0);
                     if(userCredential instanceof Login){

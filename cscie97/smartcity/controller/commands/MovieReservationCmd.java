@@ -43,7 +43,8 @@ public class MovieReservationCmd implements Command {
             //get person and device
             authToken = authenticationService.login("controller","controller");
             Person person = (Person) modelService.showPerson(authToken.getAuthValue(),eventBroker.getCityId(),eventBroker.getEvent().getSubject().getId());
-            InformationKiosk kiosk = (InformationKiosk) modelService.showDevice("",eventBroker.getCityId(),eventBroker.getDeviceId());
+            authToken = authenticationService.login("controller","controller");
+            InformationKiosk kiosk = (InformationKiosk) modelService.showDevice(authToken.getAuthValue(),eventBroker.getCityId(),eventBroker.getDeviceId());
 
             //get total seats required for reservation
             int totalSeats = Integer.parseInt(SmartCityUtils.extractValue(eventBroker.getEvent().getAction(),"reserve"));
@@ -71,7 +72,7 @@ public class MovieReservationCmd implements Command {
                             authToken = authenticationService.login(userId,
                                     SmartCityUtils.decrypt(((VoicePrint) userCredential).getVoicePrintValue()));
                         }
-                        modelService.createSensorOutput("", eventBroker.getCityId(), eventBroker.getDeviceId(),"speaker",
+                        modelService.createSensorOutput(authToken.getAuthValue(), eventBroker.getCityId(), eventBroker.getDeviceId(),"speaker",
                                 "your seats are reserved; please arrive a few minutes early.");
                     } catch (Exception e){
 

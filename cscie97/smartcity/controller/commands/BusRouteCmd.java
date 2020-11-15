@@ -37,12 +37,13 @@ public class BusRouteCmd implements Command {
         System.out.println("Controller Processing bus route command");
         try {
             if(eventBroker.getEvent().getAction().contains("does this bus go to central square")){
-                Device device = (Device) modelService.showDevice("",eventBroker.getCityId(),eventBroker.getDeviceId());
+                AuthenticationService authenticationService = AuthenticationService.getInstance();
+                AuthToken authToken = authenticationService.login("controller","controller");
+                Device device = (Device) modelService.showDevice(authToken.getAuthValue(),eventBroker.getCityId(),eventBroker.getDeviceId());
                 if (device instanceof Vehicle && ((Vehicle) device).getVehicleType().equals(VehicleType.bus)){
                     //get user credentials and use it to authenticate, then use the authToken in the model service.
                     String userId = eventBroker.getEvent().getSubject().getId();
                     Credential userCredential = authenticationService.getUserList().get(userId).getCredentials().get(0);
-                    AuthToken authToken = null;
                     if(userCredential instanceof Login){
                         authToken = authenticationService.login(((Login) userCredential).getUsername(),
                                 SmartCityUtils.decrypt(((Login) userCredential).getPassword()));
@@ -53,7 +54,8 @@ public class BusRouteCmd implements Command {
                         authToken = authenticationService.login(userId,
                                 SmartCityUtils.decrypt(((VoicePrint) userCredential).getVoicePrintValue()));
                     }
-                    modelService.createSensorOutput("", eventBroker.getCityId(), eventBroker.getDeviceId(),"speaker",
+                    authToken = authenticationService.login("controller","controller");
+                    modelService.createSensorOutput(authToken.getAuthValue(), eventBroker.getCityId(), eventBroker.getDeviceId(),"speaker",
                             "Yes, this bus goes to Central Square.");
                 }
             }

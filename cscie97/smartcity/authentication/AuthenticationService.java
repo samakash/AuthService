@@ -23,7 +23,7 @@ public interface AuthenticationService {
     void addResourceToResourceRole(String roleId, String resourceId,String resourceDescription);
     AuthToken login(String username,String password);
     void logout(String userId);
-    boolean checkAccess(String authToken, String requiredPermission, String resource);
+    boolean checkAccess(String authToken, Object requiredPermission, String resource);
 
 
     HashMap<String, User> getUserList();

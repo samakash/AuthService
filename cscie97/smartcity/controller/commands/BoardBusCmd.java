@@ -44,6 +44,7 @@ public class BoardBusCmd implements Command {
             String userId = eventBroker.getEvent().getSubject().getId();
             Credential userCredential = authenticationService.getUserList().get(userId).getCredentials().get(0);
             AuthToken authToken = null;
+
             if(userCredential instanceof Login){
                 authToken = authenticationService.login(((Login) userCredential).getUsername(),
                         SmartCityUtils.decrypt(((Login) userCredential).getPassword()));
@@ -62,7 +63,8 @@ public class BoardBusCmd implements Command {
             Person person = (Person) modelService.showPerson(authToken1.getAuthValue(),eventBroker.getCityId(),eventBroker.getEvent().getSubject().getId());
             if (person instanceof Resident){
                 Resident resident = (Resident) person;
-                Vehicle vehicle = (Vehicle) modelService.showDevice("",eventBroker.getCityId(),eventBroker.getDeviceId());
+                authToken1 = authenticationService.login("controller","controller");
+                Vehicle vehicle = (Vehicle) modelService.showDevice(authToken1.getAuthValue(),eventBroker.getCityId(),eventBroker.getDeviceId());
                 ledgerService.processTransaction("t"+ SmartCityUtils.getRandomInt(), (int)vehicle.getFee(), 10,
                         "Bus ride fee", resident.getAccountAddress(), vehicle.getAccountAddress()
                 );
