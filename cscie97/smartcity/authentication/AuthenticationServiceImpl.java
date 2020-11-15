@@ -1,6 +1,7 @@
 package cscie97.smartcity.authentication;
 
 import cscie97.smartcity.authentication.domain.*;
+import cscie97.smartcity.model.utils.SmartCityUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -145,7 +146,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                         throw new AuthenticationException("Add User Credentials failed","Authentication type is not supported");
                     }
             }
-        } catch (AuthenticationException e){
+        } catch (Exception e){
             System.out.println(e);
         }
     }
@@ -247,7 +248,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
             } else{
                 throw new AuthenticationException("Login Failed","please check username and password");
             }
-        } catch (AuthenticationException ex){
+        } catch (Exception ex){
             System.out.println(ex);
         }
             return authToken;
@@ -333,8 +334,8 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     }
 
 
-    private String hashCredential(String value){
-        return "passwordSam";
+    private String hashCredential(String value) throws Exception {
+        return SmartCityUtils.encrypt(value,"passwordpassword");
     }
 
 }

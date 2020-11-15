@@ -1,13 +1,19 @@
 
 # define permissions
 # define_permission <permission_id> name <permission_name> description <permission_description>
+
+#for managing authToken itself
 define_permission auth_user_admin name "User Administrator" description "Create, Update, Delete Users"
 define_permission auth_role_entitlement_admin name "User Administrator" description "Create, Update, Delete Entitlements"
 define_permission auth_resource_admin name "User Administrator" description "Create, Update, Delete Resources"
-define_permission scms_control_robot name "Control Robot" description "Full Control of Robots"
-define_permission scms_drive_car name "Drive Car" description "Drive a car"
+
+#for managging the city
 define_permission scms_manage_city name "Create, description Update City" "Create or update a City"
-define_permission scms_manage_device name "Create, description Update Device" "Define a new City"
+define_permission scms_manage_device name "Create, description Update Device" description "Define a new City"
+define_permission scms_manage_person name "Create, description Update Device" description "Define a new City"
+define_permission scms_ride_bus name "ride a bus" description "ride a bus"
+define_permission scms_drive_car name "Drive Car" description "Drive a car"
+define_permission scms_control_robot name "Control Robot" description "Full Control of Robots"
 
 # define roles
 # define_role <role_id> name <role_name> description <role_description>
@@ -21,15 +27,15 @@ define_role admin_role name "Admin Role" description "Has all permissions of an 
 add_permission_to_role role admin_role permission auth_user_admin
 add_permission_to_role role admin_role permission scms_control_robot
 add_permission_to_role role admin_role permission scms_drive_car
-add_permission_to_role role admin_role permission scms_define_city
-
+add_permission_to_role role admin_role permission scms_ride_bus
+add_permission_to_role role admin_role permission scms_manage_city
+add_permission_to_role role admin_role permission scms_manage_device
+add_permission_to_role role admin_role permission scms_manage_person
 add_permission_to_role role public_admin_role permission scms_control_robot
 add_permission_to_role role public_admin_role permission scms_drive_car
-
 add_permission_to_role role adult_role permission scms_control_robot
 add_permission_to_role role adult_role permission scms_drive_car
 add_permission_to_role role adult_role permission scms_ride_bus
-
 add_permission_to_role role child_role permission scms_control_robot
 add_permission_to_role role child_role permission scms_ride_bus
 
@@ -39,6 +45,7 @@ create_user resident_1 name "resident adult Jane"
 create_user resident_2 name "resident child Billy"
 create_user visitor_1 name "Anonymous"
 create_user admin_1 name "Debra Smart"
+#create_user controller name "Controller Service User"
 
 # add_user_credential
 # add_user_credential <user_id> type <faceprint|voiceprint|password> value <value>
@@ -47,6 +54,7 @@ add_user_credential resident_2 type voiceprint value billy-voiceprint
 add_user_credential resident_2 type faceprint value billy-faceprint
 add_user_credential visitor_1 type faceprint value adam-faceprint
 add_user_credential admin_1 type password value secret
+#add_user_credential controller type password value secret
 
 # add role to user
 # add_role_to_user <user_id> role <role>
@@ -54,6 +62,7 @@ add_role_to_user resident_1 role adult_role
 add_role_to_user resident_2 role child_role
 add_role_to_user visitor_1 role adult_role
 add_role_to_user admin_1 role admin_role
+#add_role_to_user controller role admin_role
 
 # define resource role
 # define_resource_role <role_id> name <role_name> description <role_description>
@@ -69,3 +78,115 @@ add_resource_to_resource_role city2_public_administrator_resource_role resource 
  # add_role_to_user <user_id> role <role>
 add_role_to_user resident_1 role city1_public_administrator_resource_role
 add_role_to_user resident_1 role city2_public_administrator_resource_role
+
+# login sample
+#login <username> password <password>
+login admin_1 password password
+login visitor_1 password visitor_1
+
+################################City commands###################################
+
+# Define a city
+#define city <city_id> name <name> account <address> lat <float> long <float> radius <float>
+define city city1 authToken admin_1 name boston account 11aa22vdsffgh lat 42.3601 long 71.0589 radius 20
+
+show city city1 authToken admin_1
+
+
+# Define a street sign
+#define street-sign city <city_id> id <device_id> account <address> lat <float> long <float> enabled (true|false) text <text>
+define street-sign authToken admin_1 city city1 id street-sign1 account 23asd23sdf lat 42.3770 long 71.1167 enabled true text "hello I'm a text on street sign"
+
+# update a street sign
+#update street-sign city <city_id> id <device_id> account <account_address> enabled(true|false) text <text>
+update street-sign authToken admin_1 city city1 id street-sign1 account 23234asfsdf enabled false text "hello I'm the updated text"
+
+
+# Define an information kiosk
+#define info-kiosk city <city_id> id <device_id> account <address> lat <float> long <float> enabled (true|false) image <uri> redirectingURL <url>
+define info-kiosk authToken admin_1 city city1 id info-kiosk1 account 23423asfasfasf lat 42.3770 long 71.1167 enabled true image http://www.something.com/img1.jpg redirectingURL www.tickets.com
+
+
+# Update an information kiosk
+#update info-kiosk city <city_id> id <device_id> account <account_address> enabled (true|false) image <uri>
+update info-kiosk authToken admin_1 city city1 id info-kiosk1 account 23423asfasfasf enabled false image http://www.something.com/img2.jpg
+
+# Define a street light
+#define street-light city <city_id> id <device_id> account <address> lat <float> long <float> enabled (true|false) brightness <int>
+define street-light authToken admin_1 city city1 id street-light1 account 23423asfasfasf lat 42.3770 long 71.1167 enabled true brightness 75
+
+# Update a street light
+# update street-light city <city_id> id <device_id> account <account_address> enabled (true|false) brightness <int>
+update street-light authToken admin_1 city city1 id street-light1 account df2342xcv1242 enabled false brightness 90
+
+
+# Define a parking space
+#define parking-space city <city_id> id <device_id> account <address> lat <float> long <float> enabled (true|false) rate <double>
+define parking-space authToken admin_1 city city1 id parking-space1 account 23zzz3asfasfasf lat 42.3770 long 71.1167 enabled true rate 2.50
+
+
+# Update a parking space
+# update parking-space city <city_id> id <device_id> account <account_address> enabled (true|false) rate <double>
+update parking-space authToken admin_1 city city1 id parking-space1 account 23zzz3asfasfasf enabled true rate 3.00
+
+# Define a robot
+# define robot  city <city_id> id <device_id> account <address> lat <float> long <float> enabled (true|false) activity <string>
+define robot authToken admin_1 city city1 id robot1 account 223523asfasfasf lat 42.3770 long 71.1167 enabled true activity "hello im a new robot"
+
+# Update a robot
+# update robot  city <city_id> id <device_id>  account <account_address> lat <float> long <float> enabled (true|false) activity <string>
+update robot authToken admin_1 city city1 id robot1 account 223523asfasfasf lat 42.3770 long 71.1167 enabled true activity "Moving to street b for a cleaning task"
+
+
+# Define a vehicle
+# define vehicle city <city_id> id <device_id> account <address> lat <float> long <float> enabled (true|false) type (bus|car) activity <string> capacity <int> fee <double>
+define vehicle authToken admin_1 city city1 id vehicle1 account 234dsfsdfcvb55 lat 42.3770 long 71.1167 enabled true type bus activity "moving to main garage" capacity 24 fee 2.50
+
+# Update a vehicle
+# update vehicle city <city_id> id <device_id> account <account_address> lat <float> long <float> enabled (true|false) activity <string> fee <int>
+update vehicle authToken admin_1 city city1 id vehicle1 account 322safsdxcvaasd lat 42.3770 long 71.1167 enabled true activity "driving to route 54" fee 3.00
+
+
+# Show the details of a device, if device id is omitted, show details for all devices within the city
+# show device city <city_id> id <device_id>
+show device authToken admin_1 city city1 id vehicle1
+
+
+# Simulate a device sensor event
+#create sensor-event city <city_id> id <device_id> type (microphone|camera|thermometer|co2meter) value <string> subject <person_id>
+create sensor-event authToken admin_1 city city1 id vehicle1 type camera value "new rider is in the vehicle" subject resident1
+
+
+# Send a device output
+# create sensor-output city <city_id> id <device_id> type speaker value <string>
+create sensor-output authToken admin_1 city city1 id vehicle1 type speaker value "welcome to the smart city system"
+
+
+# Define a new Resident
+# define resident city <city_id> id <person_id> name <name> bio-metric <string> phone <phone_number> role (adult|child|administrator) lat <lat> long <long> account <account_address>
+define resident authToken admin_2 city city1 id resident1 name "michael jordan" bio-metric fingerprint phone 708-555-7777 role adult lat 42.3770 long 71.1167 account sfaf23rfsvsdfa
+
+
+# Update a Resident
+# update resident city <city_id> id <person_id>  name <name> bio-metric <string> phone <phone_number> role (adult|child|administrator) lat <lat> long <long> account <account_address>
+update resident authToken admin_1 city city1 id resident1 name "adam johns" bio-metric faceprint phone 777-666-5955 role administrator lat 42.3770 long 71.1167 account 453sdg34rasfasxc
+
+
+# Define a new Visitor
+# define visitor city <city_id> id <person_id> bio-metric <string> lat <lat> long <long>
+define visitor authToken admin_1 city city1 id visitor1 bio-metric fingerprint lat 42.3770 long 71.1167
+
+
+# Update a Visitor
+# update visitor city <city_id> id <person_id> bio-metric <string> lat <lat> long <long>
+update visitor authToken admin_1 city city1 id visitor1 bio-metric faceprint lat 42.3770 long 71.1167
+
+
+# Show the details of the person
+# show person city <city_id> id <person_id>
+show person city city1 id resident1 authToken admin_1
+
+
+# Show the city again to view all contents
+#show city <city_id>
+show city city1 authToken visitor_1

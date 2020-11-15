@@ -1,5 +1,6 @@
 package cscie97.smartcity.controller;
 
+import cscie97.smartcity.authentication.AuthenticationService;
 import cscie97.smartcity.controller.commands.*;
 import cscie97.smartcity.model.observer.EventBroker;
 import cscie97.smartcity.model.observer.ObserverImpl;
@@ -14,6 +15,7 @@ public class ControllerImpl extends ObserverImpl implements Controller{
     public static ControllerImpl instance;
     private List<EventBroker> eventsLogger; // logger of events received
     private List<Command> commandsLogger; // logger of commands executed
+    private AuthenticationService authenticationService;
 
     /**
      * Singleton instance getter
@@ -32,6 +34,10 @@ public class ControllerImpl extends ObserverImpl implements Controller{
     private ControllerImpl(){
         this.eventsLogger = new ArrayList<>();
         this.commandsLogger = new ArrayList<>();
+        authenticationService = AuthenticationService.getInstance();
+        authenticationService.createUser("controller","Controller service User");
+        authenticationService.addUserCredential("controller","controller","password","controller");
+        authenticationService.addRoleToUser("controller","admin_role");
     }
 
     /**

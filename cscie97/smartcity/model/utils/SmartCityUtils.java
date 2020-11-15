@@ -5,10 +5,14 @@ import cscie97.smartcity.model.domain.Location;
 import cscie97.smartcity.model.domain.Robot;
 import cscie97.smartcity.model.service.ModelService;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
+import java.security.Key;
+import java.security.NoSuchAlgorithmException;
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  * this class is utility class that provides a set of tools for the developer of smart city
@@ -99,5 +103,30 @@ public class SmartCityUtils {
         int int_random = rand.nextInt(upperbound);
         return int_random;
     }
+
+    public static String encrypt(String str,String k) throws Exception {
+        Cipher ecipher = Cipher.getInstance("AES");
+        Key aeskey = new SecretKeySpec(k.getBytes(),"AES");
+        byte[] utf8 = str.getBytes("UTF8");
+        ecipher.init(ecipher.ENCRYPT_MODE, aeskey );
+        byte[] enc = ecipher.doFinal(utf8);
+        return Base64.getEncoder().encodeToString(enc);
+
+    }
+
+    public static String decrypt(String str,String k) throws Exception {
+        Cipher  dcipher = Cipher.getInstance("AES");
+        Key aesKey = new SecretKeySpec(k.getBytes(), "AES");
+        dcipher.init(dcipher.DECRYPT_MODE, aesKey);
+
+        byte[] dec = Base64.getDecoder().decode(str);
+        byte[] utf8 = dcipher.doFinal(dec);
+        return new String(utf8, "UTF8");
+    }
+
+
+
+
+
 
 }
