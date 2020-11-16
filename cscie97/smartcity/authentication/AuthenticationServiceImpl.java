@@ -2,9 +2,11 @@ package cscie97.smartcity.authentication;
 
 import cscie97.smartcity.authentication.domain.*;
 import cscie97.smartcity.model.utils.SmartCityUtils;
-
 import java.util.*;
 
+/**
+ * Authentication service interface
+ */
 public class AuthenticationServiceImpl implements AuthenticationService{
 
     public static AuthenticationServiceImpl instance;
@@ -13,13 +15,19 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     private HashMap<String, AuthToken> authTokensMap;
 
 
-
+    /**
+     * Authentication service constructor
+     */
     private AuthenticationServiceImpl() {
         this.usersMap = new HashMap<>();
         this.entitlementsMap = new HashMap<>();
         this.authTokensMap = new HashMap<>();
     }
 
+    /**
+     * Singletone instance getter for the authentication service
+     * @return
+     */
     public static AuthenticationServiceImpl getInstance() {
         if (instance == null) {
             instance = new AuthenticationServiceImpl();
@@ -27,30 +35,37 @@ public class AuthenticationServiceImpl implements AuthenticationService{
         return instance;
     }
 
+    /**
+     * getter method for all users in the inventory
+     * @return
+     */
     public HashMap<String, User> getUsersMap() {
         return usersMap;
     }
 
-    public void setUsersMap(HashMap<String, User> usersMap) {
-        this.usersMap = usersMap;
-    }
-
+    /**
+     * getter method for all entitlements in the inventory
+     * @return
+     */
     public HashMap<String, Entitlement> getEntitlementsMap() {
         return entitlementsMap;
     }
 
-    public void setEntitlementsMap(HashMap<String, Entitlement> entitlementsMap) {
-        this.entitlementsMap = entitlementsMap;
-    }
-
+    /**
+     * getter method for all authTokens in the inventory
+     * @return
+     */
     public HashMap<String, AuthToken> getAuthTokensMap() {
         return authTokensMap;
     }
 
-    public void setAuthTokensMap(HashMap<String, AuthToken> authTokensMap) {
-        this.authTokensMap = authTokensMap;
-    }
 
+    /**
+     * This method is used to create a new permssion
+     * @param id permission id
+     * @param name permission name
+     * @param description permission description
+     */
     @Override
     public void createPermission(String id, String name, String description) {
         try{
@@ -67,6 +82,12 @@ public class AuthenticationServiceImpl implements AuthenticationService{
         }
     }
 
+    /**
+     * this method is used to create a new role
+     * @param id role id
+     * @param name role name
+     * @param description role description
+     */
     @Override
     public void createRole(String id, String name, String description) {
         try{
@@ -83,6 +104,11 @@ public class AuthenticationServiceImpl implements AuthenticationService{
         }
     }
 
+    /**
+     * this method is used to add a permssion to a role
+     * @param permissionId permission id
+     * @param roleId role id
+     */
     @Override
     public void addPermissionToRole(String permissionId, String roleId) {
         try{
@@ -101,6 +127,11 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
     }
 
+    /**
+     * this method is used to create  new user
+     * @param id user id
+     * @param name user name
+     */
     @Override
     public void createUser(String id, String name) {
         try{
@@ -117,6 +148,13 @@ public class AuthenticationServiceImpl implements AuthenticationService{
         }
     }
 
+    /**
+     * this method is for adding new credentials to a user
+     * @param userId user id
+     * @param credentialId credential id
+     * @param credentialType credential type (password, faceprint or voiceprint)
+     * @param password password value
+     */
     @Override
     public void addUserCredential(String userId, String credentialId, String credentialType, String password) {
         try {
@@ -152,6 +190,11 @@ public class AuthenticationServiceImpl implements AuthenticationService{
         }
     }
 
+    /**
+     * this method is used to assign a role to a user
+     * @param userId user id
+     * @param roleId role id
+     */
     @Override
     public void addRoleToUser(String userId, String roleId) {
         try{
@@ -169,6 +212,12 @@ public class AuthenticationServiceImpl implements AuthenticationService{
         }
     }
 
+    /**
+     * this method is used to create a new resource role
+     * @param id resource role id
+     * @param name role name
+     * @param description role description
+     */
     @Override
     public void createResourceRole(String id, String name, String description) {
         try{
@@ -185,6 +234,12 @@ public class AuthenticationServiceImpl implements AuthenticationService{
         }
     }
 
+    /**
+     * THis method is used to create a new resource and add it to a resource role
+     * @param roleId role id
+     * @param resourceId resource id
+     * @param resourceDescription resource desfription
+     */
     @Override
     public void addResourceToResourceRole(String roleId, String resourceId, String resourceDescription) {
         try{
@@ -207,6 +262,12 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
     }
 
+    /**
+     * this merhod is used to login a user or authenticate a user in order to generate an authToken
+     * @param username user name (user id)
+     * @param password user password
+     * @return active authToken that cen be used to check access
+     */
     @Override
     public AuthToken login(String username, String password) {
         AuthToken authToken = null;
@@ -263,7 +324,10 @@ public class AuthenticationServiceImpl implements AuthenticationService{
         }
 
 
-
+    /**
+     * method to logout a user. this method will expire the authtoken of the user
+     * @param userId
+     */
     @Override
     public void logout(String userId) {
         try{
@@ -279,7 +343,14 @@ public class AuthenticationServiceImpl implements AuthenticationService{
         }
     }
 
-
+    /**
+     * this method will check access for a user. it will verify if the AuthToken is active and the user has sufficient permissions. If resource field is provided,
+     * the method will search if the resource exist in any associated resource role for this use.
+     * @param authToken authToken id value
+     * @param requiredPermission the required permission to check if the user has it
+     * @param resource the resource id if its linked to any exiting resource role
+     * @return boolean value where true means access granted
+     */
     @Override
     public boolean checkAccess(String authToken, Object requiredPermission, String resource) {
         Visitor checkAccessVisitor = new CheckAccessVisitor();
