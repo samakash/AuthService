@@ -5,6 +5,9 @@ import cscie97.smartcity.authentication.Visitor;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * user class represents the actual user of the authentication service
+ */
 public class User {
 
     private String id;
@@ -13,6 +16,11 @@ public class User {
     private List<Credential> credentials;
     private List<Entitlement> entitlements;
 
+    /**
+     * constructor for user
+     * @param id
+     * @param name
+     */
     public User(String id, String name) {
         this.id = id;
         this.name = name;
@@ -22,46 +30,75 @@ public class User {
 
     }
 
+    /**
+     * getter for id
+     * @return
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * setter for id
+     * @param id
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * getter fro name
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * seteer for name
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * getter fro AuthToken
+     * @return
+     */
     public AuthToken getAuthToken() {
         return authToken;
     }
 
+    /**
+     * setter fro AuthToken
+     * @param authToken
+     */
     public void setAuthToken(AuthToken authToken) {
         this.authToken = authToken;
     }
 
+    /**
+     * getter for user credentials
+     * @return
+     */
     public List<Credential> getCredentials() {
         return credentials;
     }
 
-    public void setCredentials(List<Credential> credentials) {
-        this.credentials = credentials;
-    }
-
+    /**
+     * getter for assigned roles and permission for this user
+     * @return
+     */
     public List<Entitlement> getEntitlements() {
         return entitlements;
     }
 
-    public void setEntitlements(List<Entitlement> entitlements) {
-        this.entitlements = entitlements;
-    }
 
+    /**
+     * formatted toString method
+     * @return
+     */
     @Override
     public String toString() {
         return "User{" +
@@ -73,6 +110,10 @@ public class User {
                 '}';
     }
 
+    /**
+     * design patter accept method
+     * @param visitor
+     */
     public void accept(Visitor visitor){
         visitor.visit(this);
     }

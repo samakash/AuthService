@@ -8,11 +8,9 @@ import java.util.HashMap;
 
 public interface AuthenticationService {
 
-
     static AuthenticationServiceImpl getInstance(){
         return AuthenticationServiceImpl.getInstance();
     }
-
     void createPermission(String id, String name, String description);
     void createRole(String id, String name, String description);
     void addPermissionToRole(String permissionId, String roleId);
@@ -24,8 +22,6 @@ public interface AuthenticationService {
     AuthToken login(String username,String password);
     void logout(String userId);
     boolean checkAccess(String authToken, Object requiredPermission, String resource);
-
-
     HashMap<String, User> getUsersMap();
     HashMap<String, Entitlement> getEntitlementsMap();
     HashMap<String, AuthToken> getAuthTokensMap();
