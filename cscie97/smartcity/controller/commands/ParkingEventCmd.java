@@ -31,22 +31,27 @@ public class ParkingEventCmd implements Command {
      * @param eventBroker
      */
     public void execute(EventBroker eventBroker){
-        AuthenticationService authenticationService = AuthenticationService.getInstance();
-        AuthToken authToken = authenticationService.login("controller","controller");
-        Device device = (Device) modelService.showDevice(authToken.getAuthValue(),eventBroker.getCityId(), eventBroker.getDeviceId());
-        if(device instanceof ParkingSpace){
-            System.out.println("Controller Processing parking event command");
+        try{
+            AuthenticationService authenticationService = AuthenticationService.getInstance();
+            AuthToken authToken = authenticationService.login("controller","controller");
+            Device device = (Device) modelService.showDevice(authToken.getAuthValue(),eventBroker.getCityId(), eventBroker.getDeviceId());
+            if(device instanceof ParkingSpace){
+                System.out.println("Controller Processing parking event command");
 
-            String vehicleId = SmartCityUtils.extractValue(eventBroker.getEvent().getAction(),"vehicle");
-            int hoursParked = Integer.parseInt(SmartCityUtils.extractValue(eventBroker.getEvent().getAction(),"for"));
-            authToken = authenticationService.login("controller","controller");
-            Vehicle vehicle =((Vehicle) modelService.showDevice(authToken.getAuthValue(),eventBroker.getCityId(),vehicleId));
-            authToken = authenticationService.login("controller","controller");
-            ParkingSpace parkingSpace =((ParkingSpace) modelService.showDevice(
-                    authToken.getAuthValue(),eventBroker.getCityId(), eventBroker.getDeviceId()));
-            int totalAmount = (int) parkingSpace.getHourlyRate()*hoursParked;
-            ledgerService.processTransaction("t"+SmartCityUtils.getRandomInt(),totalAmount
-                    ,10,"Parking space fees ",vehicle.getAccountAddress(), parkingSpace.getAccountAddress());
+                String vehicleId = SmartCityUtils.extractValue(eventBroker.getEvent().getAction(),"vehicle");
+                int hoursParked = Integer.parseInt(SmartCityUtils.extractValue(eventBroker.getEvent().getAction(),"for"));
+                authToken = authenticationService.login("controller","controller");
+                Vehicle vehicle =((Vehicle) modelService.showDevice(authToken.getAuthValue(),eventBroker.getCityId(),vehicleId));
+                authToken = authenticationService.login("controller","controller");
+                ParkingSpace parkingSpace =((ParkingSpace) modelService.showDevice(
+                        authToken.getAuthValue(),eventBroker.getCityId(), eventBroker.getDeviceId()));
+                int totalAmount = (int) parkingSpace.getHourlyRate()*hoursParked;
+                ledgerService.processTransaction("t"+SmartCityUtils.getRandomInt(),totalAmount
+                        ,10,"Parking space fees ",vehicle.getAccountAddress(), parkingSpace.getAccountAddress());
+            }
+        } catch (Exception e){
+            System.out.println(e);
         }
+
     }
 }

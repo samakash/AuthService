@@ -30,26 +30,29 @@ public class LitterEventCmd implements Command {
      * @param eventBroker
      */
     public void execute(EventBroker eventBroker){
-        System.out.println("Controller processing litter event command");
+        try{
+            //send speak command
+            System.out.println("Controller processing litter event command");
+            AuthenticationService authenticationService = AuthenticationService.getInstance();
+            AuthToken authToken = authenticationService.login("controller","controller");
+            modelService.createSensorOutput(authToken.getAuthValue(), eventBroker.getCityId(), eventBroker.getDeviceId(),"speaker",
+                    "Please do not litter");
 
-        //send speak command
-        AuthenticationService authenticationService = AuthenticationService.getInstance();
-        AuthToken authToken = authenticationService.login("controller","controller");
-        modelService.createSensorOutput(authToken.getAuthValue(), eventBroker.getCityId(), eventBroker.getDeviceId(),"speaker",
-                "Please do not litter");
+            //send nearest robot to location to clean garbage
+            Robot robot = SmartCityUtils.getNearestRobot(eventBroker.getCityId(), eventBroker.getLocation());
+            authToken = authenticationService.login("controller","controller");
+            modelService.updateRobot(authToken.getAuthValue(), eventBroker.getCityId(), robot.getId(), robot.getAccountAddress(), robot.getLocation().getLatitude(),
+                    robot.getLocation().getLongitude(),true,
+                    "clean garbage at lat "+eventBroker.getLocation().getLatitude()+" long "+eventBroker.getLocation().getLongitude());
 
-        //send nearest robot to location to clean garbage
-        Robot robot = SmartCityUtils.getNearestRobot(eventBroker.getCityId(), eventBroker.getLocation());
-        authToken = authenticationService.login("controller","controller");
-        modelService.updateRobot(authToken.getAuthValue(), eventBroker.getCityId(), robot.getId(), robot.getAccountAddress(), robot.getLocation().getLatitude(),
-                robot.getLocation().getLongitude(),true,
-                "clean garbage at lat "+eventBroker.getLocation().getLatitude()+" long "+eventBroker.getLocation().getLongitude());
-
-        //charge resident 50 unites
-        //ledger logic here
-        if (eventBroker.getEvent().getSubject() instanceof Resident){
-            ledgerService.processTransaction("t"+SmartCityUtils.getRandomInt(), 50, 10,"Fine for littering garbage",
-                    (((Resident) eventBroker.getEvent().getSubject()).getAccountAddress()),"master");
+            //charge resident 50 unites
+            //ledger logic here
+            if (eventBroker.getEvent().getSubject() instanceof Resident){
+                ledgerService.processTransaction("t"+SmartCityUtils.getRandomInt(), 50, 10,"Fine for littering garbage",
+                        (((Resident) eventBroker.getEvent().getSubject()).getAccountAddress()),"master");
+            }
+        } catch (Exception e){
+            System.out.println(e);
         }
 
     }

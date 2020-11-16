@@ -33,33 +33,34 @@ public class MovieReservationCmd implements Command {
      * @param eventBroker
      */
     public void execute(EventBroker eventBroker){
-        AuthenticationService authenticationService = AuthenticationService.getInstance();
-        AuthToken authToken = authenticationService.login("controller","controller");
-        Device device = (Device) modelService.showDevice(authToken.getAuthValue(),eventBroker.getCityId(), eventBroker.getDeviceId());
+        try{
+            AuthenticationService authenticationService = AuthenticationService.getInstance();
+            AuthToken authToken = authenticationService.login("controller","controller");
+            Device device = (Device) modelService.showDevice(authToken.getAuthValue(),eventBroker.getCityId(), eventBroker.getDeviceId());
 
-        if(device instanceof InformationKiosk){
-            System.out.println("Controller Processing movie reservation command");
+            if(device instanceof InformationKiosk){
+                System.out.println("Controller Processing movie reservation command");
 
-            //get person and device
-            authToken = authenticationService.login("controller","controller");
-            Person person = (Person) modelService.showPerson(authToken.getAuthValue(),eventBroker.getCityId(),eventBroker.getEvent().getSubject().getId());
-            authToken = authenticationService.login("controller","controller");
-            InformationKiosk kiosk = (InformationKiosk) modelService.showDevice(authToken.getAuthValue(),eventBroker.getCityId(),eventBroker.getDeviceId());
+                //get person and device
+                authToken = authenticationService.login("controller","controller");
+                Person person = (Person) modelService.showPerson(authToken.getAuthValue(),eventBroker.getCityId(),eventBroker.getEvent().getSubject().getId());
+                authToken = authenticationService.login("controller","controller");
+                InformationKiosk kiosk = (InformationKiosk) modelService.showDevice(authToken.getAuthValue(),eventBroker.getCityId(),eventBroker.getDeviceId());
 
-            //get total seats required for reservation
-            int totalSeats = Integer.parseInt(SmartCityUtils.extractValue(eventBroker.getEvent().getAction(),"reserve"));
+                //get total seats required for reservation
+                int totalSeats = Integer.parseInt(SmartCityUtils.extractValue(eventBroker.getEvent().getAction(),"reserve"));
 
-            //If the person is a resident and has a positive account balance, charge the person 10 units
-            if (person instanceof Resident){
-                int balance = ledgerService.getAccountBalance(((Resident) eventBroker.getEvent().getSubject()).getAccountAddress());
-                if (balance >= totalSeats*10){
-                    ledgerService.processTransaction("t"+SmartCityUtils.getRandomInt(),
-                            totalSeats*10,10,"Movie reservation fees",((Resident) person).getAccountAddress(),
-                            kiosk.getAccountAddress());
-                    //send speaker command
+                //If the person is a resident and has a positive account balance, charge the person 10 units
+                if (person instanceof Resident){
+                    int balance = ledgerService.getAccountBalance(((Resident) eventBroker.getEvent().getSubject()).getAccountAddress());
+                    if (balance >= totalSeats*10){
+                        ledgerService.processTransaction("t"+SmartCityUtils.getRandomInt(),
+                                totalSeats*10,10,"Movie reservation fees",((Resident) person).getAccountAddress(),
+                                kiosk.getAccountAddress());
+                        //send speaker command
 
-                    //get user credentials and use it to authenticate, then use the authToken in the model service.
-                    try{
+                        //get user credentials and use it to authenticate, then use the authToken in the model service.
+
                         String userId = eventBroker.getEvent().getSubject().getId();
                         Credential userCredential = authenticationService.getUsersMap().get(userId).getCredentials().get(0);
                         if(userCredential instanceof Login){
@@ -74,13 +75,12 @@ public class MovieReservationCmd implements Command {
                         }
                         modelService.createSensorOutput(authToken.getAuthValue(), eventBroker.getCityId(), eventBroker.getDeviceId(),"speaker",
                                 "your seats are reserved; please arrive a few minutes early.");
-                    } catch (Exception e){
-
                     }
-
                 }
-
             }
+        } catch (Exception e){
+            System.out.println(e);
         }
+
     }
 }

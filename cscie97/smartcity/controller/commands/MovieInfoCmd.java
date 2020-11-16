@@ -30,10 +30,10 @@ public class MovieInfoCmd implements Command {
      * @param eventBroker
      */
     public void execute(EventBroker eventBroker){
-        AuthenticationService authenticationService = AuthenticationService.getInstance();
-        AuthToken authToken = authenticationService.login("controller","controller");
-        Device device = (Device) modelService.showDevice(authToken.getAuthValue(),eventBroker.getCityId(), eventBroker.getDeviceId());
         try{
+            AuthenticationService authenticationService = AuthenticationService.getInstance();
+            AuthToken authToken = authenticationService.login("controller","controller");
+            Device device = (Device) modelService.showDevice(authToken.getAuthValue(),eventBroker.getCityId(), eventBroker.getDeviceId());
             if(device instanceof InformationKiosk){
                 System.out.println("Controller Processing movie info command");
                 //send speaker output to device

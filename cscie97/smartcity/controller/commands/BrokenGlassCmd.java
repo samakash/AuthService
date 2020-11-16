@@ -30,17 +30,21 @@ public class BrokenGlassCmd implements Command {
      */
     public void execute(EventBroker eventBroker){
         System.out.println("Controller processing broken glass command");
+        try{
+            //get model service and devices
+            ModelService modelService = ModelService.getInstance();
 
-        //get model service and devices
-        ModelService modelService = ModelService.getInstance();
+            //send nearest robot to clean broken glass
+            Robot robot = SmartCityUtils.getNearestRobot(eventBroker.getCityId(), eventBroker.getLocation());
 
-        //send nearest robot to clean broken glass
-        Robot robot = SmartCityUtils.getNearestRobot(eventBroker.getCityId(), eventBroker.getLocation());
+            AuthenticationService authenticationService = AuthenticationService.getInstance();
+            AuthToken authToken = authenticationService.login("controller","controller");
+            modelService.updateRobot(authToken.getAuthValue(), eventBroker.getCityId(), robot.getId(), robot.getAccountAddress(), robot.getLocation().getLatitude(),
+                    robot.getLocation().getLongitude(),true,
+                    "clean up broken glass lat "+eventBroker.getLocation().getLatitude()+" long "+eventBroker.getLocation().getLongitude());
+        } catch (Exception e){
+            System.out.println(e);
+        }
 
-        AuthenticationService authenticationService = AuthenticationService.getInstance();
-        AuthToken authToken = authenticationService.login("controller","controller");
-        modelService.updateRobot(authToken.getAuthValue(), eventBroker.getCityId(), robot.getId(), robot.getAccountAddress(), robot.getLocation().getLatitude(),
-                robot.getLocation().getLongitude(),true,
-                "clean up broken glass lat "+eventBroker.getLocation().getLatitude()+" long "+eventBroker.getLocation().getLongitude());
     }
 }

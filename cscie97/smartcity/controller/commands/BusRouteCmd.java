@@ -61,7 +61,7 @@ public class BusRouteCmd implements Command {
             }
 
         } catch (Exception e){
-
+            System.out.println(e);
         }
     }
 }

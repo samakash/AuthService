@@ -29,32 +29,30 @@ public class PersonSeenCmd implements Command {
      * @param eventBroker
      */
     public void execute(EventBroker eventBroker){
-        System.out.println("Controller processing person seen command");
-        System.out.println("here"+eventBroker);
-        //get model service
+        try{
+            System.out.println("Controller processing person seen command");
 
-        //update person location
-        AuthenticationService authenticationService = AuthenticationService.getInstance();
-        AuthToken authToken = authenticationService.login("controller","controller");
+            //update person location
+            AuthenticationService authenticationService = AuthenticationService.getInstance();
+            AuthToken authToken = authenticationService.login("controller","controller");
 
-        Object person = modelService.showPerson(authToken.getAuthValue(), eventBroker.getCityId(), eventBroker.getEvent().getSubject().getId());
+            Object person = modelService.showPerson(authToken.getAuthValue(), eventBroker.getCityId(), eventBroker.getEvent().getSubject().getId());
 
 
-        if(person instanceof Resident){
-            Resident resident = (Resident) person;
-            authToken = authenticationService.login("controller","controller");
-            modelService.updateResident(authToken.getAuthValue(), eventBroker.getCityId(), resident.getId(), resident.getName(), resident.getBiometricId(),
-                    resident.getPhone(), resident.getRole().toString(), eventBroker.getLocation().getLatitude(), eventBroker.getLocation().getLongitude(),
-                    resident.getAccountAddress());
-        } else if (person instanceof Visitor){
-            Visitor visitor = (Visitor) person;
-            authToken = authenticationService.login("controller","controller");
-            modelService.updateVisitor(authToken.getAuthValue(), eventBroker.getCityId(), visitor.getId(),visitor.getId(),
-                    eventBroker.getLocation().getLatitude(), eventBroker.getLocation().getLongitude());
+            if(person instanceof Resident){
+                Resident resident = (Resident) person;
+                authToken = authenticationService.login("controller","controller");
+                modelService.updateResident(authToken.getAuthValue(), eventBroker.getCityId(), resident.getId(), resident.getName(), resident.getBiometricId(),
+                        resident.getPhone(), resident.getRole().toString(), eventBroker.getLocation().getLatitude(), eventBroker.getLocation().getLongitude(),
+                        resident.getAccountAddress());
+            } else if (person instanceof Visitor){
+                Visitor visitor = (Visitor) person;
+                authToken = authenticationService.login("controller","controller");
+                modelService.updateVisitor(authToken.getAuthValue(), eventBroker.getCityId(), visitor.getId(),visitor.getId(),
+                        eventBroker.getLocation().getLatitude(), eventBroker.getLocation().getLongitude());
+            }
+        } catch (Exception e){
+            System.out.println(e);
         }
-
-
-
-
     }
 }

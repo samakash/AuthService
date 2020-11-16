@@ -279,111 +279,6 @@ public class AuthenticationServiceImpl implements AuthenticationService{
         }
     }
 
-//    @Override
-//    public boolean checkAccess(String authToken, Object requiredPermission, String resource) {
-//        boolean validStatus = false;
-//        boolean validExpTime = false;
-//        boolean hasPermissions = false;
-//        boolean hasResources = false;
-//        String userId = null;
-//
-//        try {
-//            if(authTokensMap.containsKey(authToken)) {
-//                //extract all associated permission for this user
-//                List<String> tempEntitlementsList = new ArrayList<>();
-//                List<String> tempResourcesList = new ArrayList<>();
-//                AuthToken authToken1 = authTokensMap.get(authToken);
-//                userId = authToken1.getUserUnderValidation().getId();
-//                for (Entitlement entitlement : authToken1.getUserUnderValidation().getEntitlements()) {
-//                    tempEntitlementsList.addAll(entitlement.extractComposite(authToken1.getUserUnderValidation().getEntitlements()));
-//                    if(entitlement instanceof ResourceRole){
-//                        for(Resource resource1 : entitlement.getResources()){
-//                            tempResourcesList.add(resource1.getId());
-//                        }
-//                    }
-//                }
-//                if(requiredPermission instanceof String){
-//                    //validate if token status is expired
-//                    if (getAuthTokensMap().get(authToken).getState().equals(TokenState.active)) {
-//                        validStatus = true;
-//                    } else{
-//                        throw new AuthenticationException("Authentication Failed","AuthToken is expired.");
-//                    }
-//                    //validate if expiration time is due
-//                    Calendar calendar = Calendar.getInstance();
-//                    Date now = calendar.getTime();
-//                    Date authTokenExpTime = new Date(getAuthTokensMap().get(authToken).getExpirationTime());
-//                    if(authTokenExpTime.after(now)) {
-//                        validExpTime = true;
-//                    }
-//                    //check required permission and resources
-//                    if(tempEntitlementsList.contains(requiredPermission)){
-//                        hasPermissions = true;
-//                    } else{
-//                        throw new AuthenticationException("Authentication Failed","User doesn't have required permissions");
-//                    }
-//                    if(!resource.equals("") && tempResourcesList.contains(resource)){
-//                        hasResources = true;
-//                    } else if (!resource.equals("") && !tempResourcesList.contains(resource)){
-//                        throw new AuthenticationException("Authentication Failed","Required resource is not associated with any resource roles for this user");
-//                    }
-//                } else if (requiredPermission instanceof List){
-//                    //validate if token expired
-//                    if (getAuthTokensMap().get(authToken).getState().equals(TokenState.active)) {
-//                        validStatus = true;
-//                    } else{
-//                        throw new AuthenticationException("Authentication Failed","AuthToken is expired.");
-//                    }
-//                    //validate if expiration time is due
-//                    Calendar calendar = Calendar.getInstance();
-//                    Date now = calendar.getTime();
-//                    Date authTokenExpTime = new Date(getAuthTokensMap().get(authToken).getExpirationTime());
-//                    if(authTokenExpTime.after(now)) {
-//                        validExpTime = true;
-//                    }
-//                    //check required permission and resources
-//                    List<String> ls = (List<String>) requiredPermission;
-//                    for(String val : ls){
-//                        if(tempEntitlementsList.contains(val)){
-//                            hasPermissions = true;
-//                        }
-//                    }
-//                    if(!hasPermissions){
-//                        throw new AuthenticationException("Authentication Failed","User doesn't have required permissions");
-//                    }
-//                    if(!resource.equals("") && tempResourcesList.contains(resource)){
-//                        hasResources = true;
-//                    } else if (!resource.equals("") && !tempResourcesList.contains(resource)){
-//                        throw new AuthenticationException("Authentication Failed","Required resource is not associated with any resource roles for this user");
-//                    }
-//                }
-//            } else{
-//                throw new AuthenticationException("Authentication Failed","authToken is not valid");
-//            }
-//
-//        } catch (AuthenticationException e){
-//            System.out.println(e);
-//        }
-//
-//        if (resource.equals("")){
-//            if(validStatus && validExpTime && hasPermissions){
-//                //expire authToken after each use to simplify the command line demo
-//                logout(userId);
-//                return true;
-//            } else {
-//                return false;
-//            }
-//        } else{
-//            if(validStatus && validExpTime && hasPermissions && hasResources){
-//                //expire authToken after each use to simplify the command line demo
-//                logout(userId);
-//                return  true;
-//            } else{
-//                return false;
-//            }
-//        }
-//
-//    }
 
     @Override
     public boolean checkAccess(String authToken, Object requiredPermission, String resource) {
@@ -405,7 +300,6 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                 } else if (requiredPermission instanceof List){
 
                     List<String> ls = (List<String>) requiredPermission;
-//                    System.out.println("checkAccess Required permision:"+requiredPermission);
                     for(String val : ls){
                         Entitlement entitlement2 = entitlementsMap.get(val);
                         entitlement2.accept(checkAccessVisitor);
@@ -455,9 +349,14 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
     }
 
-
-    private String hashCredential(String value) throws Exception {
-        return SmartCityUtils.encrypt(value);
+    private String hashCredential(String value)  {
+        String out = null;
+        try {
+            out = SmartCityUtils.encrypt(value);
+        } catch (Exception e){
+            System.out.println(e);
+        }
+        return out;
     }
 
 }

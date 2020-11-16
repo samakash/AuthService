@@ -34,63 +34,68 @@ public class Co2EventCmd implements Command {
      */
     public void execute(EventBroker eventBroker){
 
-        //get model service and devices
-        AuthenticationService authenticationService = AuthenticationService.getInstance();
-        AuthToken authToken = authenticationService.login("controller","controller");
-        Map<String, Device> devicesMap = modelService.showCity(authToken.getAuthValue(), eventBroker.getCityId()).getDevicesMap();
+        try{
+            //get model service and devices
+            AuthenticationService authenticationService = AuthenticationService.getInstance();
+            AuthToken authToken = authenticationService.login("controller","controller");
+            Map<String, Device> devicesMap = modelService.showCity(authToken.getAuthValue(), eventBroker.getCityId()).getDevicesMap();
 
-        //get a list of all cars in the city
-        List<Vehicle> allCars = new ArrayList<>();
-        for (Map.Entry mapElement : devicesMap.entrySet()){
-            Device device = (Device) mapElement.getValue();
-            if(device instanceof Vehicle && ((Vehicle)device).getVehicleType()==VehicleType.car){
-               allCars.add((Vehicle) device);
-            }
-        }
-        // disable all cars in the city
-        if(eventBroker.getEvent().getAction().contains("level over 1000")){
-            int eventCount = 0;
+            //get a list of all cars in the city
+            List<Vehicle> allCars = new ArrayList<>();
             for (Map.Entry mapElement : devicesMap.entrySet()){
-                try{
-                    Device device = (Device) mapElement.getValue();
-                    if(device.getLastEvent().getAction().contains("CO2 level over 1000")){
-                        eventCount++;
+                Device device = (Device) mapElement.getValue();
+                if(device instanceof Vehicle && ((Vehicle)device).getVehicleType()==VehicleType.car){
+                    allCars.add((Vehicle) device);
+                }
+            }
+            // disable all cars in the city
+            if(eventBroker.getEvent().getAction().contains("level over 1000")){
+                int eventCount = 0;
+                for (Map.Entry mapElement : devicesMap.entrySet()){
+                    try{
+                        Device device = (Device) mapElement.getValue();
+                        if(device.getLastEvent().getAction().contains("CO2 level over 1000")){
+                            eventCount++;
+                        }
+                    } catch (NullPointerException e){
+
                     }
-                } catch (NullPointerException e){
-
                 }
-            }
-            if(eventCount >3){
-                System.out.println("Controller Processing CO2 level over 1000 command");
-                for(Vehicle car : allCars){
-                    authToken = authenticationService.login("controller","controller");
-                    modelService.updateVehicle(authToken.getAuthValue(), eventBroker.getCityId(), car.getId(), car.getAccountAddress(), car.getLocation().getLatitude(),
-                            car.getLocation().getLongitude(),false,"Car is disabled due to high CO2 level", car.getFee());
-                }
-            }
-
-        }
-        //enable cars in the city
-        else if (eventBroker.getEvent().getAction().contains("level under 1000")){
-            int eventCount = 0;
-            for (Map.Entry mapElement : devicesMap.entrySet()){
-                try{
-                    Device device = (Device) mapElement.getValue();
-                    if(device.getLastEvent().getAction().contains("CO2 level under 1000")){
-                        eventCount++;
+                if(eventCount >3){
+                    System.out.println("Controller Processing CO2 level over 1000 command");
+                    for(Vehicle car : allCars){
+                        authToken = authenticationService.login("controller","controller");
+                        modelService.updateVehicle(authToken.getAuthValue(), eventBroker.getCityId(), car.getId(), car.getAccountAddress(), car.getLocation().getLatitude(),
+                                car.getLocation().getLongitude(),false,"Car is disabled due to high CO2 level", car.getFee());
                     }
-                } catch (NullPointerException e){
+                }
 
+            }
+            //enable cars in the city
+            else if (eventBroker.getEvent().getAction().contains("level under 1000")){
+                int eventCount = 0;
+                for (Map.Entry mapElement : devicesMap.entrySet()){
+                    try{
+                        Device device = (Device) mapElement.getValue();
+                        if(device.getLastEvent().getAction().contains("CO2 level under 1000")){
+                            eventCount++;
+                        }
+                    } catch (NullPointerException e){
+
+                    }
+                }
+                if(eventCount >3){
+                    System.out.println("Controller Processing CO2 level under 1000 command");
+                    for(Vehicle car : allCars){
+                        authToken = authenticationService.login("controller","controller");
+                        modelService.updateVehicle(authToken.getAuthValue(), eventBroker.getCityId(), car.getId(), car.getAccountAddress(), car.getLocation().getLatitude(),
+                                car.getLocation().getLongitude(),true,"Car is enabled due to stable CO2 level", car.getFee());
+                    }
                 }
             }
-            if(eventCount >3){
-                System.out.println("Controller Processing CO2 level under 1000 command");
-                for(Vehicle car : allCars){
-                    authToken = authenticationService.login("controller","controller");
-                    modelService.updateVehicle(authToken.getAuthValue(), eventBroker.getCityId(), car.getId(), car.getAccountAddress(), car.getLocation().getLatitude(),
-                            car.getLocation().getLongitude(),true,"Car is enabled due to stable CO2 level", car.getFee());
-                }
-            }
+        } catch (Exception e){
+            System.out.println(e);
         }
+
     }
 }
