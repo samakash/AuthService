@@ -42,15 +42,15 @@ public interface AuthenticationService {
     void addPermissionToRole(String permissionId, String roleId);
 
     /**
-     * this method is used to create  new user
-     * @param id user id
-     * @param name user name
+     * this method is used to create  new userUnderValidation
+     * @param id userUnderValidation id
+     * @param name userUnderValidation name
      */
     void createUser(String id, String name);
 
     /**
-     * this method is for adding new credentials to a user
-     * @param userId user id
+     * this method is for adding new credentials to a userUnderValidation
+     * @param userId userUnderValidation id
      * @param credentialId credential id
      * @param credentialType credential type (password, faceprint or voiceprint)
      * @param password password value
@@ -58,8 +58,8 @@ public interface AuthenticationService {
     void addUserCredential(String userId, String credentialId, String credentialType, String password);
 
     /**
-     * this method is used to assign a role to a user
-     * @param userId user id
+     * this method is used to assign a role to a userUnderValidation
+     * @param userId userUnderValidation id
      * @param roleId role id
      */
     void addRoleToUser(String userId, String roleId);
@@ -81,24 +81,24 @@ public interface AuthenticationService {
     void addResourceToResourceRole(String roleId, String resourceId,String resourceDescription);
 
     /**
-     * this merhod is used to login a user or authenticate a user in order to generate an authToken
-     * @param username user name (user id)
-     * @param password user password
+     * this merhod is used to login a userUnderValidation or authenticate a userUnderValidation in order to generate an authToken
+     * @param username userUnderValidation name (userUnderValidation id)
+     * @param password userUnderValidation password
      * @return active authToken that cen be used to check access
      */
     AuthToken login(String username,String password);
 
     /**
-     * method to logout a user. this method will expire the authtoken of the user
+     * method to logout a userUnderValidation. this method will expire the authtoken of the userUnderValidation
      * @param userId
      */
     void logout(String userId);
 
     /**
-     * this method will check access for a user. it will verify if the AuthToken is active and the user has sufficient permissions. If resource field is provided,
+     * this method will check access for a userUnderValidation. it will verify if the AuthToken is active and the userUnderValidation has sufficient permissions. If resource field is provided,
      * the method will search if the resource exist in any associated resource role for this use.
      * @param authToken authToken id value
-     * @param requiredPermission the required permission to check if the user has it
+     * @param requiredPermission the required permission to check if the userUnderValidation has it
      * @param resource the resource id if its linked to any exiting resource role
      * @return boolean value where true means access granted
      */

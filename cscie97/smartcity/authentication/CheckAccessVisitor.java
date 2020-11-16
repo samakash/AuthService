@@ -4,7 +4,7 @@ import cscie97.smartcity.authentication.domain.*;
 import java.util.*;
 
 /**
- * this class is an implementation for the visitor interface. This class is used to check access for a user.
+ * this class is an implementation for the visitor interface. This class is used to check access for a userUnderValidation.
  */
 public class CheckAccessVisitor implements Visitor {
 
@@ -12,7 +12,7 @@ public class CheckAccessVisitor implements Visitor {
     boolean validExpTime = false;
     boolean hasPermissions = false;
     boolean hasResources = false;
-    User user = null;
+    User userUnderValidation = null;
     List<String> extractedResources = new ArrayList<>();
 
     /**
@@ -32,7 +32,7 @@ public class CheckAccessVisitor implements Visitor {
     }
 
     /**
-     * getter for the result of validating permissions for a user
+     * getter for the result of validating permissions for a userUnderValidation
      * @return
      */
     public boolean isHasPermissions() {
@@ -48,15 +48,15 @@ public class CheckAccessVisitor implements Visitor {
     }
 
     /**
-     * getter for the user that is under validation while executing the validation.
+     * getter for the userUnderValidation that is under validation while executing the validation.
      * @return
      */
     public User getUserUnderValidation() {
-        return user;
+        return userUnderValidation;
     }
 
     /**
-     * This method will verify if user exists before start validating its authToken.
+     * This method will verify if userUnderValidation exists before start validating its authToken.
      * @param user
      */
     @Override
@@ -64,7 +64,7 @@ public class CheckAccessVisitor implements Visitor {
         try{
             AuthenticationService authenticationService = AuthenticationService.getInstance();
             if(authenticationService.getUsersMap().containsKey(user.getId())){
-                this.user = authenticationService.getUsersMap().get(user.getId());
+                this.userUnderValidation = authenticationService.getUsersMap().get(user.getId());
             } else {
                 throw new AuthenticationException("Check Access Failed","User is not found");
             }
@@ -108,15 +108,15 @@ public class CheckAccessVisitor implements Visitor {
     }
 
     /**
-     * this method will search if the user has the required permssion. The result will update the hasPermssion class member value
+     * this method will search if the userUnderValidation has the required permssion. The result will update the hasPermssion class member value
      * @param entitlement
      */
     @Override
     public void visit(Entitlement entitlement) {
-            //extract all associated permission for this user
+            //extract all associated permission for this userUnderValidation
             List<String> tempEntitlementsList = new ArrayList<>();
             List<String> tempResourcesList = new ArrayList<>();
-            AuthToken authToken1 = user.getAuthToken();
+            AuthToken authToken1 = userUnderValidation.getAuthToken();
 
             for (Entitlement ent : authToken1.getUser().getEntitlements()) {
                 tempEntitlementsList.addAll(ent.extractComposite(authToken1.getUser().getEntitlements()));
@@ -145,7 +145,7 @@ public class CheckAccessVisitor implements Visitor {
             if(extractedResources.contains(resource.getId())){
                 hasResources = true;
             } else {
-                throw new AuthenticationException("Authentication Failed","Required resource is not associated with any resource roles for this user");
+                throw new AuthenticationException("Authentication Failed","Required resource is not associated with any resource roles for this userUnderValidation");
             }
         } catch (AuthenticationException ex){
             System.out.println(ex);

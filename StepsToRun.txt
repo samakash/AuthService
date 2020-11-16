@@ -5,3 +5,5 @@ Steps to build and run:
 2- javac cscie97/smartcity/model/*/*.java cscie97/smartcity/test/*.java cscie97/smartcity/controller/*/*.java cscie97/smartcity/controller/*.java cscie97/smartcity/ledger/*.java cscie97/smartcity/authentication/*/*.java cscie97/smartcity/authentication/*.java
 
 3- java -cp . cscie97.smartcity.test.TestDriver smartcity_model.script
+
+**NOTE: the compiler will show warning at the compile time, but it will not impact the output to the functionalities.  

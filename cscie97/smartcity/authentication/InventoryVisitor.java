@@ -10,7 +10,7 @@ import cscie97.smartcity.authentication.domain.User;
  */
 public class InventoryVisitor implements Visitor {
     /**
-     * this method is used to update a user in the inventory
+     * this method is used to update a userUnderValidation in the inventory
      * @param user
      */
     @Override

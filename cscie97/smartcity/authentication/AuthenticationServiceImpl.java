@@ -128,9 +128,9 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     }
 
     /**
-     * this method is used to create  new user
-     * @param id user id
-     * @param name user name
+     * this method is used to create  new userUnderValidation
+     * @param id userUnderValidation id
+     * @param name userUnderValidation name
      */
     @Override
     public void createUser(String id, String name) {
@@ -149,8 +149,8 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     }
 
     /**
-     * this method is for adding new credentials to a user
-     * @param userId user id
+     * this method is for adding new credentials to a userUnderValidation
+     * @param userId userUnderValidation id
      * @param credentialId credential id
      * @param credentialType credential type (password, faceprint or voiceprint)
      * @param password password value
@@ -164,24 +164,24 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                     User user = usersMap.get(userId);
                     user.getCredentials().add(credential);
                     user.accept(new InventoryVisitor());
-                    System.out.println("New Password credentials added to user: " + userId);
+                    System.out.println("New Password credentials added to userUnderValidation: " + userId);
                 } else if (credentialType.equals("faceprint")) {
                     Credential credential = new FacePrint(userId + credentialType, hashCredential(password));
                     User user = usersMap.get(userId);
                     user.getCredentials().add(credential);
                     user.accept(new InventoryVisitor());
-                    System.out.println("New faceprint credentials added to user: " + userId);
+                    System.out.println("New faceprint credentials added to userUnderValidation: " + userId);
                 } else if (credentialType.equals("voiceprint")) {
                     Credential credential = new VoicePrint(userId + credentialType, hashCredential(password));
                     User user = usersMap.get(userId);
                     user.getCredentials().add(credential);
                     user.accept(new InventoryVisitor());
-                    System.out.println("New voiceprint credentials added to user: " + userId);
+                    System.out.println("New voiceprint credentials added to userUnderValidation: " + userId);
                 } else {
                     throw new AuthenticationException("Add User Credentials failed", "Authentication type is not supported");
                 }
             } else {
-                throw new AuthenticationException("Add credentials to user failed","User is not found");
+                throw new AuthenticationException("Add credentials to userUnderValidation failed","User is not found");
             }
         } catch (AuthenticationException e){
             System.out.println(e);
@@ -191,8 +191,8 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     }
 
     /**
-     * this method is used to assign a role to a user
-     * @param userId user id
+     * this method is used to assign a role to a userUnderValidation
+     * @param userId userUnderValidation id
      * @param roleId role id
      */
     @Override
@@ -205,7 +205,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                 user.accept(new InventoryVisitor());
                 System.out.println("Role "+roleId+" has been added to User "+userId+" Successfully");
             } else {
-                throw new AuthenticationException("Add Role to User failed","role id or user id is not found");
+                throw new AuthenticationException("Add Role to User failed","role id or userUnderValidation id is not found");
             }
         } catch (AuthenticationException e){
             System.out.println(e);
@@ -263,9 +263,9 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     }
 
     /**
-     * this merhod is used to login a user or authenticate a user in order to generate an authToken
-     * @param username user name (user id)
-     * @param password user password
+     * this merhod is used to login a userUnderValidation or authenticate a userUnderValidation in order to generate an authToken
+     * @param username userUnderValidation name (userUnderValidation id)
+     * @param password userUnderValidation password
      * @return active authToken that cen be used to check access
      */
     @Override
@@ -289,7 +289,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                             authToken.accept(new InventoryVisitor());
                             user.setAuthToken(authToken);
                             user.accept(new InventoryVisitor());
-                            System.out.println("New authToken is generated for user: "+user.getId());
+                            System.out.println("New authToken is generated for userUnderValidation: "+user.getId());
                             break;
                         } else {
                             throw new AuthenticationException("Login Failed","please check username and password");
@@ -301,7 +301,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                             authToken.accept(new InventoryVisitor());
                             user.setAuthToken(authToken);
                             user.accept(new InventoryVisitor());
-                            System.out.println("New authToken is generated for user: "+user.getId());
+                            System.out.println("New authToken is generated for userUnderValidation: "+user.getId());
                         }
                     } else if (credential instanceof VoicePrint){
                         if(((VoicePrint)credential).getVoicePrintValue().equals(hashCredential(password))){
@@ -310,7 +310,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                             authToken.accept(new InventoryVisitor());
                             user.setAuthToken(authToken);
                             user.accept(new InventoryVisitor());
-                            System.out.println("New authToken is generated for user: "+user.getId());
+                            System.out.println("New authToken is generated for userUnderValidation: "+user.getId());
                         }
                     }
                 }
@@ -325,7 +325,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
 
     /**
-     * method to logout a user. this method will expire the authtoken of the user
+     * method to logout a userUnderValidation. this method will expire the authtoken of the userUnderValidation
      * @param userId
      */
     @Override
@@ -344,10 +344,10 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     }
 
     /**
-     * this method will check access for a user. it will verify if the AuthToken is active and the user has sufficient permissions. If resource field is provided,
+     * this method will check access for a userUnderValidation. it will verify if the AuthToken is active and the userUnderValidation has sufficient permissions. If resource field is provided,
      * the method will search if the resource exist in any associated resource role for this use.
      * @param authToken authToken id value
-     * @param requiredPermission the required permission to check if the user has it
+     * @param requiredPermission the required permission to check if the userUnderValidation has it
      * @param resource the resource id if its linked to any exiting resource role
      * @return boolean value where true means access granted
      */
@@ -360,7 +360,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                 //verify authtoken is active status and not expired
                 AuthToken authToken1 = authTokensMap.get(authToken);
                 authToken1.accept(checkAccessVisitor);
-                //verify user
+                //verify userUnderValidation
                 User user = authToken1.getUser();
                 user.accept(checkAccessVisitor);
                 //verify required permission
@@ -381,7 +381,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                     Resource resource1 = new Resource(resource,resource);
                     resource1.accept(checkAccessVisitor);
                 }
-                //throw exception if required permissions not found for this user
+                //throw exception if required permissions not found for this userUnderValidation
                 if(!checkAccessVisitor.isHasPermissions()){
                     throw new AuthenticationException("Authentication Failed","User doesn't have required permissions");
                 }

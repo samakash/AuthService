@@ -1,0 +1,853 @@
+--------------------------------------------------------------------
+processing define_permission auth_user_admin name "User Administrator" description "Create, Update, Delete Users"
+New permission is added Id: auth_user_admin
+--------------------------------------------------------------------
+processing define_permission auth_role_entitlement_admin name "User Administrator" description "Create, Update, Delete Entitlements"
+New permission is added Id: auth_role_entitlement_admin
+--------------------------------------------------------------------
+processing define_permission auth_resource_admin name "User Administrator" description "Create, Update, Delete Resources"
+New permission is added Id: auth_resource_admin
+--------------------------------------------------------------------
+processing define_permission scms_manage_city name "Create, description Update City" "Create or update a City"
+New permission is added Id: scms_manage_city
+--------------------------------------------------------------------
+processing define_permission scms_manage_device name "Create, description Update Device" description "Define a new City"
+New permission is added Id: scms_manage_device
+--------------------------------------------------------------------
+processing define_permission scms_manage_person name "Create, description Update Device" description "Define a new City"
+New permission is added Id: scms_manage_person
+--------------------------------------------------------------------
+processing define_permission scms_ride_bus name "ride a bus" description "ride a bus"
+New permission is added Id: scms_ride_bus
+--------------------------------------------------------------------
+processing define_permission scms_drive_car name "Drive Car" description "Drive a car"
+New permission is added Id: scms_drive_car
+--------------------------------------------------------------------
+processing define_permission scms_control_robot name "Control Robot" description "Full Control of Robots"
+New permission is added Id: scms_control_robot
+--------------------------------------------------------------------
+processing define_permission scms_use_kiosk name "kiosk user" description "interact and use information kiosks"
+New permission is added Id: scms_use_kiosk
+--------------------------------------------------------------------
+processing define_role adult_role name "Adult Role" description "Has all permissions of an adult"
+New Role is added Id: adult_role
+--------------------------------------------------------------------
+processing define_role child_role name "Child Role" description "Has all permissions of a child"
+New Role is added Id: child_role
+--------------------------------------------------------------------
+processing define_role public_admin_role name "Public Administrator Role" description "Has all permissions of a public administrator"
+New Role is added Id: public_admin_role
+--------------------------------------------------------------------
+processing define_role admin_role name "Admin Role" description "Has all permissions of an administrator"
+New Role is added Id: admin_role
+--------------------------------------------------------------------
+processing add_permission_to_role role admin_role permission auth_user_admin
+Added Permission auth_user_admin to Role admin_role successfully
+--------------------------------------------------------------------
+processing add_permission_to_role role admin_role permission scms_control_robot
+Added Permission scms_control_robot to Role admin_role successfully
+--------------------------------------------------------------------
+processing add_permission_to_role role admin_role permission scms_drive_car
+Added Permission scms_drive_car to Role admin_role successfully
+--------------------------------------------------------------------
+processing add_permission_to_role role admin_role permission scms_ride_bus
+Added Permission scms_ride_bus to Role admin_role successfully
+--------------------------------------------------------------------
+processing add_permission_to_role role admin_role permission scms_manage_city
+Added Permission scms_manage_city to Role admin_role successfully
+--------------------------------------------------------------------
+processing add_permission_to_role role admin_role permission scms_manage_device
+Added Permission scms_manage_device to Role admin_role successfully
+--------------------------------------------------------------------
+processing add_permission_to_role role admin_role permission scms_manage_person
+Added Permission scms_manage_person to Role admin_role successfully
+--------------------------------------------------------------------
+processing add_permission_to_role role admin_role permission scms_use_kiosk
+Added Permission scms_use_kiosk to Role admin_role successfully
+--------------------------------------------------------------------
+processing add_permission_to_role role public_admin_role permission scms_control_robot
+Added Permission scms_control_robot to Role public_admin_role successfully
+--------------------------------------------------------------------
+processing add_permission_to_role role public_admin_role permission scms_drive_car
+Added Permission scms_drive_car to Role public_admin_role successfully
+--------------------------------------------------------------------
+processing add_permission_to_role role adult_role permission scms_control_robot
+Added Permission scms_control_robot to Role adult_role successfully
+--------------------------------------------------------------------
+processing add_permission_to_role role adult_role permission scms_drive_car
+Added Permission scms_drive_car to Role adult_role successfully
+--------------------------------------------------------------------
+processing add_permission_to_role role adult_role permission scms_ride_bus
+Added Permission scms_ride_bus to Role adult_role successfully
+--------------------------------------------------------------------
+processing add_permission_to_role role adult_role permission scms_use_kiosk
+Added Permission scms_use_kiosk to Role adult_role successfully
+--------------------------------------------------------------------
+processing add_permission_to_role role child_role permission scms_ride_bus
+Added Permission scms_ride_bus to Role child_role successfully
+--------------------------------------------------------------------
+processing add_permission_to_role role child_role permission scms_use_kiosk
+Added Permission scms_use_kiosk to Role child_role successfully
+--------------------------------------------------------------------
+processing create_user admin_1 name "Debra Smart"
+New User is created Id: admin_1
+--------------------------------------------------------------------
+processing add_user_credential admin_1 type password value secret
+New Password credentials added to userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing add_role_to_user admin_1 role admin_role
+Role admin_role has been added to User admin_1 Successfully
+--------------------------------------------------------------------
+processing define_resource_role city1_public_administrator_resource_role name public_administrator_role description "city1 admin"
+New Resource Role is added Id: city1_public_administrator_resource_role
+--------------------------------------------------------------------
+processing define_resource_role city2_public_administrator_resource_role name public_administrator_role description "city2 admin"
+New Resource Role is added Id: city2_public_administrator_resource_role
+--------------------------------------------------------------------
+processing add_resource_to_resource_role city1_public_administrator_resource_role resource city description "the entire smart city"
+Resource city has been added to resource Role city1_public_administrator_resource_role
+--------------------------------------------------------------------
+processing add_resource_to_resource_role city2_public_administrator_resource_role resource city description "the entire smart city"
+Resource city has been added to resource Role city2_public_administrator_resource_role
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing define city city1 authToken admin_1 name boston account 11aa22vdsffgh lat 42.3601 long 71.0589 radius 20
+new city boston is defined
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing show city city1 authToken admin_1
+City{id='city1', name='boston', accountAddress='11aa22vdsffgh', radius=20.0, peopleMap={}, devicesMap={}, location=Location{latitude=42.3601, longitude=71.0589}}
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing define street-sign authToken admin_1 city city1 id street-sign1 account 23asd23sdf lat 42.3770 long 71.1167 enabled true text "hello I'm a text on street sign"
+new street-sign street-sign1 is defined
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing update street-sign authToken admin_1 city city1 id street-sign1 account 23234asfsdf enabled false text "hello I'm the updated text"
+street-sign street-sign1 is updated
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing define info-kiosk authToken admin_1 city city1 id info-kiosk1 account 23423asfasfasf lat 42.3770 long 71.1167 enabled true image http://www.something.com/img1.jpg redirectingURL www.tickets.com
+new info-kiosk info-kiosk1 is defined
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing update info-kiosk authToken admin_1 city city1 id info-kiosk1 account 23423asfasfasf enabled false image http://www.something.com/img2.jpg
+info-kiosk info-kiosk1 is updated
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing define street-light authToken admin_1 city city1 id street-light1 account 23423asfasfasf lat 42.3770 long 71.1167 enabled true brightness 75
+new street-light street-light1 is defined
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing update street-light authToken admin_1 city city1 id street-light1 account df2342xcv1242 enabled false brightness 90
+street-light street-light1 is updated
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing define parking-space authToken admin_1 city city1 id parking-space1 account 23zzz3asfasfasf lat 42.3770 long 71.1167 enabled true rate 2.50
+new parking-space parking-space1 is defined
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing update parking-space authToken admin_1 city city1 id parking-space1 account 23zzz3asfasfasf enabled true rate 3.00
+street-light parking-space1 is updated
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing define robot authToken admin_1 city city1 id robot1 account 223523asfasfasf lat 42.3770 long 71.1167 enabled true activity "hello im a new robot"
+new robot robot1 is defined
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing update robot authToken admin_1 city city1 id robot1 account 223523asfasfasf lat 42.3770 long 71.1167 enabled true activity "Moving to street b for a cleaning task"
+robot robot1 is updated. activity: Moving to street b for a cleaning task
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing define vehicle authToken admin_1 city city1 id vehicle1 account 234dsfsdfcvb55 lat 42.3770 long 71.1167 enabled true type bus activity "moving to main garage" capacity 24 fee 2.50
+new vehicle vehicle1 is defined
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing update vehicle authToken admin_1 city city1 id vehicle1 account 322safsdxcvaasd lat 42.3770 long 71.1167 enabled true activity "driving to route 54" fee 3.00
+vehicle vehicle1 is updated
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing update vehicle authToken resident_1 city city1 id vehicle2 account 322safsdxcvaasd lat 42.3770 long 71.1167 enabled true activity "driving to route 54" fee 3.00
+ModelServiceException{action='update device failed', reason='device ID is not found within this city.'}
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing show device authToken admin_1 city city1 id vehicle1
+Vehicle{activity='driving to route 54', maxRiderCapacity=24, fee=3.0, vehicleType=bus} Device{id='vehicle1', enabled=true, accountAddress='322safsdxcvaasd', lastEvent=null, location=Location{latitude=42.377, longitude=71.1167}, currentStatus=offline, sensorsList=[microphone, camera, thermometer, CO2Meter, gps, speaker]}
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-event authToken admin_1 city city1 id vehicle1 type camera value "new rider is in the vehicle" subject resident_1
+created sensor-event for device id: vehicle1 Event{action='new rider is in the vehicle', type=camera, subject=null}
+New User is created Id: controller
+New Password credentials added to userUnderValidation: controller
+Role admin_role has been added to User controller Successfully
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-output authToken admin_1 city city1 id vehicle1 type speaker value "welcome to the smart city system"
+Model Service created sensor-output to device id# vehicle1 : welcome to the smart city system
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing define resident authToken admin_1 city city1 id resident_1 name "michael jordan" bio-metric fingerprint phone 708-555-7777 role adult lat 42.3603 long 71.0582 account resident_1
+new resident resident_1 is defined
+New User is created Id: resident_1
+New faceprint credentials added to userUnderValidation: resident_1
+Role adult_role has been added to User resident_1 Successfully
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing define resident authToken admin_1 city city1 id resident_2 name "john adam" bio-metric fingerprint phone 708-555-1121 role child lat 42.3608 long 71.0588 account resident_2
+new resident resident_2 is defined
+New User is created Id: resident_2
+New faceprint credentials added to userUnderValidation: resident_2
+Role child_role has been added to User resident_2 Successfully
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing define resident authToken admin_1 city city1 id resident_3 name "michael jordan" bio-metric fingerprint phone 708-555-7777 role adult lat 42.3770 long 71.1167 account sfaf23rfsvsdfa
+new resident resident_3 is defined
+New User is created Id: resident_3
+New faceprint credentials added to userUnderValidation: resident_3
+Role adult_role has been added to User resident_3 Successfully
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing update resident authToken admin_1 city city1 id resident_3 name "adam johns" bio-metric faceprint phone 777-666-5955 role administrator lat 42.3770 long 71.1167 account 453sdg34rasfasxc
+Resident resident_3 is updated
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing define visitor authToken admin_1 city city1 id visitor1 bio-metric fingerprint lat 42.3770 long 71.1167
+new visitor visitor1 is defined
+New User is created Id: visitor1
+New faceprint credentials added to userUnderValidation: visitor1
+Role adult_role has been added to User visitor1 Successfully
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing update visitor authToken admin_1 city city1 id visitor1 bio-metric faceprint lat 42.3770 long 71.1167
+Visitor visitor1 is updated
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing show person city city1 id resident_3 authToken admin_1
+Resident{id='resident_3', biometricId='faceprint', location=Location{latitude=42.377, longitude=71.1167} name='adam johns', phone='777-666-5955', accountAddress='sfaf23rfsvsdfa', role=administrator}
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing show city city1 authToken admin_1
+City{id='city1', name='boston', accountAddress='11aa22vdsffgh', radius=20.0, peopleMap={resident_2=Resident{id='resident_2', biometricId='fingerprint', location=Location{latitude=42.3608, longitude=71.0588} name='john adam', phone='708-555-1121', accountAddress='resident_2', role=child}, resident_1=Resident{id='resident_1', biometricId='fingerprint', location=Location{latitude=42.3603, longitude=71.0582} name='michael jordan', phone='708-555-7777', accountAddress='resident_1', role=adult}, resident_3=Resident{id='resident_3', biometricId='faceprint', location=Location{latitude=42.377, longitude=71.1167} name='adam johns', phone='777-666-5955', accountAddress='sfaf23rfsvsdfa', role=administrator}, visitor1=Visitor{} Person{id='visitor1', biometricId='faceprint', location=Location{latitude=42.377, longitude=71.1167}}}, devicesMap={street-sign1=StreetSign{displayText='hello I'm the updated text'} Device{id='street-sign1', enabled=false, accountAddress='23234asfsdf', lastEvent=null, location=Location{latitude=42.377, longitude=71.1167}, currentStatus=offline, sensorsList=[microphone, camera, thermometer, CO2Meter, gps, speaker]}, street-light1=StreetLight{brightness=90} Device{id='street-light1', enabled=false, accountAddress='df2342xcv1242', lastEvent=null, location=Location{latitude=42.377, longitude=71.1167}, currentStatus=offline, sensorsList=[microphone, camera, thermometer, CO2Meter, gps, speaker]}, robot1=Robot{activity='Moving to street b for a cleaning task'} Device{id='robot1', enabled=true, accountAddress='223523asfasfasf', lastEvent=null, location=Location{latitude=42.377, longitude=71.1167}, currentStatus=offline, sensorsList=[microphone, camera, thermometer, CO2Meter, gps, speaker]}, info-kiosk1=InformationKiosk{imageUrl='http://www.something.com/img2.jpg', redirectingURL='update'} Device{id='info-kiosk1', enabled=false, accountAddress='23423asfasfasf', lastEvent=null, location=Location{latitude=42.377, longitude=71.1167}, currentStatus=offline, sensorsList=[microphone, camera, thermometer, CO2Meter, gps, speaker]}, vehicle1=Vehicle{activity='driving to route 54', maxRiderCapacity=24, fee=3.0, vehicleType=bus} Device{id='vehicle1', enabled=true, accountAddress='322safsdxcvaasd', lastEvent=Event{action='welcome to the smart city system', type=speaker, subject=null}, location=Location{latitude=42.377, longitude=71.1167}, currentStatus=ready, sensorsList=[microphone, camera, thermometer, CO2Meter, gps, speaker]}, parking-space1=ParkingSpace{hourlyRate=3.0} Device{id='parking-space1', enabled=true, accountAddress='23zzz3asfasfasf', lastEvent=null, location=Location{latitude=42.377, longitude=71.1167}, currentStatus=offline, sensorsList=[microphone, camera, thermometer, CO2Meter, gps, speaker]}}, location=Location{latitude=42.3601, longitude=71.0589}}
+--------------------------------------------------------------------
+processing create-ledger test description "test ledger 2020" seed "harvard"
+New Ledger is Created.
+--------------------------------------------------------------------
+processing create-account resident_1
+New account in LedgerService is created - Address: resident_1
+--------------------------------------------------------------------
+processing create-account resident_2
+New account in LedgerService is created - Address: resident_2
+--------------------------------------------------------------------
+processing create-account robot1
+New account in LedgerService is created - Address: robot1
+--------------------------------------------------------------------
+processing create-account robot2
+New account in LedgerService is created - Address: robot2
+--------------------------------------------------------------------
+processing create-account robot3
+New account in LedgerService is created - Address: robot3
+--------------------------------------------------------------------
+processing create-account robot4
+New account in LedgerService is created - Address: robot4
+--------------------------------------------------------------------
+processing create-account car1
+New account in LedgerService is created - Address: car1
+--------------------------------------------------------------------
+processing create-account car2
+New account in LedgerService is created - Address: car2
+--------------------------------------------------------------------
+processing create-account bus1
+New account in LedgerService is created - Address: bus1
+--------------------------------------------------------------------
+processing create-account bus2
+New account in LedgerService is created - Address: bus2
+--------------------------------------------------------------------
+processing create-account parking1
+New account in LedgerService is created - Address: parking1
+--------------------------------------------------------------------
+processing create-account kiosk1
+New account in LedgerService is created - Address: kiosk1
+--------------------------------------------------------------------
+processing create-account sign1
+New account in LedgerService is created - Address: sign1
+--------------------------------------------------------------------
+processing process-transaction 1 amount 1000 fee 10 note "fund account" payer master receiver resident_1
+Transaction is accepted - ID: 1 Payer: master Receiver: resident_1 Amount: 1000 notes: fund account
+--------------------------------------------------------------------
+processing process-transaction 2 amount 1000 fee 10 note "fund account" payer master receiver resident_2
+Transaction is accepted - ID: 2 Payer: master Receiver: resident_2 Amount: 1000 notes: fund account
+--------------------------------------------------------------------
+processing process-transaction 3 amount 1000 fee 10 note "fund account" payer master receiver robot1
+Transaction is accepted - ID: 3 Payer: master Receiver: robot1 Amount: 1000 notes: fund account
+--------------------------------------------------------------------
+processing process-transaction 4 amount 1000 fee 10 note "fund account" payer master receiver robot2
+Transaction is accepted - ID: 4 Payer: master Receiver: robot2 Amount: 1000 notes: fund account
+--------------------------------------------------------------------
+processing process-transaction 5 amount 1000 fee 10 note "fund account" payer master receiver robot3
+Transaction is accepted - ID: 5 Payer: master Receiver: robot3 Amount: 1000 notes: fund account
+--------------------------------------------------------------------
+processing process-transaction 6 amount 1000 fee 10 note "fund account" payer master receiver robot4
+Transaction is accepted - ID: 6 Payer: master Receiver: robot4 Amount: 1000 notes: fund account
+--------------------------------------------------------------------
+processing process-transaction 7 amount 1000 fee 10 note "fund account" payer master receiver car1
+Transaction is accepted - ID: 7 Payer: master Receiver: car1 Amount: 1000 notes: fund account
+--------------------------------------------------------------------
+processing process-transaction 8 amount 1000 fee 10 note "fund account" payer master receiver car2
+Transaction is accepted - ID: 8 Payer: master Receiver: car2 Amount: 1000 notes: fund account
+--------------------------------------------------------------------
+processing process-transaction 9 amount 1000 fee 10 note "fund account" payer master receiver bus1
+Transaction is accepted - ID: 9 Payer: master Receiver: bus1 Amount: 1000 notes: fund account
+--------------------------------------------------------------------
+processing process-transaction 10 amount 1000 fee 10 note "fund account" payer master receiver bus2
+Transaction is accepted - ID: 10 Payer: master Receiver: bus2 Amount: 1000 notes: fund account
+--------------------------------------------------------------------
+processing process-transaction 11 amount 1000 fee 10 note "fund account" payer master receiver parking1
+Transaction is accepted - ID: 11 Payer: master Receiver: parking1 Amount: 1000 notes: fund account
+--------------------------------------------------------------------
+processing process-transaction 12 amount 1000 fee 10 note "fund account" payer master receiver kiosk1
+Transaction is accepted - ID: 12 Payer: master Receiver: kiosk1 Amount: 1000 notes: fund account
+--------------------------------------------------------------------
+processing validate
+Blockchain is VALID
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing define robot authToken admin_1 city city1 id robot2 account robot2 lat 42.3602 long 71.0589 enabled true activity "hello im a new robot2"
+new robot robot2 is defined
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing define robot authToken admin_1 city city1 id robot3 account robot3 lat 42.3603 long 71.0589 enabled true activity "hello im a new robot3"
+new robot robot3 is defined
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing define robot authToken admin_1 city city1 id robot4 account robot4 lat 42.3604 long 71.0589 enabled true activity "hello im a new robot4"
+new robot robot4 is defined
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing define vehicle authToken admin_1 city city1 id car1 account car1 lat 42.3601 long 71.0591 enabled true type car activity "new car" capacity 4 fee 5.00
+new vehicle car1 is defined
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing define vehicle authToken admin_1 city city1 id car2 account car2 lat 42.3601 long 71.0590 enabled true type car activity "new car" capacity 4 fee 5.00
+new vehicle car2 is defined
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing define vehicle authToken admin_1 city city1 id bus1 account bus1 lat 42.3601 long 71.0591 enabled true type bus activity "new bus" capacity 4 fee 2.00
+new vehicle bus1 is defined
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing define vehicle authToken admin_1 city city1 id bus2 account bus2 lat 42.3601 long 71.0588 enabled true type bus activity "new bus" capacity 4 fee 2.00
+new vehicle bus2 is defined
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing define parking-space authToken admin_1 city city1 id parking1 account parking1 lat 42.3601 long 71.0591 enabled true rate 2.50
+new parking-space parking1 is defined
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing define info-kiosk authToken admin_1 city city1 id kiosk1 account kiosk1 lat 42.3601 long 71.0591 enabled true image http://www.something.com/img1.jpg redirectingURL www.tickets.com
+new info-kiosk kiosk1 is defined
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing define street-sign authToken admin_1 city city1 id sign1 account sign1 lat 42.3601 long 71.0591 enabled true text "hello I'm a text on street sign"
+new street-sign sign1 is defined
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-event authToken admin_1 city city1 id sign1 type camera value "emergency fire at lat 42.3601 long 71.0589"
+created sensor-event for device id: sign1 Event{action='emergency fire at lat 42.3601 long 71.0589', type=camera, subject=null}
+New authToken is generated for userUnderValidation: controller
+Controller Processing EmergencyCmd Command: fire
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# parking1 : There is a fire in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# info-kiosk1 : There is a fire in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# vehicle1 : There is a fire in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# parking-space1 : There is a fire in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# car2 : There is a fire in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# street-sign1 : There is a fire in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# sign1 : There is a fire in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# car1 : There is a fire in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# street-light1 : There is a fire in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# robot1 : There is a fire in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# robot4 : There is a fire in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# robot2 : There is a fire in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# kiosk1 : There is a fire in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# robot3 : There is a fire in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# bus2 : There is a fire in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# bus1 : There is a fire in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+robot robot1 is updated. activity: address fire at lat 42.3601 long 71.0591
+New authToken is generated for userUnderValidation: controller
+robot robot4 is updated. activity: address fire at lat 42.3601 long 71.0591
+New authToken is generated for userUnderValidation: controller
+robot robot2 is updated. activity: Help people find shelter
+New authToken is generated for userUnderValidation: controller
+robot robot3 is updated. activity: Help people find shelter
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-event authToken admin_1 city city1 id kiosk1 type camera value "emergency flood at lat 42.3601 long 71.0589"
+created sensor-event for device id: kiosk1 Event{action='emergency flood at lat 42.3601 long 71.0589', type=camera, subject=null}
+New authToken is generated for userUnderValidation: controller
+Controller Processing EmergencyCmd Command: flood
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# parking1 : There is a flood in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# info-kiosk1 : There is a flood in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# vehicle1 : There is a flood in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# parking-space1 : There is a flood in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# car2 : There is a flood in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# street-sign1 : There is a flood in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# sign1 : There is a flood in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# car1 : There is a flood in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# street-light1 : There is a flood in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# robot1 : There is a flood in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# robot4 : There is a flood in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# robot2 : There is a flood in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# kiosk1 : There is a flood in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# robot3 : There is a flood in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# bus2 : There is a flood in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# bus1 : There is a flood in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+robot robot1 is updated. activity: address flood at lat 42.3601 long 71.0591
+New authToken is generated for userUnderValidation: controller
+robot robot4 is updated. activity: address flood at lat 42.3601 long 71.0591
+New authToken is generated for userUnderValidation: controller
+robot robot2 is updated. activity: Help people find shelter
+New authToken is generated for userUnderValidation: controller
+robot robot3 is updated. activity: Help people find shelter
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-event authToken admin_1 city city1 id sign1 type camera value "emergency earthquake at lat 42.3601 long 71.0589"
+created sensor-event for device id: sign1 Event{action='emergency earthquake at lat 42.3601 long 71.0589', type=camera, subject=null}
+New authToken is generated for userUnderValidation: controller
+Controller Processing EmergencyCmd Command: earthquake
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# parking1 : There is a earthquake in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# info-kiosk1 : There is a earthquake in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# vehicle1 : There is a earthquake in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# parking-space1 : There is a earthquake in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# car2 : There is a earthquake in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# street-sign1 : There is a earthquake in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# sign1 : There is a earthquake in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# car1 : There is a earthquake in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# street-light1 : There is a earthquake in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# robot1 : There is a earthquake in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# robot4 : There is a earthquake in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# robot2 : There is a earthquake in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# kiosk1 : There is a earthquake in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# robot3 : There is a earthquake in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# bus2 : There is a earthquake in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# bus1 : There is a earthquake in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+robot robot1 is updated. activity: address earthquake at lat 42.3601 long 71.0591
+New authToken is generated for userUnderValidation: controller
+robot robot4 is updated. activity: address earthquake at lat 42.3601 long 71.0591
+New authToken is generated for userUnderValidation: controller
+robot robot2 is updated. activity: Help people find shelter
+New authToken is generated for userUnderValidation: controller
+robot robot3 is updated. activity: Help people find shelter
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-event authToken admin_1 city city1 id kiosk1 type camera value "emergency severe_weather at lat 42.3601 long 71.0589"
+created sensor-event for device id: kiosk1 Event{action='emergency severe_weather at lat 42.3601 long 71.0589', type=camera, subject=null}
+New authToken is generated for userUnderValidation: controller
+Controller Processing EmergencyCmd Command: severe_weather
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# parking1 : There is a severe_weather in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# info-kiosk1 : There is a severe_weather in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# vehicle1 : There is a severe_weather in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# parking-space1 : There is a severe_weather in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# car2 : There is a severe_weather in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# street-sign1 : There is a severe_weather in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# sign1 : There is a severe_weather in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# car1 : There is a severe_weather in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# street-light1 : There is a severe_weather in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# robot1 : There is a severe_weather in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# robot4 : There is a severe_weather in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# robot2 : There is a severe_weather in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# kiosk1 : There is a severe_weather in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# robot3 : There is a severe_weather in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# bus2 : There is a severe_weather in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# bus1 : There is a severe_weather in city1, please find shelter immediately
+New authToken is generated for userUnderValidation: controller
+robot robot1 is updated. activity: address severe_weather at lat 42.3601 long 71.0591
+New authToken is generated for userUnderValidation: controller
+robot robot4 is updated. activity: address severe_weather at lat 42.3601 long 71.0591
+New authToken is generated for userUnderValidation: controller
+robot robot2 is updated. activity: Help people find shelter
+New authToken is generated for userUnderValidation: controller
+robot robot3 is updated. activity: Help people find shelter
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-event authToken admin_1 city city1 id sign1 type camera value "emergency traffic_accident at lat 42.3601 long 71.0589"
+created sensor-event for device id: sign1 Event{action='emergency traffic_accident at lat 42.3601 long 71.0589', type=camera, subject=null}
+New authToken is generated for userUnderValidation: controller
+Controller Processing EmergencyCmd Command: traffic_accident
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# sign1 : Stay calm, help is on its way
+New authToken is generated for userUnderValidation: controller
+robot robot2 is updated. activity: address traffic_accident at lat 42.3601 long 71.0591
+New authToken is generated for userUnderValidation: controller
+robot robot3 is updated. activity: address traffic_accident at lat 42.3601 long 71.0591
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-event authToken admin_1 city city1 id sign1 type CO2Meter value "CO2 level over 1000"
+created sensor-event for device id: sign1 Event{action='CO2 level over 1000', type=CO2Meter, subject=null}
+New authToken is generated for userUnderValidation: controller
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-event authToken admin_1 city city1 id kiosk1 type CO2Meter value "CO2 level over 1000"
+created sensor-event for device id: kiosk1 Event{action='CO2 level over 1000', type=CO2Meter, subject=null}
+New authToken is generated for userUnderValidation: controller
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-event authToken admin_1 city city1 id car1 type CO2Meter value "CO2 level over 1000"
+created sensor-event for device id: car1 Event{action='CO2 level over 1000', type=CO2Meter, subject=null}
+New authToken is generated for userUnderValidation: controller
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-event authToken admin_1 city city1 id bus1 type CO2Meter value "CO2 level over 1000"
+created sensor-event for device id: bus1 Event{action='CO2 level over 1000', type=CO2Meter, subject=null}
+New authToken is generated for userUnderValidation: controller
+Controller Processing CO2 level over 1000 command
+New authToken is generated for userUnderValidation: controller
+vehicle car2 is updated
+New authToken is generated for userUnderValidation: controller
+vehicle car1 is updated
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-event authToken admin_1 city city1 id sign1 type CO2Meter value "CO2 level under 1000"
+created sensor-event for device id: sign1 Event{action='CO2 level under 1000', type=CO2Meter, subject=null}
+New authToken is generated for userUnderValidation: controller
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-event authToken admin_1 city city1 id kiosk1 type CO2Meter value "CO2 level under 1000"
+created sensor-event for device id: kiosk1 Event{action='CO2 level under 1000', type=CO2Meter, subject=null}
+New authToken is generated for userUnderValidation: controller
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-event authToken admin_1 city city1 id car1 type CO2Meter value "CO2 level under 1000"
+created sensor-event for device id: car1 Event{action='CO2 level under 1000', type=CO2Meter, subject=null}
+New authToken is generated for userUnderValidation: controller
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-event authToken admin_1 city city1 id bus1 type CO2Meter value "CO2 level under 1000"
+created sensor-event for device id: bus1 Event{action='CO2 level under 1000', type=CO2Meter, subject=null}
+New authToken is generated for userUnderValidation: controller
+Controller Processing CO2 level under 1000 command
+New authToken is generated for userUnderValidation: controller
+vehicle car2 is updated
+New authToken is generated for userUnderValidation: controller
+vehicle car1 is updated
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-event authToken admin_1 city city1 id sign1 type camera value "Person resident_1 throws garbage on ground at lat 42.3601 long 71.0589" subject resident_1
+created sensor-event for device id: sign1 Event{action='Person resident_1 throws garbage on ground at lat 42.3601 long 71.0589', type=camera, subject=Resident{id='resident_1', biometricId='fingerprint', location=Location{latitude=42.3603, longitude=71.0582} name='michael jordan', phone='708-555-7777', accountAddress='resident_1', role=adult}}
+Controller processing litter event command
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# sign1 : Please do not litter
+New authToken is generated for userUnderValidation: controller
+New authToken is generated for userUnderValidation: controller
+robot robot2 is updated. activity: clean garbage at lat 42.3601 long 71.0591
+Transaction is accepted - ID: t9027 Payer: resident_1 Receiver: master Amount: 50 notes: Fine for littering garbage
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-event authToken admin_1 city city1 id kiosk1 type microphone value "sound of breaking glass at lat 42.3601 long 71.0589
+created sensor-event for device id: kiosk1 Event{action='sound of breaking glass at lat 42.3601 long 71.0589', type=microphone, subject=null}
+Controller processing broken glass command
+New authToken is generated for userUnderValidation: controller
+New authToken is generated for userUnderValidation: controller
+robot robot2 is updated. activity: clean up broken glass lat 42.3601 long 71.0591
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-event authToken admin_1 city city1 id car1 type camera value "person resident_1 seen at lat 42.3601 long 71.0589" subject resident_1
+created sensor-event for device id: car1 Event{action='person resident_1 seen at lat 42.3601 long 71.0589', type=camera, subject=Resident{id='resident_1', biometricId='fingerprint', location=Location{latitude=42.3603, longitude=71.0582} name='michael jordan', phone='708-555-7777', accountAddress='resident_1', role=adult}}
+Controller processing person seen command
+New authToken is generated for userUnderValidation: controller
+New authToken is generated for userUnderValidation: controller
+Resident resident_1 is updated
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-event authToken admin_1 city city1 id kiosk1 type microphone value "can you help me find my child resident_2" subject resident_2
+created sensor-event for device id: kiosk1 Event{action='can you help me find my child resident_2', type=microphone, subject=Resident{id='resident_2', biometricId='fingerprint', location=Location{latitude=42.3608, longitude=71.0588} name='john adam', phone='708-555-1121', accountAddress='resident_2', role=child}}
+Controller processing missing child command
+New authToken is generated for userUnderValidation: controller
+New authToken is generated for userUnderValidation: resident_2
+Model Service created sensor-output to device id# kiosk1 : person resident_2 is at lat 42.3608 long 71.0588, a robot is retrieving now, stay where you are.
+New authToken is generated for userUnderValidation: controller
+New authToken is generated for userUnderValidation: controller
+robot robot2 is updated. activity: retrieve person resident_2 and bring to lat 42.3601 long 71.0591
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-event authToken admin_1 city city1 id parking1 type camera value "vehicle car1 parked for 5 hour"
+created sensor-event for device id: parking1 Event{action='vehicle car1 parked for 5 hour', type=camera, subject=null}
+New authToken is generated for userUnderValidation: controller
+Controller Processing parking event command
+New authToken is generated for userUnderValidation: controller
+New authToken is generated for userUnderValidation: controller
+Transaction is accepted - ID: t535 Payer: car1 Receiver: parking1 Amount: 10 notes: Parking space fees
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-event authToken admin_1 city city1 id bus1 type microphone value "Person resident_1 says, does this bus go to central square?" subject resident_1
+created sensor-event for device id: bus1 Event{action='Person resident_1 says, does this bus go to central square?', type=microphone, subject=Resident{id='resident_1', biometricId='fingerprint', location=Location{latitude=42.3601, longitude=71.0591} name='michael jordan', phone='708-555-7777', accountAddress='resident_1', role=adult}}
+Controller Processing bus route command
+New authToken is generated for userUnderValidation: controller
+New authToken is generated for userUnderValidation: resident_1
+New authToken is generated for userUnderValidation: controller
+Model Service created sensor-output to device id# bus1 : Yes, this bus goes to Central Square.
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-event authToken admin_1 city city1 id bus1 type camera value "Person resident_1 boards bus" subject resident_1
+created sensor-event for device id: bus1 Event{action='Person resident_1 boards bus', type=camera, subject=Resident{id='resident_1', biometricId='fingerprint', location=Location{latitude=42.3601, longitude=71.0591} name='michael jordan', phone='708-555-7777', accountAddress='resident_1', role=adult}}
+Controller processing board bus command
+New authToken is generated for userUnderValidation: resident_1
+Model Service created sensor-output to device id# bus1 : hello, good to see you resident_1
+New authToken is generated for userUnderValidation: controller
+New authToken is generated for userUnderValidation: controller
+Transaction is accepted - ID: t8500 Payer: resident_1 Receiver: bus1 Amount: 2 notes: Bus ride fee
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-event authToken admin_1 city city1 id kiosk1 type microphone value "what movies are showing tonight" subject resident_1
+created sensor-event for device id: kiosk1 Event{action='what movies are showing tonight', type=microphone, subject=Resident{id='resident_1', biometricId='fingerprint', location=Location{latitude=42.3601, longitude=71.0591} name='michael jordan', phone='708-555-7777', accountAddress='resident_1', role=adult}}
+New authToken is generated for userUnderValidation: controller
+Controller Processing movie info command
+New authToken is generated for userUnderValidation: resident_1
+Model Service created sensor-output to device id# kiosk1 : Casablanca is showing at 9 pm
+New authToken is generated for userUnderValidation: controller
+info-kiosk kiosk1 is updated
+--------------------------------------------------------------------
+processing login admin_1 password secret
+New authToken is generated for userUnderValidation: admin_1
+--------------------------------------------------------------------
+processing create sensor-event authToken admin_1 city city1 id kiosk1 type microphone value "Person resident_1 says, reserve 2 seats for the 9 pm showing of Casablanca" subject resident_1
+created sensor-event for device id: kiosk1 Event{action='Person resident_1 says, reserve 2 seats for the 9 pm showing of Casablanca', type=microphone, subject=Resident{id='resident_1', biometricId='fingerprint', location=Location{latitude=42.3601, longitude=71.0591} name='michael jordan', phone='708-555-7777', accountAddress='resident_1', role=adult}}
+New authToken is generated for userUnderValidation: controller
+Controller Processing movie reservation command
+New authToken is generated for userUnderValidation: controller
+New authToken is generated for userUnderValidation: controller
+Account address resident_1 balance is 928
+Transaction is accepted - ID: t3003 Payer: resident_1 Receiver: kiosk1 Amount: 20 notes: Movie reservation fees
+New authToken is generated for userUnderValidation: resident_1
+Model Service created sensor-output to device id# kiosk1 : your seats are reserved; please arrive a few minutes early.
+--------------------------------------------------------------------
+processing login admin_1 password xxxxxx
+AuthenticationException{action='Login Failed', reason='please check username and password'}
+--------------------------------------------------------------------
+processing define vehicle authToken admin_1 city city1 id bus2 account bus2 lat 42.3601 long 71.0588 enabled true type bus activity "new bus" capacity 4 fee 2.00
+AuthenticationException{action='Authentication Failed', reason='AuthToken is expired.'}
+--------------------------------------------------------------------
+processing login resident_2 password resident_2:faceprint
+New authToken is generated for userUnderValidation: resident_2
+--------------------------------------------------------------------
+processing update vehicle authToken resident_2 city city1 id car1 account 322safsdxcvaasd lat 42.3770 long 71.1167 enabled true activity "driving to route 54" fee 3.00
+AuthenticationException{action='Authentication Failed', reason='User doesn't have required permissions'}
+--------------------------------------------------------------------
+processing login resident_1 password resident_1:faceprint
+New authToken is generated for userUnderValidation: resident_1
+--------------------------------------------------------------------
+processing define info-kiosk authToken resident_1 city city1 id kiosk2 account kiosk2 lat 42.3601 long 71.0591 enabled true image http://www.something.com/img1.jpg redirectingURL www.tickets.com
+AuthenticationException{action='Authentication Failed', reason='User doesn't have required permissions'}
+--------------------------------------------------------------------
+processing define_permission scms_manage_city name "Create, description Update City" "Create or update a City"
+AuthenticationException{action='Create Permission failed', reason='Permission Id already used'}
+--------------------------------------------------------------------
+processing define_role adult_role name "Adult Role" description "Has all permissions of an adult"
+AuthenticationException{action='Create Role failed', reason='Role Id already used'}
+--------------------------------------------------------------------
+processing create_user resident_1 name "resident adult Jane"
+AuthenticationException{action='Add User Failed', reason='User Id already exists'}
+--------------------------------------------------------------------
+processing add_user_credential resident_2 type xxxxx value billy-faceprint
+AuthenticationException{action='Add User Credentials failed', reason='Authentication type is not supported'}
+--------------------------------------------------------------------
+processing add_user_credential resident99 type faceprint value billy-faceprint
+AuthenticationException{action='Add credentials to userUnderValidation failed', reason='User is not found'}
+--------------------------------------------------------------------
+processing add_role_to_user resident_1 role rolexx
+AuthenticationException{action='Add Role to User failed', reason='role id or userUnderValidation id is not found'}
+--------------------------------------------------------------------
+processing define_resource_role city1_public_administrator_resource_role name public_administrator_role description "city1 admin"
+AuthenticationException{action='Create Resource Role failed', reason='Role Id already used'}
+--------------------------------------------------------------------
+processing logout userx
+AuthenticationException{action='logout Failed', reason='username is not found'}
+reading file is completed.
