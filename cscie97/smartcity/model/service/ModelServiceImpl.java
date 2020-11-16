@@ -749,6 +749,20 @@ public class ModelServiceImpl extends SubjectImpl implements ModelService {
 						resident = new Resident(personId, bioId, new Location(lat, _long), name, phone, accountAddress, Role.valueOf(role));
 						city.getPeopleMap().put(personId, resident);
 						System.out.println("new resident " + personId + " is defined");
+
+						//create users in the authentication service for this user
+						AuthenticationService authenticationService = AuthenticationService.getInstance();
+						authenticationService.createUser(personId,name);
+						if(Role.valueOf(role).equals(Role.adult)){
+							authenticationService.addUserCredential(personId,personId,"faceprint",personId+":faceprint");
+							authenticationService.addRoleToUser(personId,"adult_role");
+						} else if(Role.valueOf(role).equals(Role.child)){
+							authenticationService.addUserCredential(personId,personId,"faceprint",personId+":faceprint");
+							authenticationService.addRoleToUser(personId,"child_role");
+						}else if(Role.valueOf(role).equals(Role.administrator)){
+							authenticationService.addUserCredential(personId,personId,"password",personId+":password");
+							authenticationService.addRoleToUser(personId,"admin_role");
+						}
 					}
 				}
 			} catch (ModelServiceException e){
@@ -828,6 +842,10 @@ public class ModelServiceImpl extends SubjectImpl implements ModelService {
 						visitor = new Visitor(personId, bioId, new Location(lat, _long));
 						city.getPeopleMap().put(personId, visitor);
 						System.out.println("new visitor " + personId + " is defined");
+						AuthenticationService authenticationService = AuthenticationService.getInstance();
+						authenticationService.createUser(personId,"Smart City Visitor");
+						authenticationService.addUserCredential(personId,personId,"faceprint",personId+":faceprint");
+						authenticationService.addRoleToUser(personId,"adult_role");
 					}
 				}
 			} catch (ModelServiceException e){

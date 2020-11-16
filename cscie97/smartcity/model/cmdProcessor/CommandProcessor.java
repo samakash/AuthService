@@ -459,6 +459,12 @@ public class CommandProcessor {
 						String password = extractCmdValue(command,"password");
 						authenticationService.login(username,password);
 						break;
+					case "logout":
+						System.out.println("--------------------------------------------------------------------");
+						System.out.println("processing "+ command);
+						userId = extractCmdValue(command,"logout");
+						authenticationService.logout(userId);
+						break;
 					default:
 						throw new CommandProcessorException(arr[0],"Command is not supported. Please verify command format",lineNumber);
 				}

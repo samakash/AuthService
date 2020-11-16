@@ -2,7 +2,6 @@ package cscie97.smartcity.controller.commands;
 
 import cscie97.smartcity.authentication.AuthenticationService;
 import cscie97.smartcity.authentication.domain.*;
-import cscie97.smartcity.controller.Controller;
 import cscie97.smartcity.model.observer.EventBroker;
 import cscie97.smartcity.ledger.LedgerService;
 import cscie97.smartcity.model.domain.Person;
@@ -10,8 +9,6 @@ import cscie97.smartcity.model.domain.Resident;
 import cscie97.smartcity.model.domain.Vehicle;
 import cscie97.smartcity.model.service.ModelService;
 import cscie97.smartcity.model.utils.SmartCityUtils;
-
-import java.util.List;
 
 /**
  * This command implementation class is for Board Bus command
@@ -42,7 +39,7 @@ public class BoardBusCmd implements Command {
 
             //get user credentials and use it to authenticate, then use the authToken in the model service.
             String userId = eventBroker.getEvent().getSubject().getId();
-            Credential userCredential = authenticationService.getUserList().get(userId).getCredentials().get(0);
+            Credential userCredential = authenticationService.getUsersMap().get(userId).getCredentials().get(0);
             AuthToken authToken = null;
 
             if(userCredential instanceof Login){

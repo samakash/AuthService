@@ -3,6 +3,9 @@ package cscie97.smartcity.authentication;
 import cscie97.smartcity.authentication.domain.*;
 import cscie97.smartcity.model.utils.SmartCityUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Tester {
@@ -82,10 +85,10 @@ public class Tester {
 
 //        System.out.println(a);
 //
-//        System.out.println(authenticationService.getUserList());
-//        System.out.println(authenticationService.getEntitlementList());
+//        System.out.println(authenticationService.getUsersMap());
+//        System.out.println(authenticationService.getEntitlementsMap());
 //        authenticationService.logout("user1");
-//        System.out.println(authenticationService.getAuthTokenList());
+//        System.out.println(authenticationService.getAuthTokensMap());
 //
 //        System.out.println(authenticationService.checkAccess("user1","role1",""));
 
@@ -95,6 +98,33 @@ public class Tester {
 //
 //        System.out.println(hashed);
 //        System.out.println(unhash);
+//        Date date = new Date();
+//        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(date);
+//
+//        //add time stamp
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.add(Calendar.HOUR, 1);
+//        Date afterHour = calendar.getTime();
+//
+//
+//        //check access
+//        String strDate = afterHour.toString();
+//        Date extract = new Date(strDate);
+
+//        Calendar calendar = Calendar.getInstance();
+//        Date now = calendar.getTime();
+//        if(afterHour.after(now)) {
+//
+//        }
+
+
+
+
+        // now get "tomorrow"
+
+
+        // print out tomorrow's date
+
 
 
 

@@ -26,9 +26,9 @@ public interface AuthenticationService {
     boolean checkAccess(String authToken, Object requiredPermission, String resource);
 
 
-    HashMap<String, User> getUserList();
-    HashMap<String, Entitlement> getEntitlementList();
-    HashMap<String, AuthToken> getAuthTokenList();
+    HashMap<String, User> getUsersMap();
+    HashMap<String, Entitlement> getEntitlementsMap();
+    HashMap<String, AuthToken> getAuthTokensMap();
 
 
 

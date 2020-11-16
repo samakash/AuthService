@@ -41,7 +41,7 @@ public class MovieInfoCmd implements Command {
                 //get user credentials and use it to authenticate, then use the authToken in the model service.
                 authenticationService = AuthenticationService.getInstance();
                 String userId = eventBroker.getEvent().getSubject().getId();
-                Credential userCredential = authenticationService.getUserList().get(userId).getCredentials().get(0);
+                Credential userCredential = authenticationService.getUsersMap().get(userId).getCredentials().get(0);
                 if(userCredential instanceof Login){
                     authToken = authenticationService.login(((Login) userCredential).getUsername(),
                             SmartCityUtils.decrypt(((Login) userCredential).getPassword()));
