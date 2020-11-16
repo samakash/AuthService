@@ -1,5 +1,7 @@
 package cscie97.smartcity.authentication.domain;
 
+import cscie97.smartcity.authentication.Visitor;
+
 public class Resource {
 
     private String id;
@@ -33,4 +35,9 @@ public class Resource {
                 ", description='" + description + '\'' +
                 '}';
     }
+
+    public void accept(Visitor visitor){
+        visitor.visit(this);
+    }
+
 }

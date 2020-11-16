@@ -2,12 +2,9 @@
 # define permissions
 # define_permission <permission_id> name <permission_name> description <permission_description>
 
-#for managing authToken itself
 define_permission auth_user_admin name "User Administrator" description "Create, Update, Delete Users"
 define_permission auth_role_entitlement_admin name "User Administrator" description "Create, Update, Delete Entitlements"
 define_permission auth_resource_admin name "User Administrator" description "Create, Update, Delete Resources"
-
-#for managging the city
 define_permission scms_manage_city name "Create, description Update City" "Create or update a City"
 define_permission scms_manage_device name "Create, description Update Device" description "Define a new City"
 define_permission scms_manage_person name "Create, description Update Device" description "Define a new City"
@@ -417,3 +414,47 @@ create sensor-event authToken admin_1 city city1 id kiosk1 type microphone value
 #create sensor-event city <city_id> id <device_id> type (microphone|camera|thermometer|co2meter) value <string>
 login admin_1 password secret
 create sensor-event authToken admin_1 city city1 id kiosk1 type microphone value "Person resident_1 says, reserve 2 seats for the 9 pm showing of Casablanca" subject resident_1
+
+
+
+
+####################### Authentication service exceptions Demo #########################
+
+# invalid credentials exceptions
+login admin_1 password xxxxxx
+
+# expired AuthToken
+# authToken admin_1 is expired after one use
+define vehicle authToken admin_1 city city1 id bus2 account bus2 lat 42.3601 long 71.0588 enabled true type bus activity "new bus" capacity 4 fee 2.00
+
+# child resident doesnt have sufficient permission for drive a car
+login resident_2 password resident_2:faceprint
+update vehicle authToken resident_2 city city1 id car1 account 322safsdxcvaasd lat 42.3770 long 71.1167 enabled true activity "driving to route 54" fee 3.00
+
+# resident without permissions trying to add a new device to city1
+login resident_1 password resident_1:faceprint
+define info-kiosk authToken resident_1 city city1 id kiosk2 account kiosk2 lat 42.3601 long 71.0591 enabled true image http://www.something.com/img1.jpg redirectingURL www.tickets.com
+
+# create permission that is already exists in the system
+define_permission scms_manage_city name "Create, description Update City" "Create or update a City"
+
+# create Role that is already exists in the system
+define_role adult_role name "Adult Role" description "Has all permissions of an adult"
+
+# create a user that us already exists in the system
+create_user resident_1 name "resident adult Jane"
+
+# create credentials for a user with an unsupported authentication types
+add_user_credential resident_2 type xxxxx value billy-faceprint
+
+# create a new credentials for user that doesnt exist in the system
+add_user_credential resident99 type faceprint value billy-faceprint
+
+# add role to user where role is not found
+add_role_to_user resident_1 role rolexx
+
+# create a resource role that already exists
+define_resource_role city1_public_administrator_resource_role name public_administrator_role description "city1 admin"
+
+#logout with invalid user_name
+logout userx

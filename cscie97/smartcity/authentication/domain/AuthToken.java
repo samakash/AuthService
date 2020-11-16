@@ -6,7 +6,6 @@ public class AuthToken {
     private String id;
     private String authValue;
     private String expirationTime;
-    private boolean sufficientPermission;
     private TokenState state;
     private User user;
 
@@ -14,7 +13,6 @@ public class AuthToken {
         this.id = id;
         this.authValue = authValue;
         this.expirationTime = expirationTime;
-        this.sufficientPermission = false;
         this.state = state;
         this.user = null;
     }
@@ -41,14 +39,6 @@ public class AuthToken {
 
     public void setExpirationTime(String expirationTime) {
         this.expirationTime = expirationTime;
-    }
-
-    public boolean isSufficientPermission() {
-        return sufficientPermission;
-    }
-
-    public void setSufficientPermission(boolean sufficientPermission) {
-        this.sufficientPermission = sufficientPermission;
     }
 
     public TokenState getState() {

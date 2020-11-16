@@ -58,7 +58,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                 throw new AuthenticationException("Create Permission failed","Permission Id already used");
             }else{
                 Entitlement permission = new Permission(id,name,description);
-                Visitor visitor = new Inventory();
+                Visitor visitor = new InventoryVisitor();
                 visitor.visit(permission);
                 System.out.println("New permission is added Id: "+id);
             }
@@ -74,7 +74,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                 throw new AuthenticationException("Create Role failed","Role Id already used");
             }else {
                 Entitlement role = new Role(id, name, description);
-                Visitor visitor = new Inventory();
+                Visitor visitor = new InventoryVisitor();
                 visitor.visit(role);
                 System.out.println("New Role is added Id: "+id);
             }
@@ -89,7 +89,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
             if(entitlementsMap.containsKey(permissionId) && entitlementsMap.containsKey(roleId)){
                 Entitlement role = entitlementsMap.get(roleId);
                 role.getEntitlementsList().add(entitlementsMap.get(permissionId));
-                Visitor visitor = new Inventory();
+                Visitor visitor = new InventoryVisitor();
                 role.accept(visitor);
                 System.out.println("Added Permission "+permissionId+" to Role "+roleId+ " successfully");
             } else{
@@ -108,7 +108,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                 throw new AuthenticationException("Add User Failed","User Id already exists");
             } else{
                 User user = new User(id,name);
-                Visitor visitor = new Inventory();
+                Visitor visitor = new InventoryVisitor();
                 visitor.visit(user);
                 System.out.println("New User is created Id: "+id);
             }
@@ -125,19 +125,19 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                     Credential credential = new Login(userId + credentialType, userId, hashCredential(password));
                     User user = usersMap.get(userId);
                     user.getCredentials().add(credential);
-                    user.accept(new Inventory());
+                    user.accept(new InventoryVisitor());
                     System.out.println("New Password credentials added to user: " + userId);
                 } else if (credentialType.equals("faceprint")) {
                     Credential credential = new FacePrint(userId + credentialType, hashCredential(password));
                     User user = usersMap.get(userId);
                     user.getCredentials().add(credential);
-                    user.accept(new Inventory());
+                    user.accept(new InventoryVisitor());
                     System.out.println("New faceprint credentials added to user: " + userId);
                 } else if (credentialType.equals("voiceprint")) {
                     Credential credential = new VoicePrint(userId + credentialType, hashCredential(password));
                     User user = usersMap.get(userId);
                     user.getCredentials().add(credential);
-                    user.accept(new Inventory());
+                    user.accept(new InventoryVisitor());
                     System.out.println("New voiceprint credentials added to user: " + userId);
                 } else {
                     throw new AuthenticationException("Add User Credentials failed", "Authentication type is not supported");
@@ -159,7 +159,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                 User user = usersMap.get(userId);
                 Entitlement role = entitlementsMap.get(roleId);
                 user.getEntitlements().add(role);
-                user.accept(new Inventory());
+                user.accept(new InventoryVisitor());
                 System.out.println("Role "+roleId+" has been added to User "+userId+" Successfully");
             } else {
                 throw new AuthenticationException("Add Role to User failed","role id or user id is not found");
@@ -176,7 +176,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                 throw new AuthenticationException("Create Resource Role failed","Role Id already used");
             }else {
                 Entitlement resourceRole = new ResourceRole(id, name, description);
-                Visitor visitor = new Inventory();
+                Visitor visitor = new InventoryVisitor();
                 visitor.visit(resourceRole);
                 System.out.println("New Resource Role is added Id: "+id);
             }
@@ -193,7 +193,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                     Resource resource = new Resource(resourceId,resourceDescription);
                     Entitlement role =  entitlementsMap.get(roleId);
                     role.getResources().add(resource);
-                    role.accept(new Inventory());
+                    role.accept(new InventoryVisitor());
                     System.out.println("Resource "+resourceId+" has been added to resource Role "+roleId);
                 } else{
                     throw new AuthenticationException("Add Resource to ResourceRole Failed","Role id is not for a Resource Role");
@@ -225,9 +225,9 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                                 && ((Login)credential).getPassword().equals(hashCredential(password))){
                             authToken = new AuthToken(username, username, exptime.toString(), TokenState.active);
                             authToken.setUser(user);
-                            authToken.accept(new Inventory());
+                            authToken.accept(new InventoryVisitor());
                             user.setAuthToken(authToken);
-                            user.accept(new Inventory());
+                            user.accept(new InventoryVisitor());
                             System.out.println("New authToken is generated for user: "+user.getId());
                             break;
                         } else {
@@ -237,18 +237,18 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                         if(((FacePrint)credential).getFacePrintValue().equals(hashCredential(password))){
                             authToken = new AuthToken(username, username, exptime.toString(), TokenState.active);
                             authToken.setUser(user);
-                            authToken.accept(new Inventory());
+                            authToken.accept(new InventoryVisitor());
                             user.setAuthToken(authToken);
-                            user.accept(new Inventory());
+                            user.accept(new InventoryVisitor());
                             System.out.println("New authToken is generated for user: "+user.getId());
                         }
                     } else if (credential instanceof VoicePrint){
                         if(((VoicePrint)credential).getVoicePrintValue().equals(hashCredential(password))){
                             authToken = new AuthToken(username, username, exptime.toString(), TokenState.active);
                             authToken.setUser(user);
-                            authToken.accept(new Inventory());
+                            authToken.accept(new InventoryVisitor());
                             user.setAuthToken(authToken);
-                            user.accept(new Inventory());
+                            user.accept(new InventoryVisitor());
                             System.out.println("New authToken is generated for user: "+user.getId());
                         }
                     }
@@ -270,7 +270,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
             if(usersMap.containsKey(userId)) {
                 User user = usersMap.get(userId);
                 user.getAuthToken().setState(TokenState.expired);
-                user.accept(new Inventory());
+                user.accept(new InventoryVisitor());
             } else{
                 throw new AuthenticationException("logout Failed","username is not found");
             }
@@ -279,96 +279,166 @@ public class AuthenticationServiceImpl implements AuthenticationService{
         }
     }
 
+//    @Override
+//    public boolean checkAccess(String authToken, Object requiredPermission, String resource) {
+//        boolean validStatus = false;
+//        boolean validExpTime = false;
+//        boolean hasPermissions = false;
+//        boolean hasResources = false;
+//        String userId = null;
+//
+//        try {
+//            if(authTokensMap.containsKey(authToken)) {
+//                //extract all associated permission for this user
+//                List<String> tempEntitlementsList = new ArrayList<>();
+//                List<String> tempResourcesList = new ArrayList<>();
+//                AuthToken authToken1 = authTokensMap.get(authToken);
+//                userId = authToken1.getUserUnderValidation().getId();
+//                for (Entitlement entitlement : authToken1.getUserUnderValidation().getEntitlements()) {
+//                    tempEntitlementsList.addAll(entitlement.extractComposite(authToken1.getUserUnderValidation().getEntitlements()));
+//                    if(entitlement instanceof ResourceRole){
+//                        for(Resource resource1 : entitlement.getResources()){
+//                            tempResourcesList.add(resource1.getId());
+//                        }
+//                    }
+//                }
+//                if(requiredPermission instanceof String){
+//                    //validate if token status is expired
+//                    if (getAuthTokensMap().get(authToken).getState().equals(TokenState.active)) {
+//                        validStatus = true;
+//                    } else{
+//                        throw new AuthenticationException("Authentication Failed","AuthToken is expired.");
+//                    }
+//                    //validate if expiration time is due
+//                    Calendar calendar = Calendar.getInstance();
+//                    Date now = calendar.getTime();
+//                    Date authTokenExpTime = new Date(getAuthTokensMap().get(authToken).getExpirationTime());
+//                    if(authTokenExpTime.after(now)) {
+//                        validExpTime = true;
+//                    }
+//                    //check required permission and resources
+//                    if(tempEntitlementsList.contains(requiredPermission)){
+//                        hasPermissions = true;
+//                    } else{
+//                        throw new AuthenticationException("Authentication Failed","User doesn't have required permissions");
+//                    }
+//                    if(!resource.equals("") && tempResourcesList.contains(resource)){
+//                        hasResources = true;
+//                    } else if (!resource.equals("") && !tempResourcesList.contains(resource)){
+//                        throw new AuthenticationException("Authentication Failed","Required resource is not associated with any resource roles for this user");
+//                    }
+//                } else if (requiredPermission instanceof List){
+//                    //validate if token expired
+//                    if (getAuthTokensMap().get(authToken).getState().equals(TokenState.active)) {
+//                        validStatus = true;
+//                    } else{
+//                        throw new AuthenticationException("Authentication Failed","AuthToken is expired.");
+//                    }
+//                    //validate if expiration time is due
+//                    Calendar calendar = Calendar.getInstance();
+//                    Date now = calendar.getTime();
+//                    Date authTokenExpTime = new Date(getAuthTokensMap().get(authToken).getExpirationTime());
+//                    if(authTokenExpTime.after(now)) {
+//                        validExpTime = true;
+//                    }
+//                    //check required permission and resources
+//                    List<String> ls = (List<String>) requiredPermission;
+//                    for(String val : ls){
+//                        if(tempEntitlementsList.contains(val)){
+//                            hasPermissions = true;
+//                        }
+//                    }
+//                    if(!hasPermissions){
+//                        throw new AuthenticationException("Authentication Failed","User doesn't have required permissions");
+//                    }
+//                    if(!resource.equals("") && tempResourcesList.contains(resource)){
+//                        hasResources = true;
+//                    } else if (!resource.equals("") && !tempResourcesList.contains(resource)){
+//                        throw new AuthenticationException("Authentication Failed","Required resource is not associated with any resource roles for this user");
+//                    }
+//                }
+//            } else{
+//                throw new AuthenticationException("Authentication Failed","authToken is not valid");
+//            }
+//
+//        } catch (AuthenticationException e){
+//            System.out.println(e);
+//        }
+//
+//        if (resource.equals("")){
+//            if(validStatus && validExpTime && hasPermissions){
+//                //expire authToken after each use to simplify the command line demo
+//                logout(userId);
+//                return true;
+//            } else {
+//                return false;
+//            }
+//        } else{
+//            if(validStatus && validExpTime && hasPermissions && hasResources){
+//                //expire authToken after each use to simplify the command line demo
+//                logout(userId);
+//                return  true;
+//            } else{
+//                return false;
+//            }
+//        }
+//
+//    }
+
     @Override
     public boolean checkAccess(String authToken, Object requiredPermission, String resource) {
-        boolean validStatus = false;
-        boolean validExpTime = false;
-        boolean hasPermissions = false;
-        boolean hasResources = false;
-        String userId = null;
-
+        Visitor checkAccessVisitor = new CheckAccessVisitor();
         try {
-            if(authTokensMap.containsKey(authToken)) {
-                //extract all associated permission for this user
-                List<String> tempEntitlementsList = new ArrayList<>();
-                List<String> tempResourcesList = new ArrayList<>();
+            if(authTokensMap.containsKey(authToken)){
+
+                //verify authtoken is active status and not expired
                 AuthToken authToken1 = authTokensMap.get(authToken);
-                userId = authToken1.getUser().getId();
-                for (Entitlement entitlement : authToken1.getUser().getEntitlements()) {
-                    tempEntitlementsList.addAll(entitlement.extractComposite(authToken1.getUser().getEntitlements()));
-                    if(entitlement instanceof ResourceRole){
-                        for(Resource resource1 : entitlement.getResources()){
-                            tempResourcesList.add(resource1.getId());
-                        }
-                    }
-                }
+                authToken1.accept(checkAccessVisitor);
+                //verify user
+                User user = authToken1.getUser();
+                user.accept(checkAccessVisitor);
+                //verify required permission
                 if(requiredPermission instanceof String){
-                    //validate if token status is expired
-                    if (getAuthTokensMap().get(authToken).getState().equals(TokenState.active)) {
-                        validStatus = true;
-                    } else{
-                        throw new AuthenticationException("Authentication Failed","AuthToken is expired.");
-                    }
-                    //validate if expiration time is due
-                    Calendar calendar = Calendar.getInstance();
-                    Date now = calendar.getTime();
-                    Date authTokenExpTime = new Date(getAuthTokensMap().get(authToken).getExpirationTime());
-                    if(authTokenExpTime.after(now)) {
-                        validExpTime = true;
-                    }
-                    //check required permission and resources
-                    if(tempEntitlementsList.contains(requiredPermission)){
-                        hasPermissions = true;
-                    } else{
-                        throw new AuthenticationException("Authentication Failed","User doesn't have required permissions");
-                    }
-                    if(!resource.equals("") && tempResourcesList.contains(resource)){
-                        hasResources = true;
-                    } else if (!resource.equals("") && !tempResourcesList.contains(resource)){
-                        throw new AuthenticationException("Authentication Failed","Required resource is not associated with any resource roles for this user");
-                    }
+                    Entitlement entitlement = entitlementsMap.get(requiredPermission);
+                    entitlement.accept(checkAccessVisitor);
+
                 } else if (requiredPermission instanceof List){
-                    //validate if token expired
-                    if (getAuthTokensMap().get(authToken).getState().equals(TokenState.active)) {
-                        validStatus = true;
-                    } else{
-                        throw new AuthenticationException("Authentication Failed","AuthToken is expired.");
-                    }
-                    //validate if expiration time is due
-                    Calendar calendar = Calendar.getInstance();
-                    Date now = calendar.getTime();
-                    Date authTokenExpTime = new Date(getAuthTokensMap().get(authToken).getExpirationTime());
-                    if(authTokenExpTime.after(now)) {
-                        validExpTime = true;
-                    }
-                    //check required permission and resources
+
                     List<String> ls = (List<String>) requiredPermission;
+//                    System.out.println("checkAccess Required permision:"+requiredPermission);
                     for(String val : ls){
-                        if(tempEntitlementsList.contains(val)){
-                            hasPermissions = true;
-                        }
-                    }
-                    if(!hasPermissions){
-                        throw new AuthenticationException("Authentication Failed","User doesn't have required permissions");
-                    }
-                    if(!resource.equals("") && tempResourcesList.contains(resource)){
-                        hasResources = true;
-                    } else if (!resource.equals("") && !tempResourcesList.contains(resource)){
-                        throw new AuthenticationException("Authentication Failed","Required resource is not associated with any resource roles for this user");
+                        Entitlement entitlement2 = entitlementsMap.get(val);
+                        entitlement2.accept(checkAccessVisitor);
                     }
                 }
-            } else{
+                //verify required resources if provided
+                if(!resource.equals("")){
+                    Resource resource1 = new Resource(resource,resource);
+                    resource1.accept(checkAccessVisitor);
+                }
+                //throw exception if required permissions not found for this user
+                if(!checkAccessVisitor.isHasPermissions()){
+                    throw new AuthenticationException("Authentication Failed","User doesn't have required permissions");
+                }
+
+            }else{
                 throw new AuthenticationException("Authentication Failed","authToken is not valid");
             }
-
-        } catch (AuthenticationException e){
-            System.out.println(e);
+        } catch (AuthenticationException ex){
+            System.out.println(ex);
         }
+
+        //get check access visitor results
+        boolean validStatus = checkAccessVisitor.isValidStatus();
+        boolean validExpTime = checkAccessVisitor.isValidExpTime();
+        boolean hasPermissions = checkAccessVisitor.isHasPermissions();
+        boolean hasResources = checkAccessVisitor.isHasResources();
+
 
         if (resource.equals("")){
             if(validStatus && validExpTime && hasPermissions){
                 //expire authToken after each use to simplify the command line demo
-                logout(userId);
+                logout(checkAccessVisitor.getUserUnderValidation().getId());
                 return true;
             } else {
                 return false;
@@ -376,7 +446,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
         } else{
             if(validStatus && validExpTime && hasPermissions && hasResources){
                 //expire authToken after each use to simplify the command line demo
-                logout(userId);
+                logout(checkAccessVisitor.getUserUnderValidation().getId());
                 return  true;
             } else{
                 return false;

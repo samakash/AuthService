@@ -50,8 +50,8 @@ public class Tester {
 //        System.out.println(user);
 
 //        Visitor v1 = new InventoryAdd();
-//        Visitor v2 = new Inventory();
-//        Visitor v3 = new CheckAccess();
+//        Visitor v2 = new InventoryVisitor();
+//        Visitor v3 = new CheckAccessVisitor();
 
 //        user.accept(v1);
 //        user.accept(v2);
